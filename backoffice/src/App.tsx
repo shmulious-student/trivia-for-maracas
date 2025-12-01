@@ -4,6 +4,9 @@ import { AdminAuthProvider, useAdminAuth } from './contexts/AdminAuthContext';
 import AdminLayout from './layouts/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
+import SubjectManager from './pages/SubjectManager';
+import QuestionManager from './pages/QuestionManager';
+import TranslationManager from './pages/TranslationManager';
 import './index.css';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -26,7 +29,9 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }>
             <Route index element={<Dashboard />} />
-            <Route path="questions" element={<div>Questions Placeholder</div>} />
+            <Route path="subjects" element={<SubjectManager />} />
+            <Route path="subjects/:subjectId/questions" element={<QuestionManager />} />
+            <Route path="translations" element={<TranslationManager />} />
             <Route path="settings" element={<div>Settings Placeholder</div>} />
           </Route>
         </Routes>

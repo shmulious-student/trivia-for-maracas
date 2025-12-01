@@ -70,3 +70,15 @@ export interface ILeaderboardEntry {
     score: number;
     date: Date;
 }
+
+export interface IUITranslation {
+    id?: string;
+    key: string; // e.g., "login.welcome"
+    text: IMultilingualText;
+    category: string; // e.g., "auth", "game", "admin"
+}
+
+export interface IImportData {
+    subjects: ISubject[];
+    questions: IQuestion[];
+}

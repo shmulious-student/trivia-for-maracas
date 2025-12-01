@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../contexts/AdminAuthContext';
-import { LayoutDashboard, FileQuestion, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Settings, LogOut, Languages, Book } from 'lucide-react';
 
 const AdminLayout: React.FC = () => {
     const { logout } = useAdminAuth();
@@ -33,8 +33,13 @@ const AdminLayout: React.FC = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/questions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem', color: '#d1d5db', textDecoration: 'none', borderRadius: '4px' }}>
-                                <FileQuestion size={20} /> Questions
+                            <Link to="/subjects" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem', color: '#d1d5db', textDecoration: 'none', borderRadius: '4px' }}>
+                                <Book size={20} /> Subjects
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/translations" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem', color: '#d1d5db', textDecoration: 'none', borderRadius: '4px' }}>
+                                <Languages size={20} /> Translations
                             </Link>
                         </li>
                         <li>

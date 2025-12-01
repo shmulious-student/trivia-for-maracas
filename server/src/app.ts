@@ -8,6 +8,8 @@ import configRoutes from './routes/config';
 import subjectRoutes from './routes/subjects';
 import questionRoutes from './routes/questions';
 import authRoutes from './routes/auth';
+import translationRoutes from './routes/translation';
+import uiTranslationRoutes from './routes/ui-translations';
 import { errorHandler } from './middleware/error';
 
 // Load env vars
@@ -28,6 +30,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/config', configRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/questions', questionRoutes);
+app.use('/api/translate', translationRoutes);
+app.use('/api/ui-translations', uiTranslationRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {
