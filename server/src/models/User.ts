@@ -5,6 +5,7 @@ export interface IUserDocument extends Omit<IUser, 'id'>, Document { }
 
 const UserSchema = new Schema<IUserDocument>({
     username: { type: String, required: true, unique: true },
+    password: { type: String }, // Only for admins
     avatarUrl: { type: String },
     isAdmin: { type: Boolean, default: false }
 }, {

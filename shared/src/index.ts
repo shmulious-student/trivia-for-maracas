@@ -39,6 +39,7 @@ export interface IQuestion {
 export interface IUser {
     id: string;
     username: string;
+    password?: string; // Only for admins
     avatarUrl?: string;
     isAdmin?: boolean;
     createdAt: Date;

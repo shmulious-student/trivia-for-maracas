@@ -1,35 +1,38 @@
-import { useTheme } from './contexts/ThemeContext';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AdminAuthProvider, useAdminAuth } from './contexts/AdminAuthContext';
+import AdminLayout from './layouts/AdminLayout';
+import AdminLogin from './pages/AdminLogin';
+import Dashboard from './pages/Dashboard';
+import './index.css';
 
-function App() {
-  const { language, toggleLanguage } = useTheme();
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAdminAuth();
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
 
+const App: React.FC = () => {
   return (
-    <div className="container">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1>Backoffice</h1>
-        <button onClick={toggleLanguage} className="btn btn-secondary">
-          {language === 'he' ? 'English' : 'עברית'}
-        </button>
-      </header>
-
-      <main className="card">
-        <h2>{language === 'he' ? 'ניהול מערכת' : 'System Management'}</h2>
-        <p>
-          {language === 'he'
-            ? 'כאן תוכל לנהל את השאלות, הנושאים והגדרות המשחק.'
-            : 'Here you can manage questions, subjects, and game settings.'}
-        </p>
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button className="btn btn-primary">
-            {language === 'he' ? 'הוסף שאלה' : 'Add Question'}
-          </button>
-          <button className="btn btn-secondary">
-            {language === 'he' ? 'הגדרות' : 'Settings'}
-          </button>
-        </div>
-      </main>
-    </div>
+    <AdminAuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<AdminLogin />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Dashboard />} />
+            <Route path="questions" element={<div>Questions Placeholder</div>} />
+            <Route path="settings" element={<div>Settings Placeholder</div>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AdminAuthProvider>
   );
-}
+};
 
 export default App;

@@ -9,6 +9,12 @@ router.get('/:type', async (req, res) => {
         const { type } = req.params;
         const config = await Config.findOne({ type });
         if (!config) {
+            if (type === 'game') {
+                return res.json({
+                    questionTimer: 30,
+                    questionsPerGame: 10
+                });
+            }
             return res.status(404).json({ message: 'Config not found' });
         }
         res.json(config.data);

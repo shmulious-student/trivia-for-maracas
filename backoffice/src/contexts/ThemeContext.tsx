@@ -14,14 +14,12 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const [language, setLanguage] = useState<Language>('he'); // Default to Hebrew
-    const [direction, setDirection] = useState<Direction>('rtl');
+    const direction = language === 'he' ? 'rtl' : 'ltr';
 
     useEffect(() => {
-        const dir = language === 'he' ? 'rtl' : 'ltr';
-        setDirection(dir);
-        document.documentElement.dir = dir;
+        document.documentElement.dir = direction;
         document.documentElement.lang = language;
-    }, [language]);
+    }, [language, direction]);
 
     const toggleLanguage = () => {
         setLanguage((prev) => (prev === 'he' ? 'en' : 'he'));
@@ -34,6 +32,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
     const context = useContext(ThemeContext);
     if (context === undefined) {
