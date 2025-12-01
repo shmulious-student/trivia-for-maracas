@@ -5,10 +5,15 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 import './index.css';
+
+import Lobby from './pages/Game/Lobby';
+import Question from './pages/Game/Question';
+import Result from './pages/Game/Result';
+import { useGameStore } from './stores/useGameStore';
+import { GameStatus } from '@trivia/shared';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -18,34 +23,39 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
+const GameRouter = () => {
+  const status = useGameStore((state) => state.status);
+
+  switch (status) {
+    case GameStatus.Lobby:
+      return <Lobby />;
+    case GameStatus.Playing:
+      return <Question />;
+    case GameStatus.Result:
+      return <Result />;
+    default:
+      return <Lobby />;
+  }
+};
+
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      <LanguageProvider>
-        <ThemeProvider>
-          <AuthProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <ThemeProvider>
             <BrowserRouter>
               <Routes>
-                <Route path="/login" element={<Layout />}>
-                  <Route index element={<Login />} />
-                </Route>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={
-                    <ProtectedRoute>
-                      <Home />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="settings" element={
-                    <ProtectedRoute>
-                      <Settings />
-                    </ProtectedRoute>
-                  } />
+                <Route path="/login" element={<Login />} />
+                <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                  <Route path="/" element={<GameRouter />} />
+                  <Route path="/settings" element={<Settings />} />
                 </Route>
               </Routes>
             </BrowserRouter>
-          </AuthProvider>
-        </ThemeProvider>
-      </LanguageProvider>
+          </ThemeProvider>
+        </LanguageProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 };
