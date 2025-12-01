@@ -9,12 +9,6 @@ import Login from './pages/Login';
 import Settings from './pages/Settings';
 import './index.css';
 
-import Lobby from './pages/Game/Lobby';
-import Question from './pages/Game/Question';
-import Result from './pages/Game/Result';
-import { useGameStore } from './stores/useGameStore';
-import { GameStatus } from '@trivia/shared';
-
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
@@ -23,20 +17,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   return <>{children}</>;
 };
 
-const GameRouter = () => {
-  const status = useGameStore((state) => state.status);
-
-  switch (status) {
-    case GameStatus.Lobby:
-      return <Lobby />;
-    case GameStatus.Playing:
-      return <Question />;
-    case GameStatus.Result:
-      return <Result />;
-    default:
-      return <Lobby />;
-  }
-};
+import GameRouter from './pages/Game/GameRouter';
 
 const App: React.FC = () => {
   return (

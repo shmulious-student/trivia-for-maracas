@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = async (username: string, avatarUrl?: string) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/register', { username, avatarUrl });
+            const response = await axios.post('/api/auth/register', { username, avatarUrl });
             const { token: newToken, user: newUser } = response.data;
 
             localStorage.setItem('token', newToken);
