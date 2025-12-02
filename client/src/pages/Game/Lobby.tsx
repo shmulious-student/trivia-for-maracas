@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { Mascot } from '../../components/Mascot';
 import type { ISubject, IQuestion } from '@trivia/shared';
 import { Play, BookOpen, Sparkles } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -142,10 +143,12 @@ const Lobby: React.FC = () => {
                 className="text-center space-y-2 shrink-0"
             >
                 <div className="text-center mb-8">
-                    <img
+                    <Mascot
+                        variant="dancing"
                         src="/cow-dancing.png"
                         alt="Dancing Cow"
-                        className="w-32 h-32 mx-auto mb-4 animate-bounce object-contain"
+                        className="mx-auto mb-4"
+                        size="md"
                     />
                     <h1 className="text-4xl font-bold text-primary mb-2">{t('lobby.title')}</h1>
                     <p className="text-text-secondary">{t('lobby.subtitle')}</p>

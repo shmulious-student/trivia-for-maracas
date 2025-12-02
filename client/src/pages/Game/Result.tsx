@@ -9,6 +9,7 @@ import { Trophy, RefreshCw, AlertTriangle } from 'lucide-react';
 import posthog from '../../lib/posthog';
 import { ReportModal } from '../../components/Game/ReportModal';
 import { API_BASE } from '../../config/api';
+import { Mascot } from '../../components/Mascot';
 
 const Result: React.FC = () => {
     const navigate = useNavigate();
@@ -74,10 +75,12 @@ const Result: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
             <div className="text-center">
-                <img
+                <Mascot
+                    variant="celebrating"
                     src="/cow-celebrating.png"
                     alt="Game Over!"
-                    className="w-40 h-40 mx-auto mb-4 object-contain animate-bounce"
+                    className="mx-auto mb-4"
+                    size="lg"
                 />
                 <h1 className="text-5xl font-bold text-primary mb-2">{t('result.gameOver')}</h1>
                 <p className="text-2xl text-text-primary font-medium">{message}</p>

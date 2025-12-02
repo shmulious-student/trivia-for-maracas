@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../lib/utils';
 import { CheckCircle, XCircle, ArrowRight, Clock } from 'lucide-react';
+import { Mascot } from '../../components/Mascot';
 
 const Question: React.FC = () => {
     const { language, t } = useLanguage();
@@ -153,10 +154,12 @@ const Question: React.FC = () => {
                             exit={{ opacity: 0, scale: 0.5 }}
                             className="fixed bottom-4 right-4 z-50 pointer-events-none"
                         >
-                            <img
+                            <Mascot
+                                variant="celebrating"
                                 src="/cow-celebrating.png"
                                 alt="Correct!"
-                                className="w-48 h-48 object-contain drop-shadow-2xl"
+                                size="lg"
+                                className="drop-shadow-2xl"
                             />
                         </motion.div>
                     )}
