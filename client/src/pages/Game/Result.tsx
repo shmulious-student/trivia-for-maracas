@@ -77,7 +77,7 @@ const Result: React.FC = () => {
             <div className="text-center">
                 <Mascot
                     variant="celebrating"
-                    src="/cow-celebrating.png"
+                    src="/logo.png"
                     alt="Game Over!"
                     className="mx-auto mb-4"
                     size="lg"

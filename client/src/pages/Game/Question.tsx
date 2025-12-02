@@ -156,7 +156,7 @@ const Question: React.FC = () => {
                         >
                             <Mascot
                                 variant="celebrating"
-                                src="/cow-celebrating.png"
+                                src="/logo.png"
                                 alt="Correct!"
                                 size="lg"
                                 className="drop-shadow-2xl"

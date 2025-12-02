@@ -145,7 +145,7 @@ const Lobby: React.FC = () => {
                 <div className="text-center mb-8">
                     <Mascot
                         variant="dancing"
-                        src="/cow-dancing.png"
+                        src="/logo.png"
                         alt="Dancing Cow"
                         className="mx-auto mb-4"
                         size="md"
