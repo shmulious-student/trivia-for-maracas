@@ -16,7 +16,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<IUser | null>(() => {
         const storedUser = localStorage.getItem('user');
-        return storedUser ? JSON.parse(storedUser) : null;
+        if (!storedUser || storedUser === 'undefined' || storedUser === 'null') {
+            return null;
+        }
+        try {
+            return JSON.parse(storedUser);
+        } catch {
+            return null;
+        }
     });
     const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
 
