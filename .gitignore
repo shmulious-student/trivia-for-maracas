@@ -117,3 +117,6 @@ dist
 
 # Mac
 .DS_Store
+
+# Environment files in docs
+docs/*.env
