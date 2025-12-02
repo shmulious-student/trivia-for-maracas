@@ -4,7 +4,7 @@ import leaderboardRoutes from '../leaderboard';
 import authRoutes from '../auth';
 import { User } from '../../models/User';
 import { GameResult } from '../../models/GameResult';
-import mongoose from 'mongoose';
+import { Subject } from '../../models/Subject';
 import jwt from 'jsonwebtoken';
 
 const app = express();
@@ -72,6 +72,64 @@ describe('Leaderboard Routes', () => {
 
             expect(res.status).toBe(400);
             expect(res.body.message).toBe('Missing gameId');
+        });
+
+        describe('GET /api/leaderboard', () => {
+            it('should filter leaderboard by subject', async () => {
+                // Create subjects
+                const subject1 = await Subject.create({
+                    name: { en: 'Math', he: 'Math' }
+                });
+                const subject2 = await Subject.create({
+                    name: { en: 'History', he: 'History' }
+                });
+
+                // Create game results
+                await GameResult.create({
+                    userId,
+                    username: 'testplayer',
+                    score: 100,
+                    subjectId: subject1._id,
+                    gameId: 'game-1',
+                    date: new Date()
+                });
+
+                await GameResult.create({
+                    userId,
+                    username: 'testplayer',
+                    score: 200,
+                    subjectId: subject2._id,
+                    gameId: 'game-2',
+                    date: new Date()
+                });
+
+                // Filter by subject 1
+                const res1 = await request(app)
+                    .get('/api/leaderboard')
+                    .query({ subjectId: subject1._id.toString() });
+
+                expect(res1.status).toBe(200);
+                expect(res1.body).toHaveLength(1);
+                expect(res1.body[0].score).toBe(100);
+                expect(res1.body[0].subjectId).toBe(subject1._id.toString());
+
+                // Filter by subject 2
+                const res2 = await request(app)
+                    .get('/api/leaderboard')
+                    .query({ subjectId: subject2._id.toString() });
+
+                expect(res2.status).toBe(200);
+                expect(res2.body).toHaveLength(1);
+                expect(res2.body[0].score).toBe(200);
+                expect(res2.body[0].subjectId).toBe(subject2._id.toString());
+
+                // No filter (should return all)
+                const resAll = await request(app)
+                    .get('/api/leaderboard');
+
+                expect(resAll.status).toBe(200);
+                expect(resAll.body).toHaveLength(2);
+            });
         });
     });
 });

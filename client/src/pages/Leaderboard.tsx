@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Medal, Crown } from 'lucide-react';
-import type { ILeaderboardEntry } from '@trivia/shared';
+import type { ILeaderboardEntry, ISubject } from '@trivia/shared';
 import { Card } from '../components/ui/Card';
 import GameSprite from '../components/ui/GameSprite';
 import { cn } from '../lib/utils';
@@ -14,15 +14,32 @@ const Leaderboard: React.FC = () => {
     const { t, language } = useLanguage();
     const { user } = useAuth();
     const [leaderboard, setLeaderboard] = useState<ILeaderboardEntry[]>([]);
+    const [subjects, setSubjects] = useState<ISubject[]>([]);
+    const [selectedSubjectId, setSelectedSubjectId] = useState<string>('all');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchLeaderboard();
+        fetchSubjects();
     }, []);
+
+    useEffect(() => {
+        fetchLeaderboard();
+    }, [selectedSubjectId]);
+
+    const fetchSubjects = async () => {
+        try {
+            const res = await axios.get(`${API_BASE}/subjects`);
+            setSubjects(res.data);
+        } catch (error) {
+            console.error('Failed to fetch subjects:', error);
+        }
+    };
 
     const fetchLeaderboard = async () => {
         try {
-            const res = await axios.get(`${API_BASE}/leaderboard`);
+            const res = await axios.get(`${API_BASE}/leaderboard`, {
+                params: { subjectId: selectedSubjectId !== 'all' ? selectedSubjectId : undefined }
+            });
             setLeaderboard(res.data);
         } catch (error) {
             console.error('Failed to fetch leaderboard:', error);
@@ -76,6 +93,21 @@ const Leaderboard: React.FC = () => {
                     <GameSprite variant="cube_peek" className="h-48 w-auto hidden md:block transform scale-x-[-1]" />
                 </div>
             </motion.div>
+
+            <div className="flex justify-start mb-4">
+                <select
+                    value={selectedSubjectId}
+                    onChange={(e) => setSelectedSubjectId(e.target.value)}
+                    className="bg-bg-secondary/50 text-text-primary border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent-primary"
+                >
+                    <option value="all">{t('leaderboard.allSubjects') || 'All Subjects'}</option>
+                    {subjects.map((subject) => (
+                        <option key={subject.id} value={subject.id}>
+                            {subject.name[language]}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             <Card className="overflow-hidden border-none bg-bg-secondary/30 backdrop-blur-sm shadow-xl ring-1 ring-white/5">
                 {leaderboard.length === 0 ? (

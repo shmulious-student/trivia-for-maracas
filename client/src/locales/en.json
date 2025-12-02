@@ -58,6 +58,7 @@
     "report.successTitle": "Report Submitted",
     "report.successMessage": "Thank you for helping us improve the game!",
     "leaderboard.title": "Leaderboard",
+    "leaderboard.allSubjects": "All Subjects",
     "leaderboard.empty": "No scores yet. Be the first to play!",
     "result.gameOver": "Game Over!",
     "result.yourScore": "Your Score",

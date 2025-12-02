@@ -7,7 +7,13 @@ const router = express.Router();
 // Get Leaderboard (Top 10)
 router.get('/', async (req, res) => {
     try {
-        const results = await GameResult.find()
+        const { subjectId } = req.query;
+        const query: any = {};
+        if (subjectId && subjectId !== 'all') {
+            query.subjectId = subjectId;
+        }
+
+        const results = await GameResult.find(query)
             .sort({ score: -1, date: 1 })
             .limit(20) // Fetch more than 10 to account for potential filtered items
             .populate('userId', 'avatarUrl')
