@@ -150,7 +150,9 @@ const Lobby: React.FC = () => {
                         className="mx-auto mb-4"
                         size="md"
                     />
-                    <h1 className="text-4xl font-bold text-primary mb-2">{t('lobby.title')}</h1>
+                    <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400 mb-2">
+                        {t('lobby.title')}
+                    </h1>
                     <p className="text-text-secondary">{t('lobby.subtitle')}</p>
                 </div>
             </motion.div>
