@@ -84,5 +84,11 @@
     "profile.timePerQuestion": "זמן לשאלה",
     "profile.timePerQuestionDesc": "שניות מוקצבות לכל שאלה",
     "profile.gameSettings": "הגדרות משחק",
-    "app.title": "טריוויה מראקאס"
+    "app.title": "טריוויה מראקאס",
+    "bonusModal.title": "רוצה להרוויח יותר נקודות?",
+    "bonusModal.description": "הפעל את הטיימר כדי להרוויח נקודות בונוס על תשובות מהירות! ככל שתענה מהר יותר, כך תקבל יותר נקודות.",
+    "bonusModal.enableTimer": "הפעל טיימר",
+    "bonusModal.secondsPerQuestion": "שניות לשאלה",
+    "bonusModal.save": "שמור שינויים",
+    "bonusModal.noThanks": "לא תודה"
 }

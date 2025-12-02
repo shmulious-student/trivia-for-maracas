@@ -58,6 +58,7 @@ export interface IUser {
         favoriteSubjects?: string[];
         gender?: 'male' | 'female' | 'other';
         language?: 'en' | 'he';
+        hasSeenBonusModal?: boolean;
     };
     createdAt: Date;
     updatedAt: Date;

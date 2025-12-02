@@ -9,6 +9,8 @@ import { Trophy, RefreshCw, AlertTriangle } from 'lucide-react';
 import posthog from '../../lib/posthog';
 import { ReportModal } from '../../components/Game/ReportModal';
 import { API_BASE } from '../../config/api';
+import { BonusPointsModal } from '../../components/BonusPointsModal';
+
 
 
 const Result: React.FC = () => {
@@ -16,7 +18,8 @@ const Result: React.FC = () => {
     const { t } = useLanguage();
     const { playSound } = useSoundContext();
     const { score, questions, resetGame, isResultSubmitted, setResultSubmitted, gameId, isSubmitting, setSubmitting } = useGameStore();
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated, user, updateUser } = useAuth();
+
     const maxScore = questions.length * 10;
 
     // useEffect(() => {
@@ -72,6 +75,79 @@ const Result: React.FC = () => {
     else if (percentage >= 50) message = t('result.wellDone');
 
     const [showReportModal, setShowReportModal] = useState(false);
+    const [showBonusModal, setShowBonusModal] = useState(false);
+    const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+
+    const handleAction = (action: () => void) => {
+        const hasSeenModal = user?.preferences?.hasSeenBonusModal;
+        const timerEnabled = user?.preferences?.isTimerEnabled ?? true; // Default to true if undefined
+
+        if (!timerEnabled && !hasSeenModal) {
+            setPendingAction(() => action);
+            setShowBonusModal(true);
+        } else {
+            action();
+        }
+    };
+
+    const handleBonusSave = async (enableTimer: boolean, timePerQuestion: number) => {
+        if (!user) return;
+
+        const updatedPreferences = {
+            ...user.preferences,
+            isTimerEnabled: enableTimer,
+            gameTimer: timePerQuestion,
+            hasSeenBonusModal: true
+        };
+
+        try {
+            await axios.put(`${API_BASE}/users/profile`, {
+                preferences: updatedPreferences
+            });
+
+            updateUser({
+                ...user,
+                preferences: updatedPreferences
+            });
+        } catch (error) {
+            console.error('Failed to update preferences:', error);
+        }
+
+        setShowBonusModal(false);
+        if (pendingAction) {
+            pendingAction();
+            setPendingAction(null);
+        }
+    };
+
+    const handleBonusClose = async () => {
+        if (user) {
+            const updatedPreferences = {
+                ...user.preferences,
+                hasSeenBonusModal: true
+            };
+
+            try {
+                await axios.put(`${API_BASE}/users/profile`, {
+                    preferences: updatedPreferences
+                });
+
+                updateUser({
+                    ...user,
+                    preferences: updatedPreferences
+                });
+            } catch (error) {
+                console.error('Failed to update preferences:', error);
+            }
+        }
+
+        setShowBonusModal(false);
+        if (pendingAction) {
+            pendingAction();
+            setPendingAction(null);
+        }
+    };
+
 
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
@@ -99,16 +175,18 @@ const Result: React.FC = () => {
             <div className="flex flex-col gap-4 w-full max-w-md px-4">
                 <div className="flex gap-4 justify-center">
                     <button
-                        onClick={resetGame}
+                        onClick={() => handleAction(resetGame)}
                         className="px-6 py-3 text-lg font-bold text-white transition-colors rounded-lg bg-primary hover:bg-primary-hover flex items-center gap-2"
                     >
+
                         <RefreshCw size={20} />
                         {t('result.playAgain')}
                     </button>
                     <button
-                        onClick={() => navigate('/leaderboard')}
+                        onClick={() => handleAction(() => navigate('/leaderboard'))}
                         className="px-6 py-3 text-lg font-bold text-text-primary transition-colors rounded-lg bg-surface border border-border hover:border-primary flex items-center gap-2"
                     >
+
                         <Trophy size={20} />
                         {t('result.viewLeaderboard')}
                     </button>
@@ -128,6 +206,13 @@ const Result: React.FC = () => {
                 onClose={() => setShowReportModal(false)}
                 questions={questions}
             />
+
+            <BonusPointsModal
+                isOpen={showBonusModal}
+                onClose={handleBonusClose}
+                onSave={handleBonusSave}
+            />
+
         </div>
     );
 };

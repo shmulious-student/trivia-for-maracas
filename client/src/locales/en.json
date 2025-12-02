@@ -84,5 +84,11 @@
     "profile.timePerQuestion": "Time per Question",
     "profile.timePerQuestionDesc": "Seconds allowed for each question",
     "profile.gameSettings": "Game Settings",
-    "app.title": "Trivia Maracas"
+    "app.title": "Trivia Maracas",
+    "bonusModal.title": "Want to earn more points?",
+    "bonusModal.description": "Enable the timer to earn bonus points for fast answers! The faster you answer, the more points you get.",
+    "bonusModal.enableTimer": "Enable Timer",
+    "bonusModal.secondsPerQuestion": "Seconds per Question",
+    "bonusModal.save": "Save Changes",
+    "bonusModal.noThanks": "No Thanks"
 }
