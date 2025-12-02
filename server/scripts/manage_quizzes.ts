@@ -13,7 +13,7 @@ import { AIProviderFactory } from '../src/ai/AIProviderFactory';
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const MONGODB_URI_DEV = process.env.MONGODB_URI || 'mongodb://localhost:27017/trivia';
-const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD || 'mongodb+srv://shmulious_db_user:JEJjm9z0X6NPPMxs@triviacluster0.br8dnue.mongodb.net/trivia-production?appName=TriviaCluster0';
+const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
 
 let devConn: mongoose.Connection;
 let prodConn: mongoose.Connection | null = null;
