@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import type { IUser } from '@trivia/shared';
+import { API_BASE } from '../config/api';
 
 interface AuthContextType {
     user: IUser | null;
@@ -37,7 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = async (username: string, avatarUrl?: string, preferences?: any) => {
         try {
-            const response = await axios.post('/api/auth/register', { username, avatarUrl, preferences });
+            const response = await axios.post(`${API_BASE}/auth/register`, { username, avatarUrl, preferences });
             const { token: newToken, user: newUser } = response.data;
 
             localStorage.setItem('token', newToken);
