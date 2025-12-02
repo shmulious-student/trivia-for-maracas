@@ -5,23 +5,43 @@ import dotenv from 'dotenv';
 import path from 'path';
 import clipboardy from 'clipboardy';
 import fs from 'fs';
-import { Subject } from '../src/models/Subject';
-import { Question } from '../src/models/Question';
+import { SubjectSchema } from '../src/models/Subject';
+import { QuestionSchema } from '../src/models/Question';
 import { AIProviderFactory } from '../src/ai/AIProviderFactory';
 
 // Load env vars
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/trivia';
+const MONGODB_URI_DEV = process.env.MONGODB_URI || 'mongodb://localhost:27017/trivia';
+const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD || 'mongodb+srv://shmulious_db_user:JEJjm9z0X6NPPMxs@triviacluster0.br8dnue.mongodb.net/trivia-production?appName=TriviaCluster0';
+
+let devConn: mongoose.Connection;
+let prodConn: mongoose.Connection | null = null;
 
 async function connectDB() {
     try {
-        await mongoose.connect(MONGODB_URI);
-        console.log('Connected to MongoDB');
+        devConn = await mongoose.createConnection(MONGODB_URI_DEV).asPromise();
+        console.log('✅ Connected to MongoDB (Dev)');
+
+        if (MONGODB_URI_PROD) {
+            prodConn = await mongoose.createConnection(MONGODB_URI_PROD).asPromise();
+            console.log('✅ Connected to MongoDB (Prod)');
+        } else {
+            console.log('⚠️  MONGODB_URI_PROD not found. Prod features disabled.');
+        }
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
         process.exit(1);
     }
+}
+
+function getModels(env: 'dev' | 'prod') {
+    const conn = env === 'dev' ? devConn : prodConn;
+    if (!conn) throw new Error(`Connection for ${env} not established.`);
+    return {
+        Subject: conn.model('Subject', SubjectSchema),
+        Question: conn.model('Question', QuestionSchema)
+    };
 }
 
 async function main() {
@@ -38,27 +58,27 @@ async function main() {
         // Silently fail if provider not available
     }
 
-    const args = process.argv.slice(2);
-    if (args.length > 0) {
-        // Handle args if needed, but primary workflow is interactive now
-        console.log('Arguments not supported in this version. Please run interactively.');
-        process.exit(0);
-    }
-
     while (true) {
+        const choices = [
+            'Create Subject & Generate Questions',
+            'Add Questions to Existing Subject',
+            'View Subjects',
+            'Delete Subject',
+            'Delete Questions'
+        ];
+
+        if (prodConn) {
+            choices.splice(3, 0, 'Copy Subject to Prod');
+        }
+
+        choices.push('Exit');
+
         const { action } = await inquirer.prompt([
             {
                 type: 'list',
                 name: 'action',
                 message: 'What would you like to do?',
-                choices: [
-                    'Create Subject & Generate Questions',
-                    'Add Questions to Existing Subject',
-                    'View Subjects',
-                    'Delete Subject',
-                    'Delete Questions',
-                    'Exit'
-                ]
+                choices
             }
         ]);
 
@@ -78,6 +98,9 @@ async function main() {
                 case 'View Subjects':
                     await viewSubjects();
                     break;
+                case 'Copy Subject to Prod':
+                    await copySubjectToProd();
+                    break;
                 case 'Delete Subject':
                     await deleteSubject();
                     break;
@@ -91,87 +114,122 @@ async function main() {
     }
 }
 
+async function selectEnvironment(action: string): Promise<('dev' | 'prod')[]> {
+    if (!prodConn) return ['dev'];
+
+    const { envs } = await inquirer.prompt([
+        {
+            type: 'checkbox',
+            name: 'envs',
+            message: `Select environment(s) to ${action}:`,
+            choices: [
+                { name: 'Development', value: 'dev', checked: true },
+                { name: 'Production', value: 'prod' }
+            ],
+            validate: (answer) => answer.length > 0 ? true : 'You must select at least one environment.'
+        }
+    ]);
+    return envs;
+}
+
 async function deleteSubject() {
-    const subjects = await Subject.find();
-    if (subjects.length === 0) {
-        console.log('No subjects found.');
-        return;
-    }
+    const envs = await selectEnvironment('delete from');
 
-    const { subjectId } = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'subjectId',
-            message: 'Select subject to delete:',
-            choices: subjects.map(s => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+    for (const env of envs) {
+        console.log(`\n--- Deleting from ${env.toUpperCase()} ---`);
+        const { Subject, Question } = getModels(env);
+        const subjects = await Subject.find();
+
+        if (subjects.length === 0) {
+            console.log(`No subjects found in ${env}.`);
+            continue;
         }
-    ]);
 
-    const { confirm } = await inquirer.prompt([
-        {
-            type: 'confirm',
-            name: 'confirm',
-            message: 'Are you sure? This will delete the subject and ALL its questions.',
-            default: false
+        const { subjectId } = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'subjectId',
+                message: `Select subject to delete from ${env}:`,
+                choices: subjects.map((s: any) => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+            }
+        ]);
+
+        const { confirm } = await inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'confirm',
+                message: 'Are you sure? This will delete the subject and ALL its questions.',
+                default: false
+            }
+        ]);
+
+        if (confirm) {
+            await Question.deleteMany({ subjectId });
+            await Subject.findByIdAndDelete(subjectId);
+            console.log(`✅ Subject and its questions deleted from ${env}.`);
         }
-    ]);
-
-    if (confirm) {
-        await Question.deleteMany({ subjectId });
-        await Subject.findByIdAndDelete(subjectId);
-        console.log('✅ Subject and its questions deleted.');
     }
 }
 
 async function deleteQuestions() {
-    const subjects = await Subject.find();
-    if (subjects.length === 0) {
-        console.log('No subjects found.');
-        return;
-    }
+    const envs = await selectEnvironment('delete questions from');
 
-    const { subjectId } = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'subjectId',
-            message: 'Select subject:',
-            choices: subjects.map(s => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+    // For simplicity, if multiple envs selected, we do one by one
+    for (const env of envs) {
+        console.log(`\n--- Deleting questions from ${env.toUpperCase()} ---`);
+        const { Subject, Question } = getModels(env);
+
+        const subjects = await Subject.find();
+        if (subjects.length === 0) {
+            console.log(`No subjects found in ${env}.`);
+            continue;
         }
-    ]);
 
-    const questions = await Question.find({ subjectId });
-    if (questions.length === 0) {
-        console.log('No questions in this subject.');
-        return;
-    }
+        const { subjectId } = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'subjectId',
+                message: `Select subject in ${env}:`,
+                choices: subjects.map((s: any) => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+            }
+        ]);
 
-    const { questionIds } = await inquirer.prompt([
-        {
-            type: 'checkbox',
-            name: 'questionIds',
-            message: 'Select questions to delete:',
-            choices: questions.map(q => ({ name: q.text.en, value: q._id }))
+        const questions = await Question.find({ subjectId });
+        if (questions.length === 0) {
+            console.log('No questions in this subject.');
+            continue;
         }
-    ]);
 
-    if (questionIds.length === 0) return;
+        const { questionIds } = await inquirer.prompt([
+            {
+                type: 'checkbox',
+                name: 'questionIds',
+                message: 'Select questions to delete:',
+                choices: questions.map((q: any) => ({ name: q.text.en, value: q._id }))
+            }
+        ]);
 
-    const { confirm } = await inquirer.prompt([
-        {
-            type: 'confirm',
-            name: 'confirm',
-            message: `Delete ${questionIds.length} questions?`,
-            default: false
+        if (questionIds.length === 0) continue;
+
+        const { confirm } = await inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'confirm',
+                message: `Delete ${questionIds.length} questions from ${env}?`,
+                default: false
+            }
+        ]);
+
+        if (confirm) {
+            const result = await Question.deleteMany({ _id: { $in: questionIds } });
+            console.log(`✅ Deleted ${result.deletedCount} questions from ${env}.`);
         }
-    ]);
-
-    if (confirm) {
-        const result = await Question.deleteMany({ _id: { $in: questionIds } });
-        console.log(`✅ Deleted ${result.deletedCount} questions.`);
     }
 }
 
 async function createSubjectAndGenerate() {
+    const envs = await selectEnvironment('create subject in');
+
     const { nameEn, nameHe, descEn } = await inquirer.prompt([
         { type: 'input', name: 'nameEn', message: 'Subject Name (English):' },
         { type: 'input', name: 'nameHe', message: 'Subject Name (Hebrew):' },
@@ -198,16 +256,41 @@ async function createSubjectAndGenerate() {
         subjectData.description = { en: descEn, he: descHe };
     }
 
-    const subject = await Subject.create(subjectData);
-    console.log(`Created subject: ${nameEn}`);
+    // Create subjects in selected envs
+    const createdSubjects: { env: 'dev' | 'prod', subject: any }[] = [];
 
-    await generateQuestionsFlow(subject);
+    for (const env of envs) {
+        const { Subject } = getModels(env);
+        const subject = await Subject.create(subjectData);
+        console.log(`✅ Created subject "${nameEn}" in ${env.toUpperCase()}`);
+        createdSubjects.push({ env, subject });
+    }
+
+    // Generate questions
+    // We generate once, then save to all selected envs
+    // We'll use the first created subject as the "context" for generation
+    if (createdSubjects.length > 0) {
+        await generateQuestionsFlow(createdSubjects);
+    }
 }
 
 async function addQuestionsToSubject() {
+    const envs = await selectEnvironment('add questions to');
+
+    // If multiple envs, we need to pick a subject that exists in all? 
+    // Or just pick one by one?
+    // Let's do one by one for simplicity, or try to match by name?
+    // Matching by name is better for "Both".
+
+    // Strategy: Ask user to select a subject from Dev (primary) or Prod if Dev empty.
+    // Then try to find matching subject in other selected envs.
+
+    const primaryEnv = envs.includes('dev') ? 'dev' : 'prod';
+    const { Subject } = getModels(primaryEnv);
     const subjects = await Subject.find();
+
     if (subjects.length === 0) {
-        console.log('No subjects found.');
+        console.log(`No subjects found in ${primaryEnv}. Cannot proceed.`);
         return;
     }
 
@@ -215,23 +298,46 @@ async function addQuestionsToSubject() {
         {
             type: 'list',
             name: 'subjectId',
-            message: 'Select a subject:',
-            choices: subjects.map(s => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+            message: `Select a subject (from ${primaryEnv}):`,
+            choices: subjects.map((s: any) => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
         }
     ]);
 
-    const subject = await Subject.findById(subjectId);
-    if (!subject) return;
+    const primarySubject = await Subject.findById(subjectId);
+    if (!primarySubject) return;
 
-    await generateQuestionsFlow(subject);
+    const targetSubjects: { env: 'dev' | 'prod', subject: any }[] = [];
+    targetSubjects.push({ env: primaryEnv, subject: primarySubject });
+
+    // Find in other envs
+    for (const env of envs) {
+        if (env === primaryEnv) continue;
+        const { Subject: OtherSubject } = getModels(env);
+        // Try to find by name
+        const match = await OtherSubject.findOne({
+            'name.en': primarySubject.name.en
+        });
+
+        if (match) {
+            targetSubjects.push({ env, subject: match });
+            console.log(`Found matching subject in ${env}: ${match.name.en}`);
+        } else {
+            console.log(`⚠️  Could not find subject "${primarySubject.name.en}" in ${env}. Questions will NOT be added there.`);
+        }
+    }
+
+    await generateQuestionsFlow(targetSubjects);
 }
 
-async function generateQuestionsFlow(subject: any) {
+async function generateQuestionsFlow(targets: { env: 'dev' | 'prod', subject: any }[]) {
+    // Use the first subject for context
+    const referenceSubject = targets[0].subject;
+
     // 1. Collect Inputs
     const inputs = await collectInputs();
 
     // 2. Construct Prompt
-    const prompt = constructPrompt(subject, inputs);
+    const prompt = constructPrompt(referenceSubject, inputs);
 
     // 3. Choose Execution Method
     const { method } = await inquirer.prompt([
@@ -246,10 +352,19 @@ async function generateQuestionsFlow(subject: any) {
         }
     ]);
 
+    let generatedQuestions: any[] = [];
+
     if (method === 'Manual (Copy Prompt to IDE)') {
-        await handleManualGeneration(prompt, subject);
+        generatedQuestions = await handleManualGeneration(prompt);
     } else {
-        await handleAutomaticGeneration(prompt, subject, inputs.count);
+        generatedQuestions = await handleAutomaticGeneration(prompt);
+    }
+
+    if (generatedQuestions && generatedQuestions.length > 0) {
+        for (const target of targets) {
+            console.log(`\nSaving to ${target.env.toUpperCase()}...`);
+            await saveQuestions(target.env, target.subject, generatedQuestions);
+        }
     }
 }
 
@@ -338,7 +453,7 @@ function constructPrompt(subject: any, inputs: any) {
     return prompt;
 }
 
-async function handleManualGeneration(prompt: string, subject: any) {
+async function handleManualGeneration(prompt: string): Promise<any[]> {
     console.log('\n[GENERATED PROMPT]');
     console.log('---------------------------------------------------');
     console.log(prompt);
@@ -366,7 +481,7 @@ async function handleManualGeneration(prompt: string, subject: any) {
         { type: 'confirm', name: 'imported', message: 'Ready to import JSON file?', default: true }
     ]);
 
-    if (!imported) return;
+    if (!imported) return [];
 
     const { filePath } = await inquirer.prompt([
         { type: 'input', name: 'filePath', message: 'Enter path to JSON file:' }
@@ -374,72 +489,29 @@ async function handleManualGeneration(prompt: string, subject: any) {
 
     try {
         const content = fs.readFileSync(filePath.trim(), 'utf-8');
-        const questions = JSON.parse(content);
-        await saveQuestions(subject, questions);
+        return JSON.parse(content);
     } catch (error) {
         console.error('Failed to read/parse file:', error);
+        return [];
     }
 }
 
-async function handleAutomaticGeneration(prompt: string, subject: any, count: number) {
+async function handleAutomaticGeneration(prompt: string): Promise<any[]> {
     const provider = AIProviderFactory.getProvider();
 
     console.log('\nSending request to AI... this may take a while.');
     try {
-        // We use the raw prompt generation capability if available, or fallback to generateQuestions
-        // But since we have a specific schema and requirements, we should ideally use a raw completion method
-        // or modify generateQuestions to accept a full custom prompt.
-        // For now, assuming the provider has a method to handle this or we adapt.
-        // The current GeminiProvider.generateQuestions takes (topic, count, language, sources).
-        // It constructs its OWN prompt.
-        // To satisfy the user requirement "use the same prompt", we need a way to pass this raw prompt.
-
-        // Let's assume we can pass the prompt as the "topic" if we modify the provider, 
-        // OR we just use the provider's native method but try to align the prompt logic.
-        // The user explicitly said: "Manage quizzes script should still have the ai api call option, but it should finally use the same prompt as we construct for local manual use"
-
-        // So we should probably add a method `generateFromPrompt` to the provider interface or cast it.
-        // For now, I will try to use `generateQuestions` but I'll need to check if I can override the prompt.
-        // Looking at GeminiProvider, it constructs the prompt internally.
-        // I will attempt to use a new method on the provider if I can add it, or just use the prompt as the message.
-
-        // Since I cannot easily modify the provider interface across the board without breaking things,
-        // I will try to use the `generateContent` method of the underlying model if exposed, 
-        // or just pass this prompt text as the "topic" and hope the provider handles it, 
-        // BUT the provider wraps the topic.
-
-        // BEST APPROACH: Add a `generateRaw(prompt: string)` method to the provider or use `generateQuestions` with a flag.
-        // I'll try to use the `generateQuestions` but pass the WHOLE prompt as the topic, 
-        // and maybe the provider is smart enough? No, it wraps it.
-
-        // I will modify GeminiProvider to accept a raw prompt or add a new method.
-        // For this script, I'll assume I can call `provider.generateFromPrompt(prompt)` if I add it.
-        // Let's check GeminiProvider.ts first.
-
-        // For now, I'll simulate it by calling the internal method if possible, or just fail over to manual if not supported.
-        // Actually, I can just use the `topic` argument to pass the core instructions, but the prompt construction logic is duplicated.
-
-        // To strictly follow "use the same prompt", I should probably expose a method in the provider 
-        // that takes the full prompt.
-
-        // I'll try to cast to any and call `generateFromPrompt` and I will add that method to GeminiProvider in a separate step if needed.
-        // For now, let's assume `generateQuestions` can take an option to use raw prompt.
-
-        // Workaround: I will pass the prompt as the "topic" and hope the provider's wrapper doesn't mess it up too much,
-        // OR I will modify the provider. Modifying the provider is cleaner.
-
-        // I'll stick to the plan: I'll write this script to call `provider.generateFromPrompt(prompt)` 
-        // and I will add that method to `GeminiProvider` in the next step.
-
         const questions = await (provider as any).generateFromPrompt(prompt);
-        await saveQuestions(subject, questions);
-
+        return questions;
     } catch (error) {
         console.error('AI Generation failed:', error);
+        return [];
     }
 }
 
-async function saveQuestions(subject: any, questions: any[]) {
+async function saveQuestions(env: 'dev' | 'prod', subject: any, questions: any[]) {
+    const { Question } = getModels(env);
+
     // Validate questions against schema
     const validQuestions = questions.map(q => ({
         ...q,
@@ -450,7 +522,7 @@ async function saveQuestions(subject: any, questions: any[]) {
     }));
 
     const result = await Question.insertMany(validQuestions);
-    console.log(`✅ Successfully added ${result.length} questions.`);
+    console.log(`✅ Successfully added ${result.length} questions to ${env.toUpperCase()}.`);
 
     await generateReport(subject, validQuestions);
 }
@@ -481,8 +553,104 @@ ${questions.map((q, i) => `
 }
 
 async function viewSubjects() {
-    const subjects = await Subject.find();
-    subjects.forEach(s => console.log(`${s._id}: ${s.name.en}`));
+    if (devConn) {
+        console.log('\n--- Development Subjects ---');
+        const { Subject } = getModels('dev');
+        const subjects = await Subject.find();
+        subjects.forEach((s: any) => console.log(`${s._id}: ${s.name.en}`));
+    }
+
+    if (prodConn) {
+        console.log('\n--- Production Subjects ---');
+        const { Subject } = getModels('prod');
+        const subjects = await Subject.find();
+        subjects.forEach((s: any) => console.log(`${s._id}: ${s.name.en}`));
+    }
+}
+
+async function copySubjectToProd() {
+    if (!prodConn) {
+        console.log('Production connection not available.');
+        return;
+    }
+
+    const { Subject: DevSubject, Question: DevQuestion } = getModels('dev');
+    const { Subject: ProdSubject, Question: ProdQuestion } = getModels('prod');
+
+    const subjects = await DevSubject.find();
+    if (subjects.length === 0) {
+        console.log('No subjects in Dev.');
+        return;
+    }
+
+    const { subjectId } = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'subjectId',
+            message: 'Select subject to copy to Prod:',
+            choices: subjects.map((s: any) => ({ name: `${s.name.en} / ${s.name.he}`, value: s._id }))
+        }
+    ]);
+
+    const sourceSubject = await DevSubject.findById(subjectId);
+    if (!sourceSubject) return;
+
+    // Check if exists in Prod
+    let targetSubject = await ProdSubject.findOne({ 'name.en': sourceSubject.name.en });
+
+    if (targetSubject) {
+        console.log(`Subject "${sourceSubject.name.en}" already exists in Prod.`);
+        const { proceed } = await inquirer.prompt([
+            { type: 'confirm', name: 'proceed', message: 'Do you want to add missing questions to it?', default: true }
+        ]);
+        if (!proceed) return;
+    } else {
+        // Create subject in Prod
+        const subjectData: any = sourceSubject.toObject();
+        delete subjectData._id;
+        delete subjectData.createdAt;
+        delete subjectData.updatedAt;
+        delete subjectData.__v;
+
+        targetSubject = await ProdSubject.create(subjectData);
+        console.log(`✅ Created subject "${sourceSubject.name.en}" in Prod.`);
+    }
+
+    // Copy questions
+    const sourceQuestions = await DevQuestion.find({ subjectId: sourceSubject._id });
+    if (sourceQuestions.length === 0) {
+        console.log('No questions to copy.');
+        return;
+    }
+
+    let addedCount = 0;
+    let skippedCount = 0;
+
+    for (const q of sourceQuestions) {
+        // Check for duplicate in Prod
+        // We check by text.en
+        const exists = await ProdQuestion.findOne({
+            subjectId: targetSubject._id,
+            'text.en': q.text.en
+        });
+
+        if (exists) {
+            skippedCount++;
+            continue;
+        }
+
+        const qData: any = q.toObject();
+        delete qData._id;
+        delete qData.createdAt;
+        delete qData.updatedAt;
+        delete qData.__v;
+        qData.subjectId = targetSubject._id; // Mongoose handles ObjectId assignment
+
+        await ProdQuestion.create(qData);
+        addedCount++;
+    }
+
+    console.log(`✅ Copied ${addedCount} questions. Skipped ${skippedCount} duplicates.`);
 }
 
 main();

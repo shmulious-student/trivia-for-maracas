@@ -8,7 +8,7 @@ const MultilingualTextSchema = new Schema<IMultilingualText>({
     he: { type: String, required: true }
 }, { _id: false, strict: false });
 
-const SubjectSchema = new Schema<ISubjectDocument>({
+export const SubjectSchema = new Schema<ISubjectDocument>({
     name: { type: MultilingualTextSchema, required: true },
     description: { type: MultilingualTextSchema, required: false },
     lastReport: { type: String, required: false }
