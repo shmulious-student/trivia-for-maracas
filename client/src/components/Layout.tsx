@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Moon, Sun, Globe, Settings as SettingsIcon } from 'lucide-react';
+import { Moon, Sun, Globe, Settings as SettingsIcon, User as UserIcon, Trophy } from 'lucide-react';
 
 const Layout: React.FC = () => {
     const { language, setLanguage } = useLanguage();
@@ -19,6 +19,12 @@ const Layout: React.FC = () => {
             }}>
                 <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Trivia App</div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button onClick={() => window.location.href = '/profile'} title="Profile">
+                        <UserIcon size={20} />
+                    </button>
+                    <button onClick={() => window.location.href = '/leaderboard'} title="Leaderboard">
+                        <Trophy size={20} />
+                    </button>
                     <button onClick={() => window.location.href = '/settings'} title="Settings">
                         <SettingsIcon size={20} />
                     </button>

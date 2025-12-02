@@ -7,6 +7,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
+import Profile from './pages/Profile';
+import Leaderboard from './pages/Leaderboard';
 import './index.css';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,6 +32,8 @@ const App: React.FC = () => {
                 <Route path="/login" element={<Login />} />
                 <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
                   <Route path="/" element={<GameRouter />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/leaderboard" element={<Leaderboard />} />
                   <Route path="/settings" element={<Settings />} />
                 </Route>
               </Routes>

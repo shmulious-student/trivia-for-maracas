@@ -11,7 +11,13 @@ const MultilingualTextSchema = new Schema<IMultilingualText>({
 const QuestionSchema = new Schema<IQuestionDocument>({
     subjectId: { type: String, required: true, ref: 'Subject' },
     text: { type: MultilingualTextSchema, required: true },
-    answers: { type: [MultilingualTextSchema], required: true },
+    options: {
+        type: [
+            {
+                text: { type: MultilingualTextSchema, required: true }
+            }
+        ], required: true
+    },
     correctAnswerIndex: { type: Number, required: true }
 }, {
     timestamps: true,

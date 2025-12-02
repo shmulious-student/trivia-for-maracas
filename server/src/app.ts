@@ -10,6 +10,8 @@ import questionRoutes from './routes/questions';
 import authRoutes from './routes/auth';
 import translationRoutes from './routes/translation';
 import uiTranslationRoutes from './routes/ui-translations';
+import userRoutes from './routes/users';
+import leaderboardRoutes from './routes/leaderboard';
 import { errorHandler } from './middleware/error';
 
 // Load env vars
@@ -21,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 // Database Connection
 connectDB();
@@ -32,6 +35,8 @@ app.use('/api/subjects', subjectRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/translate', translationRoutes);
 app.use('/api/ui-translations', uiTranslationRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {
