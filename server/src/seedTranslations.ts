@@ -14,12 +14,29 @@ const getCategory = (key: string): string => {
     return 'common';
 };
 
+const flattenKeys = (obj: any, prefix = ''): Record<string, string> => {
+    let result: Record<string, string> = {};
+    for (const key in obj) {
+        const value = obj[key];
+        const newKey = prefix ? `${prefix}.${key}` : key;
+        if (typeof value === 'object' && value !== null) {
+            Object.assign(result, flattenKeys(value, newKey));
+        } else {
+            result[newKey] = value;
+        }
+    }
+    return result;
+};
+
 const loadTranslations = () => {
     const enPath = path.join(__dirname, '../../client/src/locales/en.json');
     const hePath = path.join(__dirname, '../../client/src/locales/he.json');
 
-    const en = JSON.parse(fs.readFileSync(enPath, 'utf-8'));
-    const he = JSON.parse(fs.readFileSync(hePath, 'utf-8'));
+    const enRaw = JSON.parse(fs.readFileSync(enPath, 'utf-8'));
+    const heRaw = JSON.parse(fs.readFileSync(hePath, 'utf-8'));
+
+    const en = flattenKeys(enRaw);
+    const he = flattenKeys(heRaw);
 
     const keys = new Set([...Object.keys(en), ...Object.keys(he)]);
     const translations: any[] = [];

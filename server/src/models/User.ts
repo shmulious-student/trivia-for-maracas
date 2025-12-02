@@ -9,9 +9,9 @@ const UserSchema = new Schema<IUserDocument>({
     avatarUrl: { type: String },
     isAdmin: { type: Boolean, default: false },
     preferences: {
-        questionsPerTournament: { type: Number, min: 5, max: 30, default: 10 },
+        questionsPerTournament: { type: Number, min: 5, max: 30, default: 20 },
         gameTimer: { type: Number, min: 5, max: 60, default: 30 },
-        isTimerEnabled: { type: Boolean, default: true },
+        isTimerEnabled: { type: Boolean, default: false },
         favoriteSubjects: [{ type: String }],
         gender: { type: String, enum: ['male', 'female', 'other'], default: 'other' },
         language: { type: String, enum: ['en', 'he'], default: 'he' }

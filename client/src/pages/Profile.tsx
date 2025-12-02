@@ -1,14 +1,18 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Camera, Save, User as UserIcon, X, Check, Moon, Sun, Globe, LogOut, Clock, List, Calendar } from 'lucide-react';
+import { User as UserIcon, ArrowLeft, Settings, Plus, Minus, Trash2, Sun, Moon, LogOut, Loader2 } from 'lucide-react';
 import axios from 'axios';
-import Cropper from 'react-easy-crop';
-import getCroppedImg from '../utils/cropImage';
 import { Button } from '../components/ui/Button';
+import { Card } from '../components/ui/Card';
 import { cn } from '../lib/utils';
 import { motion } from 'framer-motion';
+import { AvatarUploader } from '../components/AvatarUploader';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
+import { Modal } from '../components/ui/Modal';
+import { useNavigate } from 'react-router-dom';
+import { GenderSelector } from '../components/GenderSelector';
 
 const API_BASE = 'http://localhost:3000/api';
 
@@ -16,465 +20,392 @@ const Profile: React.FC = () => {
     const { user, updateUser, logout } = useAuth();
     const { t, language, setLanguage } = useLanguage();
     const { theme, toggleTheme } = useTheme();
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState(user?.username || '');
     const [preferences, setPreferences] = useState<{
         questionsPerTournament: number;
         gameTimer: number;
         isTimerEnabled: boolean;
-        favoriteSubjects: string[];
         gender: 'male' | 'female' | 'other';
     }>({
-        questionsPerTournament: 10,
+        questionsPerTournament: 20,
         gameTimer: 30,
-        isTimerEnabled: true,
-        favoriteSubjects: [],
+        isTimerEnabled: false,
         gender: 'other',
         ...user?.preferences
     });
-    const [subjects, setSubjects] = useState<any[]>([]);
+
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    React.useEffect(() => {
-        const fetchSubjects = async () => {
+    // Sync state with user data when it changes
+    useEffect(() => {
+        if (user) {
+            setUsername(user.username);
+            setPreferences(prev => ({ ...prev, ...user.preferences }));
+        }
+    }, [user]);
+
+    // Auto-save functionality
+    useEffect(() => {
+        if (!user) return;
+
+        // Skip initial load
+        if (username === user.username &&
+            JSON.stringify(preferences) === JSON.stringify(user.preferences)) {
+            return;
+        }
+
+        const saveProfile = async () => {
             try {
-                const res = await axios.get(`${API_BASE}/subjects`);
-                setSubjects(res.data);
-            } catch (err) {
-                console.error('Failed to fetch subjects', err);
+                setLoading(true);
+                const token = localStorage.getItem('token');
+                const res = await axios.put(`${API_BASE}/users/profile`, {
+                    username,
+                    preferences
+                }, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.data) {
+                    updateUser(res.data);
+                }
+                // Optional: Show subtle saving indicator or success toast
+            } catch (err: any) {
+                console.error(err);
+                setMessage({ type: 'error', text: err.response?.data?.message || t('profile.saveFailed') });
+            } finally {
+                setLoading(false);
             }
         };
-        fetchSubjects();
-    }, []);
 
-    // Cropper State
-    const [imageSrc, setImageSrc] = useState<string | null>(null);
-    const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
-    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
-    const [isCropping, setIsCropping] = useState(false);
+        const timeoutId = setTimeout(saveProfile, 1000); // Debounce 1s
+        return () => clearTimeout(timeoutId);
+    }, [username, preferences, user, updateUser, t]);
 
-    const handleAvatarClick = () => {
-        fileInputRef.current?.click();
-    };
+    const handleAvatarUpdate = async (newUrl: string) => {
+        if (user) {
+            try {
+                // Note: AvatarUploader already uploads the file. 
+                // If we need to update the user context with the new URL returned by AvatarUploader (which calls /avatar endpoint),
+                // we might need to fetch the updated user or just update local state.
+                // However, the /avatar endpoint updates the user in DB.
+                // We just need to update the context.
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.addEventListener('load', () => {
-                setImageSrc(reader.result as string);
-                setIsCropping(true);
-            });
-            reader.readAsDataURL(file);
+                // Wait, AvatarUploader calls onUpload with the new URL.
+                // We should update the user context.
+                updateUser({ ...user, avatarUrl: newUrl });
+                setMessage({ type: 'success', text: t('profile.avatarUpdated') });
+                setTimeout(() => setMessage(null), 3000);
+            } catch (err: any) {
+                console.error('Failed to update avatar:', err);
+                setMessage({ type: 'error', text: t('profile.avatarUpdateFailed') });
+            }
         }
     };
 
-    const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: any) => {
-        setCroppedAreaPixels(croppedAreaPixels);
-    }, []);
-
-    const handleUploadCroppedImage = async () => {
-        if (!imageSrc || !croppedAreaPixels) return;
-
+    const handleDeleteAccount = async () => {
         try {
-            setLoading(true);
-            const croppedImageBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
-
-            if (!croppedImageBlob) {
-                throw new Error('Failed to crop image');
-            }
-
-            const formData = new FormData();
-            formData.append('avatar', croppedImageBlob, 'avatar.jpg');
-
             const token = localStorage.getItem('token');
-            const res = await axios.post(`${API_BASE}/users/avatar`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
-                }
+            await axios.delete(`${API_BASE}/users/profile`, {
+                headers: { Authorization: `Bearer ${token}` }
             });
-
-            if (res.data.user) {
-                updateUser(res.data.user);
-            }
-
-            setMessage({ type: 'success', text: t('profile.avatarUpdated') });
-            setIsCropping(false);
-            setImageSrc(null);
-
+            logout();
+            navigate('/login');
         } catch (err) {
-            console.error(err);
-            setMessage({ type: 'error', text: t('profile.uploadFailed') });
-        } finally {
-            setLoading(false);
+            console.error('Failed to delete account:', err);
+            setMessage({ type: 'error', text: t('profile.deleteAccountFailed') });
         }
     };
 
-    const handleSaveProfile = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            setLoading(true);
-            const token = localStorage.getItem('token');
-            const res = await axios.put(`${API_BASE}/users/profile`, {
-                username,
-                preferences
-            }, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (res.data) {
-                updateUser(res.data);
-            }
-
-            setMessage({ type: 'success', text: t('profile.saved') });
-        } catch (err: any) {
-            console.error(err);
-            setMessage({ type: 'error', text: err.response?.data?.message || t('profile.saveFailed') });
-        } finally {
-            setLoading(false);
-        }
-    };
+    if (!user) return null;
 
     return (
-        <div className="container max-w-2xl mx-auto py-8 space-y-8">
-            <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center space-y-2"
-            >
-                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400">
-                    {t('profile.title')} & {t('settings.title')}
-                </h1>
-            </motion.div>
+        <div className="container mx-auto px-4 py-8 max-w-2xl relative">
+            <div className="absolute top-4 right-4 z-10">
+                <LanguageSwitcher />
+            </div>
 
-            <div className="glass-panel p-6 rounded-xl space-y-8">
-                {/* Avatar & Profile Form */}
-                <div className="flex flex-col items-center mb-6">
-                    <div className="relative cursor-pointer group" onClick={handleAvatarClick}>
-                        <div
-                            className="rounded-full overflow-hidden border-4 border-accent-primary bg-bg-tertiary flex items-center justify-center shadow-glow"
-                            style={{ width: '120px', height: '120px' }}
-                        >
-                            {user?.avatarUrl ? (
-                                <img
-                                    src={`http://localhost:3000${user.avatarUrl}`}
-                                    alt="Avatar"
-                                    className="w-full h-full object-cover"
-                                />
-                            ) : (
-                                <UserIcon size={48} className="text-text-secondary" />
-                            )}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-8"
+            >
+                {/* Header */}
+                <div className="flex items-center gap-4">
+                    <Button variant="ghost" onClick={() => navigate('/')} className="p-2">
+                        <ArrowLeft size={24} />
+                    </Button>
+                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent-primary to-purple-400">
+                        {t('profile.title')}
+                    </h1>
+                    {loading && (
+                        <div className="flex items-center gap-2 text-sm text-text-secondary animate-pulse ml-4">
+                            <Loader2 size={16} className="animate-spin" />
+                            {t('common.saving')}
                         </div>
-                        <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Camera className="text-white" />
-                        </div>
-                    </div>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        accept="image/*"
-                        className="hidden"
-                    />
-                    <p className="text-sm text-text-secondary mt-2">{t('profile.changeAvatar')}</p>
+                    )}
                 </div>
 
-                {message && (
-                    <div className={cn(
-                        "p-3 rounded-lg mb-4 text-center text-sm font-medium",
-                        message.type === 'success' ? "bg-success/20 text-success border border-success/20" : "bg-error/20 text-error border border-error/20"
-                    )}>
-                        {message.text}
-                    </div>
-                )}
+                <Card className="p-8 space-y-8 bg-bg-secondary/50 backdrop-blur-xl border-white/10">
+                    {/* Avatar Section */}
+                    <AvatarUploader
+                        currentAvatarUrl={user.avatarUrl}
+                        onUpload={handleAvatarUpdate}
+                        isEditable={true}
+                    />
 
-                <form onSubmit={handleSaveProfile} className="space-y-4 max-w-md mx-auto w-full">
-                    <div>
-                        <label className="block text-sm font-medium mb-1 text-text-secondary">{t('profile.username')}</label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="input"
-                            required
-                        />
-                    </div>
-
-                    {/* Gender Selection */}
-                    <div>
-                        <label className="block text-sm font-medium mb-1 text-text-secondary">{t('profile.gender')}</label>
-                        <select
-                            value={preferences.gender}
-                            onChange={(e) => setPreferences({ ...preferences, gender: e.target.value as any })}
-                            className="input w-full"
-                        >
-                            <option value="male">{t('profile.gender.male')}</option>
-                            <option value="female">{t('profile.gender.female')}</option>
-                            <option value="other">{t('profile.gender.other')}</option>
-                        </select>
-                    </div>
-
-                    {/* Game Configuration */}
-                    <div className="space-y-4 pt-4 border-t border-white/10">
-                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
-                            <Clock size={20} className="text-accent-secondary" />
-                            {t('profile.gameConfig')}
-                        </h3>
-
-                        {/* Questions per Tournament */}
-                        <div>
-                            <label className="block text-sm font-medium mb-1 text-text-secondary">
-                                {t('profile.questionsPerTournament')}: {preferences.questionsPerTournament}
+                    {/* User Info Form */}
+                    <div className="space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-text-secondary ml-1">
+                                {t('Username')}
                             </label>
-                            <input
-                                type="range"
-                                min="5"
-                                max="30"
-                                value={preferences.questionsPerTournament}
-                                onChange={(e) => setPreferences({ ...preferences, questionsPerTournament: Number(e.target.value) })}
-                                className="w-full accent-accent-primary"
+                            <div className="relative">
+                                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    className="input pl-10"
+                                    placeholder={t('Enter your username')}
+                                />
+                            </div>
+                            <div className="text-xs text-text-muted ml-1">
+                                {t('profile.timezone')}: {Intl.DateTimeFormat().resolvedOptions().timeZone}
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-text-secondary ml-1">
+                                {t('profile.gender')}
+                            </label>
+                            <GenderSelector
+                                value={preferences.gender}
+                                onChange={(g) => setPreferences({ ...preferences, gender: g })}
                             />
                         </div>
 
-                        {/* Game Timer */}
-                        <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                                <label className="block text-sm font-medium text-text-secondary">
-                                    {t('profile.gameTimer')} ({preferences.gameTimer}s)
-                                </label>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xs text-text-muted">{preferences.isTimerEnabled ? t('profile.timerOn') : t('profile.timerOff')}</span>
+                        {/* Preferences */}
+                        <div className="pt-6 border-t border-white/10 space-y-6">
+                            <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                                <Settings size={20} className="text-accent-primary" />
+                                {t('profile.gameSettings')}
+                            </h3>
+
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between p-3 rounded-xl bg-bg-tertiary/50 border border-white/5">
+                                    <div className="space-y-0.5">
+                                        <label className="text-sm font-medium text-text-primary">
+                                            {t('profile.questionsPerTournament')}
+                                        </label>
+                                        <p className="text-xs text-text-muted">
+                                            {t('profile.questionsPerTournamentDesc')}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-3 bg-bg-primary rounded-lg p-1">
+                                        <button
+                                            type="button"
+                                            onClick={() => setPreferences(prev => ({ ...prev, questionsPerTournament: Math.max(5, prev.questionsPerTournament - 5) }))}
+                                            className="p-1 hover:bg-white/10 rounded text-text-secondary hover:text-white transition-colors"
+                                        >
+                                            <Minus size={16} />
+                                        </button>
+                                        <span className="w-8 text-center font-mono font-bold">{preferences.questionsPerTournament}</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => setPreferences(prev => ({ ...prev, questionsPerTournament: Math.min(50, prev.questionsPerTournament + 5) }))}
+                                            className="p-1 hover:bg-white/10 rounded text-text-secondary hover:text-white transition-colors"
+                                        >
+                                            <Plus size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center justify-between p-3 rounded-xl bg-bg-tertiary/50 border border-white/5">
+                                    <div className="space-y-0.5">
+                                        <label className="text-sm font-medium text-text-primary">
+                                            {t('profile.enableTimer')}
+                                        </label>
+                                        <p className="text-xs text-text-muted">
+                                            {t('profile.enableTimerDesc')}
+                                        </p>
+                                    </div>
                                     <button
                                         type="button"
-                                        onClick={() => setPreferences({ ...preferences, isTimerEnabled: !preferences.isTimerEnabled })}
+                                        onClick={() => setPreferences(prev => ({ ...prev, isTimerEnabled: !prev.isTimerEnabled }))}
                                         className={cn(
-                                            "relative w-10 h-5 rounded-full transition-colors duration-200",
-                                            preferences.isTimerEnabled ? "bg-accent-primary" : "bg-slate-600"
+                                            "w-12 h-6 rounded-full transition-colors relative",
+                                            preferences.isTimerEnabled ? "bg-accent-primary" : "bg-bg-primary"
                                         )}
                                     >
                                         <div className={cn(
-                                            "absolute top-1 left-1 w-3 h-3 rounded-full bg-white transition-transform duration-200",
-                                            preferences.isTimerEnabled ? "translate-x-5" : "translate-x-0"
+                                            "absolute top-1 w-4 h-4 rounded-full bg-white transition-all",
+                                            preferences.isTimerEnabled ? "left-7" : "left-1"
                                         )} />
                                     </button>
                                 </div>
+
+                                {preferences.isTimerEnabled && (
+                                    <div className="flex items-center justify-between p-3 rounded-xl bg-bg-tertiary/50 border border-white/5 animate-in fade-in slide-in-from-top-2">
+                                        <div className="space-y-0.5">
+                                            <label className="text-sm font-medium text-text-primary">
+                                                {t('profile.timePerQuestion')}
+                                            </label>
+                                            <p className="text-xs text-text-muted">
+                                                {t('profile.timePerQuestionDesc')}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-3 bg-bg-primary rounded-lg p-1">
+                                            <button
+                                                type="button"
+                                                onClick={() => setPreferences(prev => ({ ...prev, gameTimer: Math.max(10, prev.gameTimer - 5) }))}
+                                                className="p-1 hover:bg-white/10 rounded text-text-secondary hover:text-white transition-colors"
+                                            >
+                                                <Minus size={16} />
+                                            </button>
+                                            <span className="w-8 text-center font-mono font-bold">{preferences.gameTimer}s</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setPreferences(prev => ({ ...prev, gameTimer: Math.min(60, prev.gameTimer + 5) }))}
+                                                className="p-1 hover:bg-white/10 rounded text-text-secondary hover:text-white transition-colors"
+                                            >
+                                                <Plus size={16} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                            {preferences.isTimerEnabled && (
-                                <input
-                                    type="range"
-                                    min="5"
-                                    max="60"
-                                    value={preferences.gameTimer}
-                                    onChange={(e) => setPreferences({ ...preferences, gameTimer: Number(e.target.value) })}
-                                    className="w-full accent-accent-primary"
-                                />
-                            )}
                         </div>
-                    </div>
 
-                    {/* Favorite Subjects */}
-                    <div className="space-y-4 pt-4 border-t border-white/10">
-                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
-                            <List size={20} className="text-accent-tertiary" />
-                            {t('profile.favoriteSubjects')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-2">
-                            {subjects.map((subject) => (
-                                <button
-                                    key={subject.id}
+                        {/* Appearance & Language */}
+                        <div className="pt-6 border-t border-white/10 space-y-6">
+                            <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                                <Sun size={20} className="text-accent-secondary" />
+                                {t('settings.appearance')} & {t('settings.language')}
+                            </h3>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="flex items-center justify-between p-4 rounded-xl bg-bg-tertiary/30 border border-white/5">
+                                    <span className="text-text-secondary">{t('settings.darkMode')}</span>
+                                    <button
+                                        type="button"
+                                        onClick={toggleTheme}
+                                        className={cn(
+                                            "relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent-primary/50",
+                                            theme === 'dark' ? "bg-accent-primary" : "bg-slate-300"
+                                        )}
+                                    >
+                                        <motion.div
+                                            layout
+                                            className="absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center"
+                                            animate={{ x: theme === 'dark' ? 28 : 0 }}
+                                        >
+                                            {theme === 'dark' ? (
+                                                <Moon size={12} className="text-accent-primary" />
+                                            ) : (
+                                                <Sun size={12} className="text-yellow-500" />
+                                            )}
+                                        </motion.div>
+                                    </button>
+                                </div>
+
+                                <div className="flex gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setLanguage('he')}
+                                        className={cn(
+                                            "flex-1 p-2 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
+                                            language === 'he'
+                                                ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
+                                                : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
+                                        )}
+                                    >
+                                        <span className="text-xl">🇮🇱</span>
+                                        עברית
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setLanguage('en')}
+                                        className={cn(
+                                            "flex-1 p-2 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
+                                            language === 'en'
+                                                ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
+                                                : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
+                                        )}
+                                    >
+                                        <span className="text-xl">🇺🇸</span>
+                                        English
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {message && message.text && (
+                            <div className={cn(
+                                "p-3 rounded-lg text-sm text-center animate-in fade-in slide-in-from-bottom-2",
+                                message.type === 'success' ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-red-500/10 text-red-400 border border-red-500/20"
+                            )}>
+                                {message.text}
+                            </div>
+                        )}
+
+                        <div className="pt-4 flex flex-col gap-4">
+                            {/* Save button removed */}
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <Button
                                     type="button"
-                                    onClick={() => {
-                                        const current = preferences.favoriteSubjects || [];
-                                        const updated = current.includes(subject.id)
-                                            ? current.filter(id => id !== subject.id)
-                                            : [...current, subject.id];
-                                        setPreferences({ ...preferences, favoriteSubjects: updated });
-                                    }}
-                                    className={cn(
-                                        "p-2 rounded-lg text-sm border transition-all duration-200",
-                                        (preferences.favoriteSubjects || []).includes(subject.id)
-                                            ? "bg-accent-primary/20 border-accent-primary text-accent-primary"
-                                            : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50"
-                                    )}
+                                    variant="ghost"
+                                    onClick={logout}
+                                    className="w-full text-text-secondary hover:text-text-primary"
                                 >
-                                    {subject.name[language]}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+                                    <LogOut size={18} className="me-2" />
+                                    {t('auth.logout')}
+                                </Button>
 
-                    {/* Timezone Display */}
-                    <div className="pt-4 border-t border-white/10">
-                        <div className="flex items-center gap-2 text-text-secondary text-sm">
-                            <Calendar size={16} />
-                            <span>{t('profile.localTime')}: {new Date().toLocaleString(language === 'he' ? 'he-IL' : 'en-US')}</span>
-                        </div>
-                        <div className="text-xs text-text-muted mt-1 ml-6">
-                            {t('profile.timezone')}: {Intl.DateTimeFormat().resolvedOptions().timeZone}
-                        </div>
-                    </div>
-
-                    <Button type="submit" className="w-full" disabled={loading} isLoading={loading}>
-                        {!loading && <Save size={18} className="me-2" />}
-                        {t('common.save')}
-                    </Button>
-                </form>
-
-                <div className="border-t border-white/10 my-8"></div>
-
-                {/* Settings Section */}
-                <div className="space-y-6 max-w-md mx-auto w-full">
-                    {/* Appearance */}
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
-                            <Sun size={20} className="text-accent-secondary" />
-                            {t('settings.appearance')}
-                        </h3>
-                        <div className="flex items-center justify-between p-4 rounded-xl bg-bg-tertiary/30 border border-white/5">
-                            <span className="text-text-secondary">{t('settings.darkMode')}</span>
-                            <button
-                                onClick={toggleTheme}
-                                className={cn(
-                                    "relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent-primary/50",
-                                    theme === 'dark' ? "bg-accent-primary" : "bg-slate-300"
-                                )}
-                            >
-                                <motion.div
-                                    layout
-                                    className="absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center"
-                                    animate={{ x: theme === 'dark' ? 28 : 0 }}
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    className="w-full text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                                    onClick={() => setIsDeleteModalOpen(true)}
                                 >
-                                    {theme === 'dark' ? (
-                                        <Moon size={12} className="text-accent-primary" />
-                                    ) : (
-                                        <Sun size={12} className="text-yellow-500" />
-                                    )}
-                                </motion.div>
-                            </button>
+                                    <Trash2 size={18} className="mr-2" />
+                                    {t('profile.deleteAccount')}
+                                </Button>
+                            </div>
                         </div>
                     </div>
+                </Card>
+            </motion.div>
 
-                    {/* Language */}
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
-                            <Globe size={20} className="text-accent-tertiary" />
-                            {t('settings.language')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                onClick={() => setLanguage('he')}
-                                className={cn(
-                                    "p-4 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
-                                    language === 'he'
-                                        ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
-                                        : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
-                                )}
-                            >
-                                <span className="text-xl">🇮🇱</span>
-                                עברית
-                            </button>
-                            <button
-                                onClick={() => setLanguage('en')}
-                                className={cn(
-                                    "p-4 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
-                                    language === 'en'
-                                        ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
-                                        : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
-                                )}
-                            >
-                                <span className="text-xl">🇺🇸</span>
-                                English
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Logout */}
-                    <div className="pt-4">
+            <Modal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                title={t('profile.deleteConfirmationTitle')}
+            >
+                <div className="space-y-6">
+                    <p className="text-text-secondary">
+                        {t('profile.deleteConfirmationMessage')}
+                    </p>
+                    <div className="flex gap-3 justify-end">
                         <Button
                             variant="ghost"
-                            onClick={logout}
-                            className="w-full text-error hover:text-error hover:bg-error/10"
+                            onClick={() => setIsDeleteModalOpen(false)}
                         >
-                            <LogOut size={18} className="me-2" />
-                            {t('auth.logout')}
+                            {t('profile.deleteCancelButton')}
+                        </Button>
+                        <Button
+                            className="bg-red-500 hover:bg-red-600 text-white border-none"
+                            onClick={handleDeleteAccount}
+                        >
+                            {t('profile.deleteConfirmButton')}
                         </Button>
                     </div>
                 </div>
-            </div>
-
-            {/* Cropper Modal */}
-            {isCropping && imageSrc && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-                    <div
-                        className="relative bg-bg-primary rounded-xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
-                        style={{ width: '90%', maxWidth: '500px', height: '80vh', maxHeight: '600px' }}
-                    >
-                        {/* Cropper fills the container */}
-                        <div className="relative flex-grow w-full h-full bg-black">
-                            <Cropper
-                                image={imageSrc}
-                                crop={crop}
-                                zoom={zoom}
-                                aspect={1}
-                                onCropChange={setCrop}
-                                onCropComplete={onCropComplete}
-                                onZoomChange={setZoom}
-                                cropShape="round"
-                                showGrid={false}
-                            />
-                        </div>
-
-                        {/* Controls */}
-                        <div className="p-4 bg-bg-secondary border-t border-white/10 flex flex-col gap-4 z-50">
-                            {/* Zoom Control */}
-                            <div className="flex items-center gap-3">
-                                <span className="text-xs font-medium text-text-secondary">{t('common.zoom')}</span>
-                                <input
-                                    type="range"
-                                    value={zoom}
-                                    min={1}
-                                    max={3}
-                                    step={0.1}
-                                    aria-labelledby="Zoom"
-                                    onChange={(e) => setZoom(Number(e.target.value))}
-                                    className="flex-1 h-1.5 bg-bg-tertiary rounded-lg appearance-none cursor-pointer accent-accent-primary hover:bg-bg-tertiary/80 transition-colors"
-                                />
-                            </div>
-
-                            {/* Action Buttons */}
-                            <div className="flex justify-between items-center gap-4">
-                                <Button
-                                    variant="ghost"
-                                    onClick={() => setIsCropping(false)}
-                                    className="flex-1"
-                                >
-                                    {t('common.cancel')}
-                                </Button>
-                                <Button
-                                    onClick={handleUploadCroppedImage}
-                                    className="flex-1 shadow-glow"
-                                    disabled={loading}
-                                    isLoading={loading}
-                                >
-                                    {!loading && <Check size={16} className="me-2" />}
-                                    {t('common.saveShort')}
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Close Button (Top Right) */}
-                        <button
-                            onClick={() => setIsCropping(false)}
-                            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-sm transition-colors z-20"
-                        >
-                            <X size={20} />
-                        </button>
-                    </div>
-                </div>
-            )}
+            </Modal>
         </div>
     );
 };

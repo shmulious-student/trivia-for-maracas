@@ -4,8 +4,9 @@ import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useSoundContext } from '../../contexts/SoundContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { Trophy, RefreshCw } from 'lucide-react';
+import { Trophy, RefreshCw, AlertTriangle } from 'lucide-react';
 import posthog from '../../lib/posthog';
+import { ReportModal } from '../../components/Game/ReportModal';
 
 const API_BASE = 'http://localhost:3000/api';
 
@@ -64,6 +65,8 @@ const Result: React.FC = () => {
     if (percentage >= 80) message = t('result.excellent');
     else if (percentage >= 50) message = t('result.wellDone');
 
+    const [showReportModal, setShowReportModal] = useState(false);
+
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
             <div className="text-center">
@@ -84,22 +87,38 @@ const Result: React.FC = () => {
                 )}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-4 w-full max-w-md px-4">
+                <div className="flex gap-4 justify-center">
+                    <button
+                        onClick={resetGame}
+                        className="px-6 py-3 text-lg font-bold text-white transition-colors rounded-lg bg-primary hover:bg-primary-hover flex items-center gap-2"
+                    >
+                        <RefreshCw size={20} />
+                        {t('result.playAgain')}
+                    </button>
+                    <button
+                        onClick={() => window.location.href = '/leaderboard'}
+                        className="px-6 py-3 text-lg font-bold text-text-primary transition-colors rounded-lg bg-surface border border-border hover:border-primary flex items-center gap-2"
+                    >
+                        <Trophy size={20} />
+                        {t('result.viewLeaderboard')}
+                    </button>
+                </div>
+
                 <button
-                    onClick={resetGame}
-                    className="px-6 py-3 text-lg font-bold text-white transition-colors rounded-lg bg-primary hover:bg-primary-hover flex items-center gap-2"
+                    onClick={() => setShowReportModal(true)}
+                    className="w-full py-2 text-sm font-medium text-text-secondary hover:text-red-400 transition-colors flex items-center justify-center gap-2"
                 >
-                    <RefreshCw size={20} />
-                    {t('result.playAgain')}
-                </button>
-                <button
-                    onClick={() => window.location.href = '/leaderboard'}
-                    className="px-6 py-3 text-lg font-bold text-text-primary transition-colors rounded-lg bg-surface border border-border hover:border-primary flex items-center gap-2"
-                >
-                    <Trophy size={20} />
-                    {t('result.viewLeaderboard')}
+                    <AlertTriangle size={16} />
+                    {t('report.buttonText')}
                 </button>
             </div>
+
+            <ReportModal
+                isOpen={showReportModal}
+                onClose={() => setShowReportModal(false)}
+                questions={questions}
+            />
         </div>
     );
 };

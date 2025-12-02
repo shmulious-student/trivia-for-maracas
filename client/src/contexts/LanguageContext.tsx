@@ -11,7 +11,7 @@ interface LanguageContextType {
     language: Language;
     direction: Direction;
     setLanguage: (lang: Language) => void;
-    t: (key: string) => string;
+    t: (key: string, params?: Record<string, string | number>) => string;
     loading: boolean;
 }
 
@@ -93,22 +93,29 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         he: heTranslations
     };
 
-    // ... (inside component)
+    const t = (key: string, params?: Record<string, string | number>) => {
+        let text = key;
 
-    const t = (key: string) => {
         // 1. Try API translations (overrides)
         if (translations[key] && translations[key][language]) {
-            return translations[key][language];
+            text = translations[key][language];
         }
-
         // 2. Try local JSON files
-        const local = localTranslations[language] as Record<string, string>;
-        if (local && local[key]) {
-            return local[key];
+        else {
+            const local = localTranslations[language] as Record<string, string>;
+            if (local && local[key]) {
+                text = local[key];
+            }
         }
 
-        // 3. Fallback to key
-        return key;
+        // 3. Interpolation
+        if (params) {
+            Object.entries(params).forEach(([paramKey, paramValue]) => {
+                text = text.replace(`{${paramKey}}`, String(paramValue));
+            });
+        }
+
+        return text;
     };
 
     return (

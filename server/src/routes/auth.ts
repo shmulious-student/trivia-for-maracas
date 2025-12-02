@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_key_change_in_prod';
 // Register (Player) - Auto-create or return existing
 router.post('/register', async (req, res) => {
     try {
-        const { username, avatarUrl } = req.body;
+        const { username, avatarUrl, preferences } = req.body;
 
         if (!username) {
             return res.status(400).json({ message: 'Username is required' });
@@ -20,13 +20,24 @@ router.post('/register', async (req, res) => {
         let isNewUser = false;
 
         if (!user) {
-            user = new User({ username, avatarUrl, isAdmin: false });
+            user = new User({
+                username,
+                avatarUrl,
+                isAdmin: false,
+                preferences: preferences || {}
+            });
             await user.save();
             isNewUser = true;
         } else {
             // Update avatar if provided
             if (avatarUrl) {
                 user.avatarUrl = avatarUrl;
+            }
+            // Update preferences if provided (e.g. gender update during re-login/registration)
+            if (preferences) {
+                user.preferences = { ...user.preferences, ...preferences };
+            }
+            if (avatarUrl || preferences) {
                 await user.save();
             }
         }

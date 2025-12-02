@@ -5,7 +5,7 @@ import type { IUser } from '@trivia/shared';
 interface AuthContextType {
     user: IUser | null;
     token: string | null;
-    login: (username: string, avatarUrl?: string) => Promise<void>;
+    login: (username: string, avatarUrl?: string, preferences?: any) => Promise<void>;
     logout: () => void;
     updateUser: (user: IUser) => void;
     isAuthenticated: boolean;
@@ -28,9 +28,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, [token]);
 
-    const login = async (username: string, avatarUrl?: string) => {
+    const login = async (username: string, avatarUrl?: string, preferences?: any) => {
         try {
-            const response = await axios.post('/api/auth/register', { username, avatarUrl });
+            const response = await axios.post('/api/auth/register', { username, avatarUrl, preferences });
             const { token: newToken, user: newUser } = response.data;
 
             localStorage.setItem('token', newToken);

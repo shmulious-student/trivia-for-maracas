@@ -16,6 +16,7 @@ import translationRoutes from './routes/translation';
 import uiTranslationRoutes from './routes/ui-translations';
 import userRoutes from './routes/users';
 import leaderboardRoutes from './routes/leaderboard';
+import reportsRoutes from './routes/reports';
 import { errorHandler } from './middleware/error';
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/translate', translationRoutes);
 app.use('/api/ui-translations', uiTranslationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/reports', reportsRoutes);
 
 // Health Check
 app.get('/health', (req, res) => {
