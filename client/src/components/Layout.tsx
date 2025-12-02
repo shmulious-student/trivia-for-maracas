@@ -5,6 +5,7 @@ import { Moon, Sun, User as UserIcon, Trophy, Home } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SoundToggle } from './SoundToggle';
 import { useGameStore } from '../stores/useGameStore';
+import AnimatedLogo from './ui/AnimatedLogo';
 
 const Layout: React.FC = () => {
     const { theme, toggleTheme } = useTheme();
@@ -30,11 +31,7 @@ const Layout: React.FC = () => {
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 mt-[21px] ml-[10px]">
                     <Link to="/" onClick={resetGame} className="block relative group">
                         <div className="w-40 h-40 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                            <img
-                                src="/app_logo.png"
-                                alt="Trivia Maracas"
-                                className="w-full h-full object-contain"
-                            />
+                            <AnimatedLogo className="w-full h-full" />
                         </div>
                     </Link>
                 </div>
