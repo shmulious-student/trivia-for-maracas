@@ -10,7 +10,9 @@
         "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src/**/*.ts",
         "test": "jest",
         "clear-db": "ts-node src/clearDb.ts",
-        "manage-quizzes": "ts-node scripts/manage_quizzes.ts"
+        "manage-quizzes": "ts-node scripts/manage_quizzes.ts",
+        "export-data": "ts-node scripts/export-data.ts",
+        "import-data": "ts-node scripts/import-data.ts"
     },
     "dependencies": {
         "@google/generative-ai": "^0.24.1",

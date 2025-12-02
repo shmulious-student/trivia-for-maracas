@@ -1,0 +1,1022 @@
+[
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdc6",
+    "key": "profile.title",
+    "category": "profile",
+    "text": {
+      "en": "Profile Settings",
+      "he": "הגדרות פרופיל"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdc7",
+    "key": "profile.username",
+    "category": "profile",
+    "text": {
+      "en": "Username",
+      "he": "שם משתמש"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdc8",
+    "key": "profile.changeAvatar",
+    "category": "profile",
+    "text": {
+      "en": "Click to change avatar",
+      "he": "לחץ לשינוי תמונה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdc9",
+    "key": "profile.avatarUpdated",
+    "category": "profile",
+    "text": {
+      "en": "Avatar updated successfully",
+      "he": "התמונה עודכנה בהצלחה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdca",
+    "key": "profile.uploadFailed",
+    "category": "profile",
+    "text": {
+      "en": "Failed to upload avatar",
+      "he": "נכשל בהעלאת התמונה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdcb",
+    "key": "profile.saved",
+    "category": "profile",
+    "text": {
+      "en": "Profile saved successfully",
+      "he": "הפרופיל נשמר בהצלחה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdcc",
+    "key": "profile.saveFailed",
+    "category": "profile",
+    "text": {
+      "en": "Failed to save profile",
+      "he": "נכשל בשמירת הפרופיל"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdcd",
+    "key": "common.save",
+    "category": "common",
+    "text": {
+      "en": "Save Changes",
+      "he": "שמור שינויים"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdce",
+    "key": "common.saving",
+    "category": "common",
+    "text": {
+      "en": "Saving...",
+      "he": "שומר..."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.345Z",
+    "updatedAt": "2025-12-02T12:12:56.345Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdcf",
+    "key": "common.question",
+    "category": "common",
+    "text": {
+      "en": "Question",
+      "he": "שאלה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd0",
+    "key": "common.next",
+    "category": "common",
+    "text": {
+      "en": "Next Question",
+      "he": "לשאלה הבאה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd1",
+    "key": "common.finish",
+    "category": "common",
+    "text": {
+      "en": "Finish Game",
+      "he": "סיים משחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd2",
+    "key": "Join Game",
+    "category": "common",
+    "text": {
+      "en": "Join Game",
+      "he": "הצטרף למשחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd3",
+    "key": "Enter your details to start playing",
+    "category": "common",
+    "text": {
+      "en": "Enter your details to start playing",
+      "he": "הכנס פרטים כדי להתחיל"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd4",
+    "key": "Username",
+    "category": "common",
+    "text": {
+      "en": "Username",
+      "he": "שם משתמש"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd5",
+    "key": "Enter your username",
+    "category": "common",
+    "text": {
+      "en": "Enter your username",
+      "he": "הכנס שם משתמש"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd6",
+    "key": "Avatar URL (optional)",
+    "category": "common",
+    "text": {
+      "en": "Avatar URL (optional)",
+      "he": "קישור לתמונה (אופציונלי)"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd7",
+    "key": "Start Playing",
+    "category": "common",
+    "text": {
+      "en": "Start Playing",
+      "he": "התחל לשחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd8",
+    "key": "settings.title",
+    "category": "settings",
+    "text": {
+      "en": "Settings",
+      "he": "הגדרות"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdd9",
+    "key": "settings.account",
+    "category": "settings",
+    "text": {
+      "en": "Account Settings",
+      "he": "הגדרות חשבון"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdda",
+    "key": "settings.appearance",
+    "category": "settings",
+    "text": {
+      "en": "Appearance",
+      "he": "מראה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fddb",
+    "key": "settings.darkMode",
+    "category": "settings",
+    "text": {
+      "en": "Dark Mode",
+      "he": "מצב כהה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fddc",
+    "key": "settings.language",
+    "category": "settings",
+    "text": {
+      "en": "Language",
+      "he": "שפה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fddd",
+    "key": "auth.logout",
+    "category": "auth",
+    "text": {
+      "en": "Logout",
+      "he": "התנתק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdde",
+    "key": "profile.gender",
+    "category": "profile",
+    "text": {
+      "en": "Gender",
+      "he": "מגדר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fddf",
+    "key": "profile.gender.male",
+    "category": "profile",
+    "text": {
+      "en": "Male",
+      "he": "זכר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde0",
+    "key": "profile.gender.female",
+    "category": "profile",
+    "text": {
+      "en": "Female",
+      "he": "נקבה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde1",
+    "key": "profile.gender.other",
+    "category": "profile",
+    "text": {
+      "en": "Other",
+      "he": "אחר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde2",
+    "key": "profile.gameConfig",
+    "category": "profile",
+    "text": {
+      "en": "Game Configuration",
+      "he": "הגדרות משחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde3",
+    "key": "profile.questionsPerTournament",
+    "category": "profile",
+    "text": {
+      "en": "Questions per Tournament",
+      "he": "שאלות לטורניר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde4",
+    "key": "profile.gameTimer",
+    "category": "profile",
+    "text": {
+      "en": "Game Timer",
+      "he": "טיימר משחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde5",
+    "key": "profile.timerOn",
+    "category": "profile",
+    "text": {
+      "en": "On",
+      "he": "פעיל"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde6",
+    "key": "profile.timerOff",
+    "category": "profile",
+    "text": {
+      "en": "Off",
+      "he": "כבוי"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde7",
+    "key": "profile.favoriteSubjects",
+    "category": "profile",
+    "text": {
+      "en": "Favorite Subjects",
+      "he": "נושאים מועדפים"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde8",
+    "key": "profile.localTime",
+    "category": "profile",
+    "text": {
+      "en": "Local Time",
+      "he": "זמן מקומי"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fde9",
+    "key": "profile.timezone",
+    "category": "profile",
+    "text": {
+      "en": "Timezone",
+      "he": "אזור זמן"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdea",
+    "key": "common.zoom",
+    "category": "common",
+    "text": {
+      "en": "Zoom",
+      "he": "זום"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdeb",
+    "key": "common.cancel",
+    "category": "common",
+    "text": {
+      "en": "Cancel",
+      "he": "ביטול"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdec",
+    "key": "common.saveShort",
+    "category": "common",
+    "text": {
+      "en": "Save",
+      "he": "שמור"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fded",
+    "key": "lobby.title",
+    "category": "lobby",
+    "text": {
+      "en": "Trivia Challenge",
+      "he": "אתגר הטריוויה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdee",
+    "key": "lobby.subtitle",
+    "category": "lobby",
+    "text": {
+      "en": "Test your knowledge across various topics and compete with others!",
+      "he": "בחן את הידע שלך במגוון נושאים והתחרה באחרים!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdef",
+    "key": "lobby.selectSubject",
+    "category": "lobby",
+    "text": {
+      "en": "Select a Subject",
+      "he": "בחר נושא"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf0",
+    "key": "lobby.startGame",
+    "category": "lobby",
+    "text": {
+      "en": "Start Game",
+      "he": "התחל משחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf1",
+    "key": "lobby.noQuestions",
+    "category": "lobby",
+    "text": {
+      "en": "No questions available for this subject.",
+      "he": "אין שאלות זמינות לנושא זה."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf2",
+    "key": "lobby.startFailed",
+    "category": "lobby",
+    "text": {
+      "en": "Failed to start game. Please try again.",
+      "he": "התחלת המשחק נכשלה. נסה שנית."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf3",
+    "key": "common.questions",
+    "category": "common",
+    "text": {
+      "en": "Questions",
+      "he": "שאלות"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf4",
+    "key": "report.buttonText",
+    "category": "report",
+    "text": {
+      "en": "Report Incorrect Question",
+      "he": "דווח על שאלה שגויה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf5",
+    "key": "report.title",
+    "category": "report",
+    "text": {
+      "en": "Report Issue",
+      "he": "דיווח על בעיה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf6",
+    "key": "report.description",
+    "category": "report",
+    "text": {
+      "en": "Select the questions you want to report and specify the issue.",
+      "he": "בחר את השאלות שברצונך לדווח עליהן ופרט את הבעיה."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf7",
+    "key": "report.types.text",
+    "category": "report",
+    "text": {
+      "en": "Question Text",
+      "he": "ניסוח השאלה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf8",
+    "key": "report.types.answers",
+    "category": "report",
+    "text": {
+      "en": "Answers",
+      "he": "תשובות"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdf9",
+    "key": "report.types.correctAnswer",
+    "category": "report",
+    "text": {
+      "en": "Correct Answer",
+      "he": "תשובה נכונה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdfa",
+    "key": "report.types.other",
+    "category": "report",
+    "text": {
+      "en": "Other",
+      "he": "אחר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdfb",
+    "key": "report.correctionPlaceholder",
+    "category": "report",
+    "text": {
+      "en": "Describe the issue or provide the correct text...",
+      "he": "תאר את הבעיה או הצע תיקון..."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdfc",
+    "key": "report.submit",
+    "category": "report",
+    "text": {
+      "en": "Submit Report",
+      "he": "שלח דיווח"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdfd",
+    "key": "report.error",
+    "category": "report",
+    "text": {
+      "en": "Failed to submit report. Please try again.",
+      "he": "שליחת הדיווח נכשלה. אנא נסה שוב."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdfe",
+    "key": "report.successTitle",
+    "category": "report",
+    "text": {
+      "en": "Report Submitted",
+      "he": "הדיווח נשלח"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fdff",
+    "key": "report.successMessage",
+    "category": "report",
+    "text": {
+      "en": "Thank you for helping us improve the game!",
+      "he": "תודה על העזרה בשיפור המשחק!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe00",
+    "key": "leaderboard.title",
+    "category": "leaderboard",
+    "text": {
+      "en": "Leaderboard",
+      "he": "טבלת מובילים"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe01",
+    "key": "leaderboard.empty",
+    "category": "leaderboard",
+    "text": {
+      "en": "No scores yet. Be the first to play!",
+      "he": "אין תוצאות עדיין. היה הראשון לשחק!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe02",
+    "key": "result.gameOver",
+    "category": "result",
+    "text": {
+      "en": "Game Over!",
+      "he": "המשחק נגמר!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe03",
+    "key": "result.yourScore",
+    "category": "result",
+    "text": {
+      "en": "Your Score",
+      "he": "הניקוד שלך"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe04",
+    "key": "result.goodTry",
+    "category": "result",
+    "text": {
+      "en": "Good Try!",
+      "he": "ניסיון יפה!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe05",
+    "key": "result.wellDone",
+    "category": "result",
+    "text": {
+      "en": "Well Done!",
+      "he": "כל הכבוד!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe06",
+    "key": "result.excellent",
+    "category": "result",
+    "text": {
+      "en": "Excellent!",
+      "he": "מצוין!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe07",
+    "key": "result.scoreSaved",
+    "category": "result",
+    "text": {
+      "en": "Score Saved!",
+      "he": "הניקוד נשמר!"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe08",
+    "key": "result.playAgain",
+    "category": "result",
+    "text": {
+      "en": "Play Again",
+      "he": "שחק שוב"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe09",
+    "key": "result.viewLeaderboard",
+    "category": "result",
+    "text": {
+      "en": "Leaderboard",
+      "he": "טבלת מובילים"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0a",
+    "key": "login.selectUser",
+    "category": "login",
+    "text": {
+      "en": "Select User",
+      "he": "בחר משתמש"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0b",
+    "key": "login.createUser",
+    "category": "login",
+    "text": {
+      "en": "Create New User",
+      "he": "צור משתמש חדש"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0c",
+    "key": "login.proceed",
+    "category": "login",
+    "text": {
+      "en": "Proceed with {name}",
+      "he": "המשך עם {name}"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0d",
+    "key": "login.searchPlaceholder",
+    "category": "login",
+    "text": {
+      "en": "Search username...",
+      "he": "חפש שם משתמש..."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0e",
+    "key": "login.gender",
+    "category": "login",
+    "text": {
+      "en": "Gender",
+      "he": "מגדר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe0f",
+    "key": "login.avatar",
+    "category": "login",
+    "text": {
+      "en": "Profile Picture",
+      "he": "תמונת פרופיל"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe10",
+    "key": "profile.deleteAccount",
+    "category": "profile",
+    "text": {
+      "en": "Delete Account",
+      "he": "מחק חשבון"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe11",
+    "key": "profile.deleteConfirmationTitle",
+    "category": "profile",
+    "text": {
+      "en": "Delete Account",
+      "he": "מחיקת חשבון"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe12",
+    "key": "profile.deleteConfirmationMessage",
+    "category": "profile",
+    "text": {
+      "en": "Are you sure you want to delete your account? This action cannot be undone.",
+      "he": "האם אתה בטוח שברצונך למחוק את החשבון? פעולה זו אינה הפיכה."
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe13",
+    "key": "profile.deleteConfirmButton",
+    "category": "profile",
+    "text": {
+      "en": "Delete",
+      "he": "מחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe14",
+    "key": "profile.deleteCancelButton",
+    "category": "profile",
+    "text": {
+      "en": "Cancel",
+      "he": "ביטול"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe15",
+    "key": "profile.questionsPerTournamentDesc",
+    "category": "profile",
+    "text": {
+      "en": "Number of questions in each tournament round",
+      "he": "מספר השאלות בכל סבב טורניר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe16",
+    "key": "profile.enableTimer",
+    "category": "profile",
+    "text": {
+      "en": "Enable Timer",
+      "he": "הפעל טיימר"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe17",
+    "key": "profile.enableTimerDesc",
+    "category": "profile",
+    "text": {
+      "en": "Limit the time for each question",
+      "he": "הגבל את הזמן לכל שאלה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe18",
+    "key": "profile.timePerQuestion",
+    "category": "profile",
+    "text": {
+      "en": "Time per Question",
+      "he": "זמן לשאלה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe19",
+    "key": "profile.timePerQuestionDesc",
+    "category": "profile",
+    "text": {
+      "en": "Seconds allowed for each question",
+      "he": "שניות מוקצבות לכל שאלה"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  },
+  {
+    "_id": "692ed7c8d3b7ecffaf26fe1a",
+    "key": "profile.gameSettings",
+    "category": "profile",
+    "text": {
+      "en": "Game Settings",
+      "he": "הגדרות משחק"
+    },
+    "__v": 0,
+    "createdAt": "2025-12-02T12:12:56.346Z",
+    "updatedAt": "2025-12-02T12:12:56.346Z"
+  }
+]
