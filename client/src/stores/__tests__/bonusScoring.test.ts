@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useGameStore } from '../useGameStore';
-import { GameStatus } from '@trivia/shared';
+
 
 describe('Bonus Scoring Logic', () => {
     beforeEach(() => {
@@ -23,7 +23,7 @@ describe('Bonus Scoring Logic', () => {
             }
         ];
 
-        useGameStore.getState().startGame(questions);
+        useGameStore.getState().startGame(questions as any);
 
         // Answer correctly with 25s left out of 30s
         // Bonus = 50 * (25/30) * (60/30) = 50 * 0.833 * 2 = 83.33 -> 80
@@ -50,7 +50,7 @@ describe('Bonus Scoring Logic', () => {
             }
         ];
 
-        useGameStore.getState().startGame(questions);
+        useGameStore.getState().startGame(questions as any);
 
         // Answer correctly with 8s left out of 10s
         // Bonus = 50 * (8/10) * (60/10) = 50 * 0.8 * 6 = 240 -> 240
@@ -77,7 +77,7 @@ describe('Bonus Scoring Logic', () => {
             }
         ];
 
-        useGameStore.getState().startGame(questions);
+        useGameStore.getState().startGame(questions as any);
 
         useGameStore.getState().submitAnswer('1', 0, 0, 30);
 
@@ -102,7 +102,7 @@ describe('Bonus Scoring Logic', () => {
             }
         ];
 
-        useGameStore.getState().startGame(questions);
+        useGameStore.getState().startGame(questions as any);
 
         useGameStore.getState().submitAnswer('1', 1, 25, 30); // Wrong answer
 
