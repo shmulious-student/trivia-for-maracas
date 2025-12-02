@@ -4,13 +4,14 @@ import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Trophy, RefreshCw } from 'lucide-react';
+import posthog from '../../lib/posthog';
 
 const API_BASE = 'http://localhost:3000/api';
 
 const Result: React.FC = () => {
     const { t } = useLanguage();
     const { score, questions, resetGame } = useGameStore();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const maxScore = questions.length * 10;
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -30,6 +31,14 @@ const Result: React.FC = () => {
                 { score },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
+
+            // Track Event
+            posthog.capture('game_completed', {
+                score,
+                max_score: maxScore,
+                username: user?.username
+            });
+
             setSubmitted(true);
         } catch (error) {
             console.error('Failed to submit score:', error);

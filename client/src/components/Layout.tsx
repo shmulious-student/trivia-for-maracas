@@ -1,8 +1,8 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Moon, Sun, Globe, Settings as SettingsIcon, User as UserIcon, Trophy } from 'lucide-react';
+import { Moon, Sun, Globe, Settings as SettingsIcon, User as UserIcon, Trophy, Home } from 'lucide-react';
 
 const Layout: React.FC = () => {
     const { language, setLanguage } = useLanguage();
@@ -17,21 +17,26 @@ const Layout: React.FC = () => {
                 alignItems: 'center',
                 borderBottom: '1px solid var(--bg-secondary)'
             }}>
-                <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Trivia App</div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button onClick={() => window.location.href = '/profile'} title="Profile">
+                <Link to="/" style={{ fontWeight: 'bold', fontSize: '1.2rem', textDecoration: 'none', color: 'inherit' }}>
+                    Trivia App
+                </Link>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <Link to="/" title="Home" style={{ color: 'inherit' }}>
+                        <Home size={20} />
+                    </Link>
+                    <Link to="/profile" title="Profile" style={{ color: 'inherit' }}>
                         <UserIcon size={20} />
-                    </button>
-                    <button onClick={() => window.location.href = '/leaderboard'} title="Leaderboard">
+                    </Link>
+                    <Link to="/leaderboard" title="Leaderboard" style={{ color: 'inherit' }}>
                         <Trophy size={20} />
-                    </button>
-                    <button onClick={() => window.location.href = '/settings'} title="Settings">
+                    </Link>
+                    <Link to="/settings" title="Settings" style={{ color: 'inherit' }}>
                         <SettingsIcon size={20} />
-                    </button>
-                    <button onClick={toggleTheme} title="Toggle Theme">
+                    </Link>
+                    <button onClick={toggleTheme} title="Toggle Theme" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit' }}>
                         {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
-                    <button onClick={() => setLanguage(language === 'he' ? 'en' : 'he')} title="Switch Language">
+                    <button onClick={() => setLanguage(language === 'he' ? 'en' : 'he')} title="Switch Language" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', display: 'flex', alignItems: 'center' }}>
                         <Globe size={20} />
                         <span style={{ marginLeft: '0.5rem' }}>{language.toUpperCase()}</span>
                     </button>

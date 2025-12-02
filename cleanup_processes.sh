@@ -11,8 +11,10 @@ pkill -f "run-driver"
 lsof -ti:3000 | xargs kill -9 2>/dev/null
 # Port 5000 (Flask/Python)
 lsof -ti:5000 | xargs kill -9 2>/dev/null
-# Port 5173 (Vite)
+# Port 5173 (Vite Client)
 lsof -ti:5173 | xargs kill -9 2>/dev/null
+# Port 5174 (Vite Backoffice)
+lsof -ti:5174 | xargs kill -9 2>/dev/null
 # Port 8000 (Python/Django)
 lsof -ti:8000 | xargs kill -9 2>/dev/null
 # Port 8080

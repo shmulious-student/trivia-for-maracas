@@ -7,7 +7,11 @@ import Dashboard from './pages/Dashboard';
 import SubjectManager from './pages/SubjectManager';
 import QuestionManager from './pages/QuestionManager';
 import TranslationManager from './pages/TranslationManager';
+import { initPostHog } from './lib/posthog';
 import './index.css';
+
+// Initialize Analytics
+initPostHog();
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAdminAuth();

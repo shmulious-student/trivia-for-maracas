@@ -1,7 +1,11 @@
-import express from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+
+// Load env vars immediately
+dotenv.config({ path: path.join(__dirname, '../.env') });
+
+import express from 'express';
+import cors from 'cors';
 import { connectDB } from './db';
 
 import configRoutes from './routes/config';
@@ -14,16 +18,13 @@ import userRoutes from './routes/users';
 import leaderboardRoutes from './routes/leaderboard';
 import { errorHandler } from './middleware/error';
 
-// Load env vars
-dotenv.config({ path: path.join(__dirname, '../.env') });
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Database Connection
 connectDB();

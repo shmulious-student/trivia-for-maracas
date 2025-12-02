@@ -9,7 +9,11 @@ import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import Leaderboard from './pages/Leaderboard';
+import { initPostHog } from './lib/posthog';
 import './index.css';
+
+// Initialize Analytics
+initPostHog();
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();

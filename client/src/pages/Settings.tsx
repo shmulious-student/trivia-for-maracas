@@ -10,14 +10,14 @@ const Settings: React.FC = () => {
 
     return (
         <div style={{ padding: '1rem' }}>
-            <h1>{t('Settings')}</h1>
+            <h1>{t('settings.title')}</h1>
 
             <div style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 {user?.avatarUrl && (
                     <img
-                        src={user.avatarUrl}
+                        src={`http://localhost:3000${user.avatarUrl}`}
                         alt="Avatar"
-                        style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover' }}
+                        style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--accent)' }}
                     />
                 )}
                 <div>
@@ -27,17 +27,17 @@ const Settings: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '8px' }}>
-                    <h3>{t('Appearance')}</h3>
+                    <h3>{t('settings.appearance')}</h3>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
-                        <span>{t('Dark Mode')}</span>
+                        <span>{t('settings.darkMode')}</span>
                         <button onClick={toggleTheme}>
-                            {theme === 'dark' ? t('On') : t('Off')}
+                            {theme === 'dark' ? t('common.on') : t('common.off')}
                         </button>
                     </div>
                 </div>
 
                 <div style={{ padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '8px' }}>
-                    <h3>{t('Language')}</h3>
+                    <h3>{t('settings.language')}</h3>
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                         <button
                             onClick={() => setLanguage('he')}
@@ -69,7 +69,7 @@ const Settings: React.FC = () => {
                         color: 'var(--danger)'
                     }}
                 >
-                    {t('Logout')}
+                    {t('auth.logout')}
                 </button>
             </div>
         </div>

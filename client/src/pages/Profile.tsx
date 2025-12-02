@@ -1,53 +1,77 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Camera, Save, User as UserIcon } from 'lucide-react';
+import { Camera, Save, User as UserIcon, X, Check } from 'lucide-react';
 import axios from 'axios';
+import Cropper from 'react-easy-crop';
+import getCroppedImg from '../utils/cropImage';
 
 const API_BASE = 'http://localhost:3000/api';
 
 const Profile: React.FC = () => {
-    const { user } = useAuth(); // login updates the user state
+    const { user, updateUser } = useAuth(); // login updates the user state
     const { t } = useLanguage();
     const [username, setUsername] = useState(user?.username || '');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    // Cropper State
+    const [imageSrc, setImageSrc] = useState<string | null>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+    const [isCropping, setIsCropping] = useState(false);
+
     const handleAvatarClick = () => {
         fileInputRef.current?.click();
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                setImageSrc(reader.result as string);
+                setIsCropping(true);
+            });
+            reader.readAsDataURL(file);
+        }
+    };
 
-        const formData = new FormData();
-        formData.append('avatar', file);
+    const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
+    const handleUploadCroppedImage = async () => {
+        if (!imageSrc || !croppedAreaPixels) return;
 
         try {
             setLoading(true);
+            const croppedImageBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+
+            if (!croppedImageBlob) {
+                throw new Error('Failed to crop image');
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', croppedImageBlob, 'avatar.jpg');
+
             const token = localStorage.getItem('token');
-            await axios.post(`${API_BASE}/users/avatar`, formData, {
+            const res = await axios.post(`${API_BASE}/users/avatar`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            // Update local user state with new avatar
-            // We re-use login to update the user object in context, 
-            // assuming the backend returns the updated user.
-            // Ideally AuthContext should have an updateProfile method, but this works if we just update the user object.
-            // For now, let's assume we need to manually update or re-fetch.
-            // Since useAuth doesn't expose a simple update, we might need to reload or hack it slightly if we don't want to refactor AuthContext.
-            // Let's try to just show success and maybe the user needs to refresh or we can try to update if possible.
-            // Actually, the login function usually takes a token and user.
-            // Let's just show a success message.
-            setMessage({ type: 'success', text: t('profile.avatarUpdated') });
+            if (res.data.user) {
+                updateUser(res.data.user);
+            }
 
-            // Force reload to see changes if context doesn't support update
-            window.location.reload();
+            setMessage({ type: 'success', text: t('profile.avatarUpdated') });
+            setIsCropping(false);
+            setImageSrc(null);
 
         } catch (err) {
             console.error(err);
@@ -62,12 +86,15 @@ const Profile: React.FC = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            await axios.put(`${API_BASE}/users/profile`, { username }, {
+            const res = await axios.put(`${API_BASE}/users/profile`, { username }, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+
+            if (res.data) {
+                updateUser(res.data);
+            }
+
             setMessage({ type: 'success', text: t('profile.saved') });
-            // Ideally update context here too
-            window.location.reload();
         } catch (err: any) {
             console.error(err);
             setMessage({ type: 'error', text: err.response?.data?.message || t('profile.saveFailed') });
@@ -83,12 +110,16 @@ const Profile: React.FC = () => {
             <div className="card max-w-md mx-auto">
                 <div className="flex flex-col items-center mb-6">
                     <div className="relative cursor-pointer group" onClick={handleAvatarClick}>
-                        <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-accent-primary bg-bg-tertiary flex items-center justify-center">
+                        <div
+                            className="rounded-full overflow-hidden border-4 border-accent-primary bg-bg-tertiary flex items-center justify-center"
+                            style={{ width: '120px', height: '120px' }}
+                        >
                             {user?.avatarUrl ? (
                                 <img
                                     src={`http://localhost:3000${user.avatarUrl}`}
                                     alt="Avatar"
                                     className="w-full h-full object-cover"
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
                             ) : (
                                 <UserIcon size={48} className="text-text-secondary" />
@@ -132,6 +163,75 @@ const Profile: React.FC = () => {
                     </button>
                 </form>
             </div>
+
+            {/* Cropper Modal */}
+            {isCropping && imageSrc && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+                    <div
+                        className="relative bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10"
+                        style={{ width: '40vw', height: '40vh', minWidth: '320px', minHeight: '320px' }}
+                    >
+                        {/* Cropper fills the container */}
+                        <div className="absolute inset-0 z-0">
+                            <Cropper
+                                image={imageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={1}
+                                onCropChange={setCrop}
+                                onCropComplete={onCropComplete}
+                                onZoomChange={setZoom}
+                                cropShape="round"
+                                showGrid={false}
+                            />
+                        </div>
+
+                        {/* Floating Controls Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex flex-col gap-3 z-50">
+                            {/* Zoom Control */}
+                            <div className="flex items-center gap-3 px-2">
+                                <span className="text-xs font-medium text-white/80">Zoom</span>
+                                <input
+                                    type="range"
+                                    value={zoom}
+                                    min={1}
+                                    max={3}
+                                    step={0.1}
+                                    aria-labelledby="Zoom"
+                                    onChange={(e) => setZoom(Number(e.target.value))}
+                                    className="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-accent-primary hover:bg-white/40 transition-colors"
+                                />
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex justify-between items-center pt-2">
+                                <button
+                                    onClick={() => setIsCropping(false)}
+                                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium backdrop-blur-sm transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleUploadCroppedImage}
+                                    className="px-6 py-2 rounded-full bg-accent-primary hover:bg-accent-secondary text-white text-sm font-bold shadow-lg flex items-center gap-2 transition-transform active:scale-95"
+                                    disabled={loading}
+                                >
+                                    <Check size={16} />
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Close Button (Top Right) */}
+                        <button
+                            onClick={() => setIsCropping(false)}
+                            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 hover:text-white backdrop-blur-sm transition-colors z-20"
+                        >
+                            <X size={20} />
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

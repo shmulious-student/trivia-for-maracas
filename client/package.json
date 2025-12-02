@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5173",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,8 +15,10 @@
     "axios": "^1.13.2",
     "framer-motion": "^12.23.25",
     "lucide-react": "^0.555.0",
+    "posthog-js": "^1.299.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-easy-crop": "^5.5.6",
     "react-router-dom": "^7.9.6",
     "zustand": "^5.0.9"
   },
