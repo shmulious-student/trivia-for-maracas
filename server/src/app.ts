@@ -49,6 +49,14 @@ app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date() });
 });
 
+// Serve client static files
+app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+// Handle SPA routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+});
+
 // Error Handling
 app.use(errorHandler);
 
