@@ -141,12 +141,15 @@ const Lobby: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-2 shrink-0"
             >
-                <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400">
-                    {t('lobby.title')}
-                </h1>
-                <p className="text-lg text-text-secondary max-w-lg mx-auto">
-                    {t('lobby.subtitle')}
-                </p>
+                <div className="text-center mb-8">
+                    <img
+                        src="/cow-dancing.png"
+                        alt="Dancing Cow"
+                        className="w-32 h-32 mx-auto mb-4 animate-bounce object-contain"
+                    />
+                    <h1 className="text-4xl font-bold text-primary mb-2">{t('lobby.title')}</h1>
+                    <p className="text-text-secondary">{t('lobby.subtitle')}</p>
+                </div>
             </motion.div>
 
             <div className="flex-1 min-h-0 flex flex-col space-y-4">

@@ -74,7 +74,11 @@ const Result: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
             <div className="text-center">
-                <Trophy size={64} className="text-yellow-400 mx-auto mb-4" />
+                <img
+                    src="/cow-celebrating.png"
+                    alt="Game Over!"
+                    className="w-40 h-40 mx-auto mb-4 object-contain animate-bounce"
+                />
                 <h1 className="text-5xl font-bold text-primary mb-2">{t('result.gameOver')}</h1>
                 <p className="text-2xl text-text-primary font-medium">{message}</p>
             </div>

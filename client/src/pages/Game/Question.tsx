@@ -146,6 +146,23 @@ const Question: React.FC = () => {
                 </div>
 
                 <AnimatePresence>
+                    {hasAnswered && selectedAnswer === question.correctAnswerIndex && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5, y: 50 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.5 }}
+                            className="fixed bottom-4 right-4 z-50 pointer-events-none"
+                        >
+                            <img
+                                src="/cow-celebrating.png"
+                                alt="Correct!"
+                                className="w-48 h-48 object-contain drop-shadow-2xl"
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <AnimatePresence>
                     {hasAnswered && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
