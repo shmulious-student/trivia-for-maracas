@@ -1,9 +1,13 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Button } from '../../components/ui/Button';
+import { cn } from '../../lib/utils';
+import { CheckCircle, XCircle, ArrowRight } from 'lucide-react';
 
 const Question: React.FC = () => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const { questions, currentQuestionIndex, submitAnswer, nextQuestion, answers } = useGameStore();
 
     const question = questions[currentQuestionIndex];
@@ -16,61 +20,105 @@ const Question: React.FC = () => {
         }
     };
 
-    if (!question) return <div>Loading...</div>;
+    if (!question) return (
+        <div className="flex items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-primary"></div>
+        </div>
+    );
 
     return (
-        <div className="flex flex-col items-center justify-center h-full p-4 space-y-8">
-            <div className="w-full max-w-2xl">
-                <div className="mb-4 text-xl text-center text-text-secondary">
-                    Question {currentQuestionIndex + 1} / {questions.length}
+        <div className="flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-4 py-8">
+            <motion.div
+                key={question.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="w-full space-y-8"
+            >
+                {/* Progress Bar */}
+                <div className="w-full bg-bg-tertiary h-2 rounded-full overflow-hidden">
+                    <motion.div
+                        className="h-full bg-accent-primary"
+                        initial={{ width: `${((currentQuestionIndex) / questions.length) * 100}%` }}
+                        animate={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+                        transition={{ duration: 0.5 }}
+                    />
                 </div>
 
-                <h2 className="mb-8 text-3xl font-bold text-center text-text-primary">
-                    {question.text[language]}
-                </h2>
+                <div className="text-center space-y-2">
+                    <span className="text-sm font-medium text-text-muted uppercase tracking-wider">
+                        {t('common.question')} {currentQuestionIndex + 1} / {questions.length}
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight">
+                        {question.text[language]}
+                    </h2>
+                </div>
 
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                     {question.options.map((option, index) => {
-                        let buttonClass = "p-6 text-lg font-semibold transition-all rounded-xl border-2 ";
+                        const isSelected = selectedAnswer === index;
+                        const isCorrect = index === question.correctAnswerIndex;
+
+                        let variant = "glass-panel hover:border-accent-primary/50 hover:bg-bg-secondary/80";
+                        let icon = null;
 
                         if (hasAnswered) {
-                            if (index === question.correctAnswerIndex) {
-                                buttonClass += "bg-green-500/20 border-green-500 text-green-500";
-                            } else if (index === selectedAnswer) {
-                                buttonClass += "bg-red-500/20 border-red-500 text-red-500";
+                            if (isCorrect) {
+                                variant = "bg-success/20 border-success text-success shadow-[0_0_15px_var(--color-success)]";
+                                icon = <CheckCircle className="ms-auto text-success" size={20} />;
+                            } else if (isSelected) {
+                                variant = "bg-error/20 border-error text-error";
+                                icon = <XCircle className="ms-auto text-error" size={20} />;
                             } else {
-                                buttonClass += "bg-surface border-border text-text-secondary opacity-50";
+                                variant = "glass-panel opacity-50";
                             }
-                        } else {
-                            buttonClass += "bg-surface border-border hover:border-primary hover:bg-primary/10 cursor-pointer";
                         }
 
                         return (
-                            <button
+                            <motion.button
                                 key={index}
                                 onClick={() => handleAnswer(index)}
                                 disabled={hasAnswered}
-                                className={buttonClass}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={!hasAnswered ? { scale: 1.02 } : {}}
+                                whileTap={!hasAnswered ? { scale: 0.98 } : {}}
+                                className={cn(
+                                    "relative p-6 text-lg font-semibold rounded-xl border-2 text-start transition-all duration-200 flex items-center w-full",
+                                    variant
+                                )}
                             >
-                                {option.text[language]}
-                            </button>
+                                <span className="flex-grow">{option.text[language]}</span>
+                                {icon}
+                            </motion.button>
                         );
                     })}
                 </div>
 
-                {hasAnswered && (
-                    <div className="flex justify-center mt-8">
-                        <button
-                            onClick={nextQuestion}
-                            className="px-8 py-3 text-xl font-bold text-white transition-colors rounded-lg bg-primary hover:bg-primary-hover"
+                <AnimatePresence>
+                    {hasAnswered && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="flex justify-center pt-8"
                         >
-                            Next Question
-                        </button>
-                    </div>
-                )}
-            </div>
+                            <Button
+                                onClick={nextQuestion}
+                                size="lg"
+                                className="text-xl px-12 shadow-xl"
+                            >
+                                {currentQuestionIndex < questions.length - 1 ? t('common.next') : t('common.finish')}
+                                <ArrowRight className="ms-2" size={24} />
+                            </Button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </motion.div>
         </div>
     );
 };
 
 export default Question;
+

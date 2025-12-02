@@ -5,6 +5,8 @@ import { Camera, Save, User as UserIcon, X, Check } from 'lucide-react';
 import axios from 'axios';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../utils/cropImage';
+import { Button } from '../components/ui/Button';
+import { cn } from '../lib/utils';
 
 const API_BASE = 'http://localhost:3000/api';
 
@@ -39,7 +41,7 @@ const Profile: React.FC = () => {
         }
     };
 
-    const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+    const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: any) => {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
 
@@ -107,11 +109,11 @@ const Profile: React.FC = () => {
         <div className="container fade-in">
             <h1 className="text-2xl font-bold mb-6 text-center">{t('profile.title')}</h1>
 
-            <div className="card max-w-md mx-auto">
+            <div className="glass-panel max-w-md mx-auto p-6 rounded-xl">
                 <div className="flex flex-col items-center mb-6">
                     <div className="relative cursor-pointer group" onClick={handleAvatarClick}>
                         <div
-                            className="rounded-full overflow-hidden border-4 border-accent-primary bg-bg-tertiary flex items-center justify-center"
+                            className="rounded-full overflow-hidden border-4 border-accent-primary bg-bg-tertiary flex items-center justify-center shadow-glow"
                             style={{ width: '120px', height: '120px' }}
                         >
                             {user?.avatarUrl ? (
@@ -119,7 +121,6 @@ const Profile: React.FC = () => {
                                     src={`http://localhost:3000${user.avatarUrl}`}
                                     alt="Avatar"
                                     className="w-full h-full object-cover"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
                             ) : (
                                 <UserIcon size={48} className="text-text-secondary" />
@@ -140,14 +141,17 @@ const Profile: React.FC = () => {
                 </div>
 
                 {message && (
-                    <div className={`p-3 rounded mb-4 text-center ${message.type === 'success' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                    <div className={cn(
+                        "p-3 rounded-lg mb-4 text-center text-sm font-medium",
+                        message.type === 'success' ? "bg-success/20 text-success border border-success/20" : "bg-error/20 text-error border border-error/20"
+                    )}>
                         {message.text}
                     </div>
                 )}
 
                 <form onSubmit={handleSaveProfile} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1">{t('profile.username')}</label>
+                        <label className="block text-sm font-medium mb-1 text-text-secondary">{t('profile.username')}</label>
                         <input
                             type="text"
                             value={username}
@@ -157,22 +161,22 @@ const Profile: React.FC = () => {
                         />
                     </div>
 
-                    <button type="submit" className="btn btn-primary w-full" disabled={loading}>
-                        <Save size={18} className="mr-2" />
-                        {loading ? t('common.saving') : t('common.save')}
-                    </button>
+                    <Button type="submit" className="w-full" disabled={loading} isLoading={loading}>
+                        {!loading && <Save size={18} className="me-2" />}
+                        {t('common.save')}
+                    </Button>
                 </form>
             </div>
 
             {/* Cropper Modal */}
             {isCropping && imageSrc && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
                     <div
-                        className="relative bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10"
-                        style={{ width: '40vw', height: '40vh', minWidth: '320px', minHeight: '320px' }}
+                        className="relative bg-bg-primary rounded-xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
+                        style={{ width: '90%', maxWidth: '500px', height: '80vh', maxHeight: '600px' }}
                     >
                         {/* Cropper fills the container */}
-                        <div className="absolute inset-0 z-0">
+                        <div className="relative flex-grow w-full h-full bg-black">
                             <Cropper
                                 image={imageSrc}
                                 crop={crop}
@@ -186,11 +190,11 @@ const Profile: React.FC = () => {
                             />
                         </div>
 
-                        {/* Floating Controls Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex flex-col gap-3 z-50">
+                        {/* Controls */}
+                        <div className="p-4 bg-bg-secondary border-t border-white/10 flex flex-col gap-4 z-50">
                             {/* Zoom Control */}
-                            <div className="flex items-center gap-3 px-2">
-                                <span className="text-xs font-medium text-white/80">Zoom</span>
+                            <div className="flex items-center gap-3">
+                                <span className="text-xs font-medium text-text-secondary">Zoom</span>
                                 <input
                                     type="range"
                                     value={zoom}
@@ -199,26 +203,28 @@ const Profile: React.FC = () => {
                                     step={0.1}
                                     aria-labelledby="Zoom"
                                     onChange={(e) => setZoom(Number(e.target.value))}
-                                    className="flex-1 h-1.5 bg-white/30 rounded-lg appearance-none cursor-pointer accent-accent-primary hover:bg-white/40 transition-colors"
+                                    className="flex-1 h-1.5 bg-bg-tertiary rounded-lg appearance-none cursor-pointer accent-accent-primary hover:bg-bg-tertiary/80 transition-colors"
                                 />
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex justify-between items-center pt-2">
-                                <button
+                            <div className="flex justify-between items-center gap-4">
+                                <Button
+                                    variant="ghost"
                                     onClick={() => setIsCropping(false)}
-                                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium backdrop-blur-sm transition-colors"
+                                    className="flex-1"
                                 >
                                     Cancel
-                                </button>
-                                <button
+                                </Button>
+                                <Button
                                     onClick={handleUploadCroppedImage}
-                                    className="px-6 py-2 rounded-full bg-accent-primary hover:bg-accent-secondary text-white text-sm font-bold shadow-lg flex items-center gap-2 transition-transform active:scale-95"
+                                    className="flex-1 shadow-glow"
                                     disabled={loading}
+                                    isLoading={loading}
                                 >
-                                    <Check size={16} />
+                                    {!loading && <Check size={16} className="me-2" />}
                                     Save
-                                </button>
+                                </Button>
                             </div>
                         </div>
 
