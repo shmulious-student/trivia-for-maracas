@@ -83,6 +83,7 @@ export interface ILeaderboardEntry {
     score: number;
     subjectId?: string;
     subjectName?: IMultilingualText;
+    gameId?: string;
     date: Date;
 }
 

@@ -14,7 +14,7 @@ const Question: React.FC = () => {
     const { language, t } = useLanguage();
     const { playSound } = useSoundContext();
     const { user } = useAuth();
-    const { questions, currentQuestionIndex, submitAnswer, nextQuestion, answers } = useGameStore();
+    const { questions, currentQuestionIndex, submitAnswer, nextQuestion, answers, lastBonusPoints } = useGameStore();
 
     const question = questions[currentQuestionIndex];
     const selectedAnswer = answers[question.id];
@@ -52,7 +52,7 @@ const Question: React.FC = () => {
 
     const handleAnswer = (index: number) => {
         if (!hasAnswered) {
-            submitAnswer(question.id, index);
+            submitAnswer(question.id, index, timeLeft, initialTime);
             if (index === question.correctAnswerIndex) {
                 playSound('correct');
             } else {
@@ -106,9 +106,17 @@ const Question: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                    {question.options.map((option, index) => {
-                        const isSelected = selectedAnswer === index;
-                        const isCorrect = index === question.correctAnswerIndex;
+                    {React.useMemo(() => {
+                        const shuffled = [...question.options].map((option, index) => ({ ...option, originalIndex: index }));
+                        // Fisher-Yates shuffle
+                        for (let i = shuffled.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                        }
+                        return shuffled;
+                    }, [question.id]).map((option, index) => {
+                        const isSelected = selectedAnswer === option.originalIndex;
+                        const isCorrect = option.originalIndex === question.correctAnswerIndex;
 
                         let variant = "glass-panel hover:border-accent-primary/50 hover:bg-bg-secondary/80";
                         let icon = null;
@@ -126,23 +134,43 @@ const Question: React.FC = () => {
                         }
 
                         return (
-                            <motion.button
-                                key={index}
-                                onClick={() => handleAnswer(index)}
-                                disabled={hasAnswered}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={!hasAnswered ? { scale: 1.02 } : {}}
-                                whileTap={!hasAnswered ? { scale: 0.98 } : {}}
-                                className={cn(
-                                    "relative p-6 text-lg font-semibold rounded-xl border-2 text-start transition-all duration-200 flex items-center w-full",
-                                    variant
-                                )}
-                            >
-                                <span className="flex-grow">{option.text[language]}</span>
-                                {icon}
-                            </motion.button>
+                            <div key={index} className="relative w-full">
+                                <motion.button
+                                    onClick={() => handleAnswer(option.originalIndex)}
+                                    disabled={hasAnswered}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    whileHover={!hasAnswered ? { scale: 1.02 } : {}}
+                                    whileTap={!hasAnswered ? { scale: 0.98 } : {}}
+                                    className={cn(
+                                        "relative p-6 text-lg font-semibold rounded-xl border-2 text-start transition-all duration-200 flex items-center w-full",
+                                        variant
+                                    )}
+                                >
+                                    <span className="flex-grow">{option.text[language]}</span>
+                                    {icon}
+                                </motion.button>
+                                <AnimatePresence>
+                                    {hasAnswered && isCorrect && lastBonusPoints > 0 && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 0, x: "-50%", scale: 0.5 }}
+                                            animate={{
+                                                opacity: [0, 1, 1, 0],
+                                                y: -100,
+                                                x: ["-50%", `${-50 + (Math.random() * 40 - 20)}%`],
+                                                scale: [0.5, 1.2, 1]
+                                            }}
+                                            transition={{ duration: 2, ease: "easeOut" }}
+                                            className="absolute top-1/2 left-1/2 pointer-events-none z-50 whitespace-nowrap"
+                                        >
+                                            <span className="text-2xl font-black text-yellow-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] stroke-black tracking-wider">
+                                                +{lastBonusPoints} BONUS
+                                            </span>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         );
                     })}
                 </div>

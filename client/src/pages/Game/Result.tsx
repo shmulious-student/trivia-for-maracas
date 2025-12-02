@@ -15,10 +15,9 @@ const Result: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
     const { playSound } = useSoundContext();
-    const { score, questions, resetGame, isResultSubmitted, setResultSubmitted } = useGameStore();
+    const { score, questions, resetGame, isResultSubmitted, setResultSubmitted, gameId, isSubmitting, setSubmitting } = useGameStore();
     const { isAuthenticated, user } = useAuth();
     const maxScore = questions.length * 10;
-    const [submitting, setSubmitting] = useState(false);
 
     // useEffect(() => {
     //     return () => {
@@ -28,19 +27,21 @@ const Result: React.FC = () => {
 
     useEffect(() => {
         playSound('gameOver');
-        if (isAuthenticated && !isResultSubmitted && !submitting) {
+        if (isAuthenticated && !isResultSubmitted && !isSubmitting && gameId) {
             submitScore();
         }
-    }, [isAuthenticated, isResultSubmitted, submitting]);
+    }, [isAuthenticated, isResultSubmitted, isSubmitting, gameId]);
 
     const submitScore = async () => {
+        if (isSubmitting || isResultSubmitted) return;
+
         try {
             setSubmitting(true);
             const token = localStorage.getItem('token');
             const subjectId = questions.length > 0 ? questions[0].subjectId : undefined;
             const res = await axios.post(
                 `${API_BASE}/leaderboard`,
-                { score, subjectId },
+                { score, subjectId, gameId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
@@ -52,7 +53,8 @@ const Result: React.FC = () => {
             posthog.capture('game_completed', {
                 score,
                 max_score: maxScore,
-                username: user?.username
+                username: user?.username,
+                game_id: gameId
             });
 
             setResultSubmitted(true);

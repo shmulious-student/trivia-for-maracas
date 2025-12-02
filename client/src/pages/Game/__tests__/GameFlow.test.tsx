@@ -3,14 +3,20 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import GameRouter from '../GameRouter';
 import { useGameStore } from '../../../stores/useGameStore';
 import { LanguageProvider } from '../../../contexts/LanguageContext';
+import { AuthProvider } from '../../../contexts/AuthContext';
+import { SoundProvider } from '../../../contexts/SoundContext';
 // import type { IQuestion } from '@trivia/shared';
 
 // Helper to render with providers
 const renderWithProviders = (ui: React.ReactNode) => {
     return render(
-        <LanguageProvider>
-            {ui}
-        </LanguageProvider>
+        <AuthProvider>
+            <SoundProvider>
+                <LanguageProvider>
+                    {ui}
+                </LanguageProvider>
+            </SoundProvider>
+        </AuthProvider>
     );
 };
 
