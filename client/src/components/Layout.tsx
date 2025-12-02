@@ -1,11 +1,10 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Moon, Sun, Globe, User as UserIcon, Trophy, Home } from 'lucide-react';
+import { Moon, Sun, User as UserIcon, Trophy, Home } from 'lucide-react';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 const Layout: React.FC = () => {
-    const { language, setLanguage } = useLanguage();
     const { theme, toggleTheme } = useTheme();
 
     return (
@@ -33,10 +32,7 @@ const Layout: React.FC = () => {
                     <button onClick={toggleTheme} title="Toggle Theme" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit' }}>
                         {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
-                    <button onClick={() => setLanguage(language === 'he' ? 'en' : 'he')} title="Switch Language" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', display: 'flex', alignItems: 'center' }}>
-                        <Globe size={20} />
-                        <span style={{ marginLeft: '0.5rem' }}>{language.toUpperCase()}</span>
-                    </button>
+                    <LanguageSwitcher showLabel={false} />
                 </div>
             </header>
             <main style={{ flex: 1, padding: '1rem', maxWidth: '800px', margin: '0 auto', width: '100%' }}>

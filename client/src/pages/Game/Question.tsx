@@ -2,17 +2,49 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../lib/utils';
-import { CheckCircle, XCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, XCircle, ArrowRight, Clock } from 'lucide-react';
 
 const Question: React.FC = () => {
     const { language, t } = useLanguage();
+    const { user } = useAuth();
     const { questions, currentQuestionIndex, submitAnswer, nextQuestion, answers } = useGameStore();
 
     const question = questions[currentQuestionIndex];
     const selectedAnswer = answers[question.id];
     const hasAnswered = selectedAnswer !== undefined;
+
+    // Timer Logic
+    const [timeLeft, setTimeLeft] = React.useState(0);
+    const timerRef = React.useRef<any>(null);
+
+    const isTimerEnabled = user?.preferences?.isTimerEnabled ?? true;
+    const initialTime = user?.preferences?.gameTimer ?? 30;
+
+    React.useEffect(() => {
+        if (!isTimerEnabled || hasAnswered) {
+            if (timerRef.current) clearInterval(timerRef.current);
+            return;
+        }
+
+        setTimeLeft(initialTime);
+        timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1) {
+                    if (timerRef.current) clearInterval(timerRef.current);
+                    submitAnswer(question.id, -1); // Time's up
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current);
+        };
+    }, [question.id, hasAnswered, isTimerEnabled, initialTime]);
 
     const handleAnswer = (index: number) => {
         if (!hasAnswered) {
@@ -49,6 +81,16 @@ const Question: React.FC = () => {
                     <span className="text-sm font-medium text-text-muted uppercase tracking-wider">
                         {t('common.question')} {currentQuestionIndex + 1} / {questions.length}
                     </span>
+
+                    {isTimerEnabled && (
+                        <div className={cn(
+                            "flex items-center justify-center gap-2 text-xl font-mono font-bold mt-2",
+                            timeLeft <= 5 ? "text-error animate-pulse" : "text-accent-primary"
+                        )}>
+                            <Clock size={20} />
+                            {timeLeft}s
+                        </div>
+                    )}
                     <h2 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight">
                         {question.text[language]}
                     </h2>

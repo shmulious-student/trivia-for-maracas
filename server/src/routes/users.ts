@@ -63,7 +63,7 @@ router.post('/avatar', protect, upload.single('avatar'), async (req: any, res) =
 // Update Profile
 router.put('/profile', protect, async (req: any, res) => {
     try {
-        const { username } = req.body;
+        const { username, preferences } = req.body;
 
         // Check if username exists
         if (username) {
@@ -73,9 +73,13 @@ router.put('/profile', protect, async (req: any, res) => {
             }
         }
 
+        const updateData: any = {};
+        if (username) updateData.username = username;
+        if (preferences) updateData.preferences = preferences;
+
         const user = await User.findByIdAndUpdate(
             req.user.id,
-            { username },
+            { $set: updateData },
             { new: true }
         ).select('-password');
 

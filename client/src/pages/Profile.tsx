@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Camera, Save, User as UserIcon, X, Check, Moon, Sun, Globe, LogOut } from 'lucide-react';
+import { Camera, Save, User as UserIcon, X, Check, Moon, Sun, Globe, LogOut, Clock, List, Calendar } from 'lucide-react';
 import axios from 'axios';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../utils/cropImage';
@@ -17,9 +17,36 @@ const Profile: React.FC = () => {
     const { t, language, setLanguage } = useLanguage();
     const { theme, toggleTheme } = useTheme();
     const [username, setUsername] = useState(user?.username || '');
+    const [preferences, setPreferences] = useState<{
+        questionsPerTournament: number;
+        gameTimer: number;
+        isTimerEnabled: boolean;
+        favoriteSubjects: string[];
+        gender: 'male' | 'female' | 'other';
+    }>({
+        questionsPerTournament: 10,
+        gameTimer: 30,
+        isTimerEnabled: true,
+        favoriteSubjects: [],
+        gender: 'other',
+        ...user?.preferences
+    });
+    const [subjects, setSubjects] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    React.useEffect(() => {
+        const fetchSubjects = async () => {
+            try {
+                const res = await axios.get(`${API_BASE}/subjects`);
+                setSubjects(res.data);
+            } catch (err) {
+                console.error('Failed to fetch subjects', err);
+            }
+        };
+        fetchSubjects();
+    }, []);
 
     // Cropper State
     const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -91,7 +118,10 @@ const Profile: React.FC = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const res = await axios.put(`${API_BASE}/users/profile`, { username }, {
+            const res = await axios.put(`${API_BASE}/users/profile`, {
+                username,
+                preferences
+            }, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -171,6 +201,120 @@ const Profile: React.FC = () => {
                             className="input"
                             required
                         />
+                    </div>
+
+                    {/* Gender Selection */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1 text-text-secondary">{t('profile.gender')}</label>
+                        <select
+                            value={preferences.gender}
+                            onChange={(e) => setPreferences({ ...preferences, gender: e.target.value as any })}
+                            className="input w-full"
+                        >
+                            <option value="male">{t('profile.gender.male')}</option>
+                            <option value="female">{t('profile.gender.female')}</option>
+                            <option value="other">{t('profile.gender.other')}</option>
+                        </select>
+                    </div>
+
+                    {/* Game Configuration */}
+                    <div className="space-y-4 pt-4 border-t border-white/10">
+                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                            <Clock size={20} className="text-accent-secondary" />
+                            {t('profile.gameConfig')}
+                        </h3>
+
+                        {/* Questions per Tournament */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1 text-text-secondary">
+                                {t('profile.questionsPerTournament')}: {preferences.questionsPerTournament}
+                            </label>
+                            <input
+                                type="range"
+                                min="5"
+                                max="30"
+                                value={preferences.questionsPerTournament}
+                                onChange={(e) => setPreferences({ ...preferences, questionsPerTournament: Number(e.target.value) })}
+                                className="w-full accent-accent-primary"
+                            />
+                        </div>
+
+                        {/* Game Timer */}
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                                <label className="block text-sm font-medium text-text-secondary">
+                                    {t('profile.gameTimer')} ({preferences.gameTimer}s)
+                                </label>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs text-text-muted">{preferences.isTimerEnabled ? t('profile.timerOn') : t('profile.timerOff')}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => setPreferences({ ...preferences, isTimerEnabled: !preferences.isTimerEnabled })}
+                                        className={cn(
+                                            "relative w-10 h-5 rounded-full transition-colors duration-200",
+                                            preferences.isTimerEnabled ? "bg-accent-primary" : "bg-slate-600"
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "absolute top-1 left-1 w-3 h-3 rounded-full bg-white transition-transform duration-200",
+                                            preferences.isTimerEnabled ? "translate-x-5" : "translate-x-0"
+                                        )} />
+                                    </button>
+                                </div>
+                            </div>
+                            {preferences.isTimerEnabled && (
+                                <input
+                                    type="range"
+                                    min="5"
+                                    max="60"
+                                    value={preferences.gameTimer}
+                                    onChange={(e) => setPreferences({ ...preferences, gameTimer: Number(e.target.value) })}
+                                    className="w-full accent-accent-primary"
+                                />
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Favorite Subjects */}
+                    <div className="space-y-4 pt-4 border-t border-white/10">
+                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                            <List size={20} className="text-accent-tertiary" />
+                            {t('profile.favoriteSubjects')}
+                        </h3>
+                        <div className="grid grid-cols-2 gap-2">
+                            {subjects.map((subject) => (
+                                <button
+                                    key={subject.id}
+                                    type="button"
+                                    onClick={() => {
+                                        const current = preferences.favoriteSubjects || [];
+                                        const updated = current.includes(subject.id)
+                                            ? current.filter(id => id !== subject.id)
+                                            : [...current, subject.id];
+                                        setPreferences({ ...preferences, favoriteSubjects: updated });
+                                    }}
+                                    className={cn(
+                                        "p-2 rounded-lg text-sm border transition-all duration-200",
+                                        (preferences.favoriteSubjects || []).includes(subject.id)
+                                            ? "bg-accent-primary/20 border-accent-primary text-accent-primary"
+                                            : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50"
+                                    )}
+                                >
+                                    {subject.name[language]}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Timezone Display */}
+                    <div className="pt-4 border-t border-white/10">
+                        <div className="flex items-center gap-2 text-text-secondary text-sm">
+                            <Calendar size={16} />
+                            <span>{t('profile.localTime')}: {new Date().toLocaleString(language === 'he' ? 'he-IL' : 'en-US')}</span>
+                        </div>
+                        <div className="text-xs text-text-muted mt-1 ml-6">
+                            {t('profile.timezone')}: {Intl.DateTimeFormat().resolvedOptions().timeZone}
+                        </div>
                     </div>
 
                     <Button type="submit" className="w-full" disabled={loading} isLoading={loading}>
@@ -287,7 +431,7 @@ const Profile: React.FC = () => {
                         <div className="p-4 bg-bg-secondary border-t border-white/10 flex flex-col gap-4 z-50">
                             {/* Zoom Control */}
                             <div className="flex items-center gap-3">
-                                <span className="text-xs font-medium text-text-secondary">Zoom</span>
+                                <span className="text-xs font-medium text-text-secondary">{t('common.zoom')}</span>
                                 <input
                                     type="range"
                                     value={zoom}
@@ -307,7 +451,7 @@ const Profile: React.FC = () => {
                                     onClick={() => setIsCropping(false)}
                                     className="flex-1"
                                 >
-                                    Cancel
+                                    {t('common.cancel')}
                                 </Button>
                                 <Button
                                     onClick={handleUploadCroppedImage}
@@ -316,7 +460,7 @@ const Profile: React.FC = () => {
                                     isLoading={loading}
                                 >
                                     {!loading && <Check size={16} className="me-2" />}
-                                    Save
+                                    {t('common.saveShort')}
                                 </Button>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ const GameResultSchema = new Schema<IGameResultDocument>({
     userId: { type: String, required: true, ref: 'User' },
     username: { type: String, required: true },
     score: { type: Number, required: true },
+    subjectId: { type: String, ref: 'Subject' },
     date: { type: Date, default: Date.now }
 }, {
     timestamps: true,

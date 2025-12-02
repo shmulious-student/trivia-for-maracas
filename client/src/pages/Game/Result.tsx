@@ -29,9 +29,10 @@ const Result: React.FC = () => {
         try {
             setSubmitting(true);
             const token = localStorage.getItem('token');
+            const subjectId = questions.length > 0 ? questions[0].subjectId : undefined;
             await axios.post(
                 `${API_BASE}/leaderboard`,
-                { score },
+                { score, subjectId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 

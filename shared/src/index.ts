@@ -47,6 +47,14 @@ export interface IUser {
     password?: string; // Only for admins
     avatarUrl?: string;
     isAdmin?: boolean;
+    preferences?: {
+        questionsPerTournament?: number;
+        gameTimer?: number;
+        isTimerEnabled?: boolean;
+        favoriteSubjects?: string[];
+        gender?: 'male' | 'female' | 'other';
+        language?: 'en' | 'he';
+    };
     createdAt: Date;
     updatedAt: Date;
 }
@@ -67,7 +75,10 @@ export interface IGameState {
 export interface ILeaderboardEntry {
     userId: string;
     username: string;
+    avatarUrl?: string;
     score: number;
+    subjectId?: string;
+    subjectName?: IMultilingualText;
     date: Date;
 }
 

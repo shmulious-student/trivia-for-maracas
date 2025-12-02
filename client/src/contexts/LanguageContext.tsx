@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
+import enTranslations from '../locales/en.json';
+import heTranslations from '../locales/he.json';
 
 type Language = 'en' | 'he';
 type Direction = 'ltr' | 'rtl';
@@ -17,7 +20,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const API_URL = 'http://localhost:3000/api/ui-translations/map';
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [language, setLanguage] = useState<Language>('he');
+    const { user, updateUser } = useAuth();
+    const [language, setLanguageState] = useState<Language>(() => {
+        const saved = localStorage.getItem('language');
+        return (saved === 'en' || saved === 'he') ? saved : 'he';
+    });
     const [translations, setTranslations] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
     const direction = language === 'he' ? 'rtl' : 'ltr';
@@ -25,6 +32,45 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     useEffect(() => {
         fetchTranslations();
     }, []);
+
+    // Sync with user preferences on login
+    useEffect(() => {
+        if (user?.preferences?.language && user.preferences.language !== language) {
+            setLanguageState(user.preferences.language);
+            localStorage.setItem('language', user.preferences.language);
+        }
+    }, [user]);
+
+    const setLanguage = async (lang: Language) => {
+        setLanguageState(lang);
+        localStorage.setItem('language', lang);
+
+        if (user) {
+            try {
+                // Optimistically update user context
+                updateUser({
+                    ...user,
+                    preferences: {
+                        ...user.preferences,
+                        language: lang
+                    }
+                });
+
+                // Persist to backend
+                const token = localStorage.getItem('token');
+                await axios.put('http://localhost:3000/api/users/profile', {
+                    preferences: {
+                        ...user.preferences,
+                        language: lang
+                    }
+                }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+            } catch (error) {
+                console.error('Failed to save language preference:', error);
+            }
+        }
+    };
 
     useEffect(() => {
         document.documentElement.dir = direction;
@@ -42,37 +88,27 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         }
     };
 
-    const defaultTranslations: Record<string, { en: string; he: string }> = {
-        'profile.title': { en: 'Profile Settings', he: 'הגדרות פרופיל' },
-        'profile.username': { en: 'Username', he: 'שם משתמש' },
-        'profile.changeAvatar': { en: 'Click to change avatar', he: 'לחץ לשינוי תמונה' },
-        'profile.avatarUpdated': { en: 'Avatar updated successfully', he: 'התמונה עודכנה בהצלחה' },
-        'profile.uploadFailed': { en: 'Failed to upload avatar', he: 'נכשל בהעלאת התמונה' },
-        'profile.saved': { en: 'Profile saved successfully', he: 'הפרופיל נשמר בהצלחה' },
-        'profile.saveFailed': { en: 'Failed to save profile', he: 'נכשל בשמירת הפרופיל' },
-        'common.save': { en: 'Save Changes', he: 'שמור שינויים' },
-        'common.saving': { en: 'Saving...', he: 'שומר...' },
-        'common.question': { en: 'Question', he: 'שאלה' },
-        'common.next': { en: 'Next Question', he: 'לשאלה הבאה' },
-        'common.finish': { en: 'Finish Game', he: 'סיים משחק' },
-        'Join Game': { en: 'Join Game', he: 'הצטרף למשחק' },
-        'Enter your details to start playing': { en: 'Enter your details to start playing', he: 'הכנס פרטים כדי להתחיל' },
-        'Username': { en: 'Username', he: 'שם משתמש' },
-        'Enter your username': { en: 'Enter your username', he: 'הכנס שם משתמש' },
-        'Avatar URL (optional)': { en: 'Avatar URL (optional)', he: 'קישור לתמונה (אופציונלי)' },
-        'Start Playing': { en: 'Start Playing', he: 'התחל לשחק' },
-        'settings.title': { en: 'Settings', he: 'הגדרות' },
-        'settings.account': { en: 'Account Settings', he: 'הגדרות חשבון' },
-        'settings.appearance': { en: 'Appearance', he: 'מראה' },
-        'settings.darkMode': { en: 'Dark Mode', he: 'מצב כהה' },
-        'settings.language': { en: 'Language', he: 'שפה' },
-        'auth.logout': { en: 'Logout', he: 'התנתק' },
+    const localTranslations: Record<Language, Record<string, string>> = {
+        en: enTranslations,
+        he: heTranslations
     };
 
+    // ... (inside component)
+
     const t = (key: string) => {
-        const translation = translations[key] || defaultTranslations[key];
-        if (!translation) return key;
-        return translation[language] || key;
+        // 1. Try API translations (overrides)
+        if (translations[key] && translations[key][language]) {
+            return translations[key][language];
+        }
+
+        // 2. Try local JSON files
+        const local = localTranslations[language] as Record<string, string>;
+        if (local && local[key]) {
+            return local[key];
+        }
+
+        // 3. Fallback to key
+        return key;
     };
 
     return (

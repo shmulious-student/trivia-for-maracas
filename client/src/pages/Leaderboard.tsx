@@ -11,7 +11,7 @@ import { cn } from '../lib/utils';
 const API_BASE = 'http://localhost:3000/api';
 
 const Leaderboard: React.FC = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const { user } = useAuth();
     const [leaderboard, setLeaderboard] = useState<ILeaderboardEntry[]>([]);
     const [loading, setLoading] = useState(true);
@@ -96,16 +96,36 @@ const Leaderboard: React.FC = () => {
                                         {getRankIcon(index)}
                                     </div>
 
-                                    <div className="flex-grow px-4">
-                                        <div className={cn(
-                                            "font-bold text-lg",
-                                            isCurrentUser ? "text-accent-primary" : "text-text-primary",
-                                            index === 0 && "text-yellow-400"
-                                        )}>
-                                            {entry.username}
-                                        </div>
-                                        <div className="text-xs text-text-muted">
-                                            {new Date(entry.date).toLocaleDateString()}
+                                    <div className="flex items-center gap-3 flex-grow px-4">
+                                        {entry.avatarUrl ? (
+                                            <img
+                                                src={`http://localhost:3000${entry.avatarUrl}`}
+                                                alt={entry.username}
+                                                className="w-10 h-10 rounded-full object-cover border border-white/10"
+                                            />
+                                        ) : (
+                                            <div className="w-10 h-10 rounded-full bg-bg-tertiary flex items-center justify-center border border-white/10">
+                                                <span className="text-lg font-bold text-text-secondary">{entry.username.charAt(0).toUpperCase()}</span>
+                                            </div>
+                                        )}
+
+                                        <div>
+                                            <div className={cn(
+                                                "font-bold text-lg leading-none mb-1",
+                                                isCurrentUser ? "text-accent-primary" : "text-text-primary",
+                                                index === 0 && "text-yellow-400"
+                                            )}>
+                                                {entry.username}
+                                            </div>
+                                            <div className="flex flex-wrap items-center gap-x-2 text-xs text-text-muted">
+                                                {entry.subjectName && (
+                                                    <>
+                                                        <span className="text-accent-secondary font-medium">{entry.subjectName[language]}</span>
+                                                        <span className="text-white/20">•</span>
+                                                    </>
+                                                )}
+                                                <span>{new Date(entry.date).toLocaleString(language === 'he' ? 'he-IL' : 'en-US')}</span>
+                                            </div>
                                         </div>
                                     </div>
 

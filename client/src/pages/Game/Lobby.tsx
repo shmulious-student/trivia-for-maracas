@@ -3,6 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import type { ISubject, IQuestion } from '@trivia/shared';
 import { Play, BookOpen, Trophy, Star } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
@@ -13,6 +14,7 @@ const API_BASE = 'http://localhost:3000/api';
 
 const Lobby: React.FC = () => {
     const { t, language } = useLanguage();
+    const { user } = useAuth();
     const startGame = useGameStore((state) => state.startGame);
     const [subjects, setSubjects] = useState<ISubject[]>([]);
     const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
@@ -34,12 +36,26 @@ const Lobby: React.FC = () => {
         }
     };
 
+    const sortedSubjects = React.useMemo(() => {
+        if (!user?.preferences?.favoriteSubjects || user.preferences.favoriteSubjects.length === 0) {
+            return subjects;
+        }
+        return [...subjects].sort((a, b) => {
+            const aFav = user.preferences!.favoriteSubjects!.includes(a.id);
+            const bFav = user.preferences!.favoriteSubjects!.includes(b.id);
+            if (aFav && !bFav) return -1;
+            if (!aFav && bFav) return 1;
+            return 0;
+        });
+    }, [subjects, user]);
+
     const handleStart = async () => {
         if (!selectedSubject) return;
 
         try {
             setStarting(true);
-            const res = await axios.get(`${API_BASE}/questions?subjectId=${selectedSubject}`);
+            const limit = user?.preferences?.questionsPerTournament || 10;
+            const res = await axios.get(`${API_BASE}/questions?subjectId=${selectedSubject}&limit=${limit}`);
             const questions: IQuestion[] = res.data;
 
             if (questions.length === 0) {
@@ -90,7 +106,7 @@ const Lobby: React.FC = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {subjects.map((subject, index) => (
+                    {sortedSubjects.map((subject, index) => (
                         <motion.button
                             key={subject.id}
                             initial={{ opacity: 0, scale: 0.9 }}

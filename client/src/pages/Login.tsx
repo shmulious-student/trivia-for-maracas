@@ -6,6 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { User, Sparkles, ArrowRight } from 'lucide-react';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -37,7 +38,10 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-[80vh] px-4">
+        <div className="flex items-center justify-center min-h-[80vh] px-4 relative">
+            <div className="absolute top-4 right-4">
+                <LanguageSwitcher />
+            </div>
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}

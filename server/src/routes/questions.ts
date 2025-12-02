@@ -3,12 +3,23 @@ import { Question } from '../models/Question';
 
 const router = express.Router();
 
-// Get Questions (optional filter by subjectId)
+// Get Questions (optional filter by subjectId, limit)
 router.get('/', async (req, res) => {
     try {
-        const { subjectId } = req.query;
+        const { subjectId, limit } = req.query;
         const query = subjectId ? { subjectId } : {};
-        const questions = await Question.find(query);
+
+        let questions;
+        if (limit) {
+            const limitNum = parseInt(limit as string);
+            questions = await Question.aggregate([
+                { $match: query },
+                { $sample: { size: limitNum } }
+            ]);
+        } else {
+            questions = await Question.find(query);
+        }
+
         res.json(questions);
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error });
