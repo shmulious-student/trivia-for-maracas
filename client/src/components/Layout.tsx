@@ -20,7 +20,7 @@ const Layout: React.FC = () => {
                 borderBottom: '1px solid var(--bg-secondary)'
             }}>
                 <Link to="/" onClick={resetGame} style={{ fontWeight: 'bold', fontSize: '1.2rem', textDecoration: 'none', color: 'inherit' }}>
-                    Trivia App
+                    Maracas Trivia
                 </Link>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Link to="/" title="Home" onClick={resetGame} style={{ color: 'inherit' }}>
