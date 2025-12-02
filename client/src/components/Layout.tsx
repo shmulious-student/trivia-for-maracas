@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Moon, Sun, Globe, Settings as SettingsIcon, User as UserIcon, Trophy, Home } from 'lucide-react';
+import { Moon, Sun, Globe, User as UserIcon, Trophy, Home } from 'lucide-react';
 
 const Layout: React.FC = () => {
     const { language, setLanguage } = useLanguage();
@@ -29,9 +29,6 @@ const Layout: React.FC = () => {
                     </Link>
                     <Link to="/leaderboard" title="Leaderboard" style={{ color: 'inherit' }}>
                         <Trophy size={20} />
-                    </Link>
-                    <Link to="/settings" title="Settings" style={{ color: 'inherit' }}>
-                        <SettingsIcon size={20} />
                     </Link>
                     <button onClick={toggleTheme} title="Toggle Theme" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit' }}>
                         {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}

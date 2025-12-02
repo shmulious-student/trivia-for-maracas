@@ -157,6 +157,10 @@
     @apply text-transparent bg-clip-text bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-tertiary;
     filter: drop-shadow(0 0 10px rgba(217, 70, 239, 0.5));
   }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-lg bg-bg-tertiary/50 border border-white/10 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent-primary/50 focus:border-accent-primary transition-all duration-200;
+  }
 }
 
 /* Scrollbar Styling */

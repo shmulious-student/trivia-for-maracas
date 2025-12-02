@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder={t('Enter your username')}
-                                    className="input w-full pl-10"
+                                    className="input pl-10"
                                     autoFocus
                                 />
                             </div>
@@ -89,7 +89,7 @@ const Login: React.FC = () => {
                                 value={avatarUrl}
                                 onChange={(e) => setAvatarUrl(e.target.value)}
                                 placeholder="https://example.com/avatar.jpg"
-                                className="input w-full"
+                                className="input"
                             />
                         </div>
 

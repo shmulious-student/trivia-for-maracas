@@ -16,8 +16,11 @@ const Result: React.FC = () => {
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
+    const submissionAttempted = React.useRef(false);
+
     useEffect(() => {
-        if (isAuthenticated && !submitted && !submitting) {
+        if (isAuthenticated && !submitted && !submitting && !submissionAttempted.current) {
+            submissionAttempted.current = true;
             submitScore();
         }
     }, [isAuthenticated, submitted, submitting]);

@@ -77,7 +77,7 @@ const Leaderboard: React.FC = () => {
                         <p className="text-text-secondary">{t('leaderboard.empty')}</p>
                     </div>
                 ) : (
-                    <div className="space-y-3">
+                    <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
                         {leaderboard.map((entry, index) => {
                             const isCurrentUser = user && entry.userId === user.id;
                             return (

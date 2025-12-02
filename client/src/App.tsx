@@ -6,7 +6,6 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import Login from './pages/Login';
-import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import Leaderboard from './pages/Leaderboard';
 import { initPostHog } from './lib/posthog';
@@ -38,7 +37,6 @@ const App: React.FC = () => {
                   <Route path="/" element={<GameRouter />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/leaderboard" element={<Leaderboard />} />
-                  <Route path="/settings" element={<Settings />} />
                 </Route>
               </Routes>
             </BrowserRouter>

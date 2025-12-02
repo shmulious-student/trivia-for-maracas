@@ -1,18 +1,21 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Camera, Save, User as UserIcon, X, Check } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+import { Camera, Save, User as UserIcon, X, Check, Moon, Sun, Globe, LogOut } from 'lucide-react';
 import axios from 'axios';
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../utils/cropImage';
 import { Button } from '../components/ui/Button';
 import { cn } from '../lib/utils';
+import { motion } from 'framer-motion';
 
 const API_BASE = 'http://localhost:3000/api';
 
 const Profile: React.FC = () => {
-    const { user, updateUser } = useAuth(); // login updates the user state
-    const { t } = useLanguage();
+    const { user, updateUser, logout } = useAuth();
+    const { t, language, setLanguage } = useLanguage();
+    const { theme, toggleTheme } = useTheme();
     const [username, setUsername] = useState(user?.username || '');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -106,10 +109,19 @@ const Profile: React.FC = () => {
     };
 
     return (
-        <div className="container fade-in">
-            <h1 className="text-2xl font-bold mb-6 text-center">{t('profile.title')}</h1>
+        <div className="container max-w-2xl mx-auto py-8 space-y-8">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center space-y-2"
+            >
+                <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400">
+                    {t('profile.title')} & {t('settings.title')}
+                </h1>
+            </motion.div>
 
-            <div className="glass-panel max-w-md mx-auto p-6 rounded-xl">
+            <div className="glass-panel p-6 rounded-xl space-y-8">
+                {/* Avatar & Profile Form */}
                 <div className="flex flex-col items-center mb-6">
                     <div className="relative cursor-pointer group" onClick={handleAvatarClick}>
                         <div
@@ -149,14 +161,14 @@ const Profile: React.FC = () => {
                     </div>
                 )}
 
-                <form onSubmit={handleSaveProfile} className="space-y-4">
+                <form onSubmit={handleSaveProfile} className="space-y-4 max-w-md mx-auto w-full">
                     <div>
                         <label className="block text-sm font-medium mb-1 text-text-secondary">{t('profile.username')}</label>
                         <input
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="input w-full"
+                            className="input"
                             required
                         />
                     </div>
@@ -166,6 +178,87 @@ const Profile: React.FC = () => {
                         {t('common.save')}
                     </Button>
                 </form>
+
+                <div className="border-t border-white/10 my-8"></div>
+
+                {/* Settings Section */}
+                <div className="space-y-6 max-w-md mx-auto w-full">
+                    {/* Appearance */}
+                    <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                            <Sun size={20} className="text-accent-secondary" />
+                            {t('settings.appearance')}
+                        </h3>
+                        <div className="flex items-center justify-between p-4 rounded-xl bg-bg-tertiary/30 border border-white/5">
+                            <span className="text-text-secondary">{t('settings.darkMode')}</span>
+                            <button
+                                onClick={toggleTheme}
+                                className={cn(
+                                    "relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent-primary/50",
+                                    theme === 'dark' ? "bg-accent-primary" : "bg-slate-300"
+                                )}
+                            >
+                                <motion.div
+                                    layout
+                                    className="absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center"
+                                    animate={{ x: theme === 'dark' ? 28 : 0 }}
+                                >
+                                    {theme === 'dark' ? (
+                                        <Moon size={12} className="text-accent-primary" />
+                                    ) : (
+                                        <Sun size={12} className="text-yellow-500" />
+                                    )}
+                                </motion.div>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Language */}
+                    <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
+                            <Globe size={20} className="text-accent-tertiary" />
+                            {t('settings.language')}
+                        </h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <button
+                                onClick={() => setLanguage('he')}
+                                className={cn(
+                                    "p-4 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
+                                    language === 'he'
+                                        ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
+                                        : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
+                                )}
+                            >
+                                <span className="text-xl">🇮🇱</span>
+                                עברית
+                            </button>
+                            <button
+                                onClick={() => setLanguage('en')}
+                                className={cn(
+                                    "p-4 rounded-xl border transition-all duration-200 flex items-center justify-center gap-2 font-medium",
+                                    language === 'en'
+                                        ? "bg-accent-primary/10 border-accent-primary text-accent-primary shadow-glow"
+                                        : "bg-bg-tertiary/30 border-white/5 text-text-secondary hover:bg-bg-tertiary/50 hover:text-text-primary"
+                                )}
+                            >
+                                <span className="text-xl">🇺🇸</span>
+                                English
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Logout */}
+                    <div className="pt-4">
+                        <Button
+                            variant="ghost"
+                            onClick={logout}
+                            className="w-full text-error hover:text-error hover:bg-error/10"
+                        >
+                            <LogOut size={18} className="me-2" />
+                            {t('auth.logout')}
+                        </Button>
+                    </div>
+                </div>
             </div>
 
             {/* Cropper Modal */}

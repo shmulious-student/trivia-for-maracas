@@ -34,5 +34,16 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.ts',
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['framer-motion', 'lucide-react', 'clsx', 'tailwind-merge'],
+          'utils-vendor': ['axios', 'posthog-js', 'zustand']
+        }
+      }
+    }
   }
 });
