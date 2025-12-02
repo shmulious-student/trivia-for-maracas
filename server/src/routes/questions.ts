@@ -1,5 +1,6 @@
 import express from 'express';
 import { Question } from '../models/Question';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -7,7 +8,8 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const { subjectId, limit } = req.query;
-        const query = subjectId ? { subjectId } : {};
+        // Convert subjectId string to ObjectId for proper MongoDB matching
+        const query = subjectId ? { subjectId: new mongoose.Types.ObjectId(subjectId as string) } : {};
 
         let questions;
         if (limit) {

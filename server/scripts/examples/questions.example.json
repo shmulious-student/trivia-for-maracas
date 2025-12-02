@@ -1,0 +1,68 @@
+[
+    {
+        "text": {
+            "en": "What is the capital of France?",
+            "he": "מהי בירת צרפת?"
+        },
+        "options": [
+            {
+                "text": {
+                    "en": "Paris",
+                    "he": "פריז"
+                }
+            },
+            {
+                "text": {
+                    "en": "London",
+                    "he": "לונדון"
+                }
+            },
+            {
+                "text": {
+                    "en": "Berlin",
+                    "he": "ברלין"
+                }
+            },
+            {
+                "text": {
+                    "en": "Madrid",
+                    "he": "מדריד"
+                }
+            }
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "text": {
+            "en": "How many continents are there?",
+            "he": "כמה יבשות יש?"
+        },
+        "options": [
+            {
+                "text": {
+                    "en": "5",
+                    "he": "5"
+                }
+            },
+            {
+                "text": {
+                    "en": "6",
+                    "he": "6"
+                }
+            },
+            {
+                "text": {
+                    "en": "7",
+                    "he": "7"
+                }
+            },
+            {
+                "text": {
+                    "en": "8",
+                    "he": "8"
+                }
+            }
+        ],
+        "correctAnswerIndex": 2
+    }
+]

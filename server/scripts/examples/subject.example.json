@@ -1,0 +1,10 @@
+{
+    "name": {
+        "en": "Example Subject",
+        "he": "נושא לדוגמה"
+    },
+    "description": {
+        "en": "This is an example subject for testing",
+        "he": "זהו נושא לדוגמה לבדיקה"
+    }
+}

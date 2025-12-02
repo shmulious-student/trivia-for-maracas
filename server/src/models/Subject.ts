@@ -9,7 +9,8 @@ const MultilingualTextSchema = new Schema<IMultilingualText>({
 }, { _id: false, strict: false });
 
 const SubjectSchema = new Schema<ISubjectDocument>({
-    name: { type: MultilingualTextSchema, required: true }
+    name: { type: MultilingualTextSchema, required: true },
+    description: { type: MultilingualTextSchema, required: false }
 }, {
     timestamps: true,
     toJSON: {

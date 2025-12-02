@@ -23,6 +23,7 @@ export interface IAppConfig {
 export interface ISubject {
     id: string;
     name: IMultilingualText;
+    description?: IMultilingualText;
     questionCount?: number; // Optional, populated by aggregation
 }
 
