@@ -20,12 +20,11 @@ const Result: React.FC = () => {
     const maxScore = questions.length * 10;
     const [submitting, setSubmitting] = useState(false);
 
-    // Reset game when leaving the result screen
-    useEffect(() => {
-        return () => {
-            resetGame();
-        };
-    }, []);
+    // useEffect(() => {
+    //     return () => {
+    //         resetGame();
+    //     };
+    // }, []);
 
     useEffect(() => {
         playSound('gameOver');
