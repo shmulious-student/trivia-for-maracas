@@ -7,7 +7,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../lib/utils';
 import { CheckCircle, XCircle, ArrowRight, Clock } from 'lucide-react';
-import { Mascot } from '../../components/Mascot';
+
+import GameSprite from '../../components/ui/GameSprite';
 
 const Question: React.FC = () => {
     const { language, t } = useLanguage();
@@ -146,24 +147,7 @@ const Question: React.FC = () => {
                     })}
                 </div>
 
-                <AnimatePresence>
-                    {hasAnswered && selectedAnswer === question.correctAnswerIndex && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.5, y: 50 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.5 }}
-                            className="fixed bottom-4 right-4 z-50 pointer-events-none"
-                        >
-                            <Mascot
-                                variant="celebrating"
-                                src="/logo.png"
-                                alt="Correct!"
-                                size="lg"
-                                className="drop-shadow-2xl"
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+
 
                 <AnimatePresence>
                     {hasAnswered && (
@@ -171,7 +155,7 @@ const Question: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
-                            className="flex justify-center pt-8"
+                            className="flex flex-col items-center pt-8 space-y-6"
                         >
                             <Button
                                 onClick={nextQuestion}
@@ -181,6 +165,32 @@ const Question: React.FC = () => {
                                 {currentQuestionIndex < questions.length - 1 ? t('common.next') : t('common.finish')}
                                 <ArrowRight className="ms-2" size={24} />
                             </Button>
+
+                            {selectedAnswer === question.correctAnswerIndex && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="pointer-events-none"
+                                >
+                                    <GameSprite
+                                        variant="celebrate"
+                                        className="h-80 w-auto drop-shadow-2xl"
+                                    />
+                                </motion.div>
+                            )}
+
+                            {selectedAnswer !== question.correctAnswerIndex && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="pointer-events-none"
+                                >
+                                    <GameSprite
+                                        variant="wrong"
+                                        className="h-48 w-auto drop-shadow-2xl"
+                                    />
+                                </motion.div>
+                            )}
                         </motion.div>
                     )}
                 </AnimatePresence>

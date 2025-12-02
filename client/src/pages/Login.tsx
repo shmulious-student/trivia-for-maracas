@@ -11,6 +11,7 @@ import { AvatarUploader } from '../components/AvatarUploader';
 import axios from 'axios';
 import { GenderSelector } from '../components/GenderSelector';
 import { API_BASE, getAssetUrl } from '../config/api';
+import GameSprite from '../components/ui/GameSprite';
 
 interface UserResult {
     _id: string;
@@ -36,7 +37,7 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const { login } = useAuth();
+    const { login, updateUser } = useAuth();
     const { t } = useLanguage();
     const navigate = useNavigate();
 
@@ -109,12 +110,17 @@ const Login: React.FC = () => {
             if (token && newAvatarBlob) {
                 const formData = new FormData();
                 formData.append('avatar', newAvatarBlob, 'avatar.jpg');
-                await axios.post(`${API_BASE}/users/avatar`, formData, {
+                const uploadRes = await axios.post(`${API_BASE}/users/avatar`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${token}`
                     }
                 });
+
+                // Update user with new avatar URL
+                if (uploadRes.data.user) {
+                    updateUser(uploadRes.data.user);
+                }
             }
 
             // 3. Profile update removed as it's now handled in step 1
@@ -221,7 +227,13 @@ const Login: React.FC = () => {
                                 </AnimatePresence>
                             </div>
 
-                            {/* Removed standalone button since it's now in the dropdown */}
+                            {/* Animated Sprite */}
+                            <div className="w-full h-64 flex items-center justify-center mt-4">
+                                <GameSprite
+                                    variant="login"
+                                    className="h-full w-auto object-contain"
+                                />
+                            </div>
                         </div>
                     ) : selectedUser ? (
                         <div className="space-y-6 text-center">
@@ -304,7 +316,7 @@ const Login: React.FC = () => {
                     )}
                 </Card>
             </motion.div>
-        </div>
+        </div >
     );
 };
 

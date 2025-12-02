@@ -83,5 +83,6 @@
     "profile.enableTimerDesc": "Limit the time for each question",
     "profile.timePerQuestion": "Time per Question",
     "profile.timePerQuestionDesc": "Seconds allowed for each question",
-    "profile.gameSettings": "Game Settings"
+    "profile.gameSettings": "Game Settings",
+    "app.title": "Trivia Maracas"
 }

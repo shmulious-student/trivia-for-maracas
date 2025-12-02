@@ -24,6 +24,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 import GameRouter from './pages/Game/GameRouter';
+import SpriteTest from './pages/SpriteTest';
 
 const App: React.FC = () => {
   return (
@@ -39,6 +40,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<GameRouter />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/leaderboard" element={<Leaderboard />} />
+                    <Route path="/sprites" element={<SpriteTest />} />
                   </Route>
                 </Routes>
               </BrowserRouter>

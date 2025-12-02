@@ -83,5 +83,6 @@
     "profile.enableTimerDesc": "הגבל את הזמן לכל שאלה",
     "profile.timePerQuestion": "זמן לשאלה",
     "profile.timePerQuestionDesc": "שניות מוקצבות לכל שאלה",
-    "profile.gameSettings": "הגדרות משחק"
+    "profile.gameSettings": "הגדרות משחק",
+    "app.title": "טריוויה מראקאס"
 }

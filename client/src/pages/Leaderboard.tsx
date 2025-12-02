@@ -3,9 +3,10 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
-import { Trophy, Medal, Crown } from 'lucide-react';
+import { Medal, Crown } from 'lucide-react';
 import type { ILeaderboardEntry } from '@trivia/shared';
 import { Card } from '../components/ui/Card';
+import GameSprite from '../components/ui/GameSprite';
 import { cn } from '../lib/utils';
 import { API_BASE, getAssetUrl } from '../config/api';
 
@@ -60,17 +61,20 @@ const Leaderboard: React.FC = () => {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center space-y-4 mb-12"
+                className="mb-12 relative"
             >
-                <div className="inline-flex p-4 rounded-full bg-accent-primary/10 mb-2 ring-1 ring-accent-primary/20 shadow-lg shadow-accent-primary/10">
-                    <Trophy size={48} className="text-accent-primary" />
+                <div className="flex items-center justify-center gap-4 md:gap-12">
+                    <GameSprite variant="cube_peek" className="h-48 w-auto hidden md:block" />
+                    <div className="text-center space-y-4">
+                        <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent-primary via-purple-400 to-accent-secondary tracking-tight">
+                            {t('leaderboard.title')}
+                        </h1>
+                        <p className="text-text-muted text-lg max-w-2xl mx-auto">
+                            Top players and their achievements
+                        </p>
+                    </div>
+                    <GameSprite variant="cube_peek" className="h-48 w-auto hidden md:block transform scale-x-[-1]" />
                 </div>
-                <h1 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent-primary via-purple-400 to-accent-secondary tracking-tight">
-                    {t('leaderboard.title')}
-                </h1>
-                <p className="text-text-muted text-lg max-w-2xl mx-auto">
-                    Top players and their achievements
-                </p>
             </motion.div>
 
             <Card className="overflow-hidden border-none bg-bg-secondary/30 backdrop-blur-sm shadow-xl ring-1 ring-white/5">
