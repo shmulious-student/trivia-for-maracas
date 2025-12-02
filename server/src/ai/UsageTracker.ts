@@ -5,7 +5,7 @@ import os from 'os';
 interface UsageLog {
     timestamp: number;
     model: string;
-    operation: 'generate' | 'translate' | 'translateBatch';
+    operation: 'generate' | 'translate' | 'translateBatch' | 'generateFromPrompt';
 }
 
 interface UsageStats {
@@ -59,7 +59,7 @@ export class UsageTracker {
         this.saveLogs();
     }
 
-    logRequest(model: string, operation: 'generate' | 'translate' | 'translateBatch'): void {
+    logRequest(model: string, operation: 'generate' | 'translate' | 'translateBatch' | 'generateFromPrompt'): void {
         const log: UsageLog = {
             timestamp: Date.now(),
             model,

@@ -53,13 +53,24 @@ interface SubjectData {
  * ]
  */
 
+import { SubjectReport } from '../src/models/SubjectReport';
+
+interface ReportData {
+    questions: Array<{
+        text: { en: string; he: string };
+        sourceUrl: string;
+        sourceQuote: string;
+        answer: string;
+    }>;
+}
+
 async function main() {
     const args = process.argv.slice(2);
 
     if (args.length < 2) {
         console.error('Usage:');
-        console.error('  With existing subject: npx ts-node scripts/create_questions_of_subject.ts <subject-id> <questions-json-file>');
-        console.error('  Create new subject:    npx ts-node scripts/create_questions_of_subject.ts new <subject-json-file> <questions-json-file>');
+        console.error('  With existing subject: npx ts-node scripts/create_questions_of_subject.ts <subject-id> <questions-json-file> [report-json-file]');
+        console.error('  Create new subject:    npx ts-node scripts/create_questions_of_subject.ts new <subject-json-file> <questions-json-file> [report-json-file]');
         process.exit(1);
     }
 
@@ -68,6 +79,7 @@ async function main() {
 
     let subjectId: any;
     let questionsFile: string;
+    let reportFile: string | undefined;
 
     if (args[0] === 'new') {
         // Create new subject
@@ -78,6 +90,7 @@ async function main() {
 
         const subjectFile = args[1];
         questionsFile = args[2];
+        reportFile = args[3];
 
         // Read and validate subject data
         if (!fs.existsSync(subjectFile)) {
@@ -102,6 +115,7 @@ async function main() {
         // Use existing subject
         subjectId = args[0];
         questionsFile = args[1];
+        reportFile = args[2];
 
         // Verify subject exists
         const subject = await Subject.findById(subjectId);
@@ -160,6 +174,29 @@ async function main() {
 
     const result = await Question.insertMany(questionsToInsert);
     console.log(`✅ Successfully added ${result.length} questions to database\n`);
+
+    // Handle Report
+    if (reportFile) {
+        if (fs.existsSync(reportFile)) {
+            try {
+                const reportData: ReportData = JSON.parse(fs.readFileSync(reportFile, 'utf-8'));
+                // Validate report structure loosely
+                if (reportData.questions && Array.isArray(reportData.questions)) {
+                    await SubjectReport.create({
+                        subjectId: subjectId,
+                        questions: reportData.questions
+                    });
+                    console.log(`✅ Successfully saved subject report to database`);
+                } else {
+                    console.warn('⚠️ Report file format invalid (missing questions array), skipping report save.');
+                }
+            } catch (e) {
+                console.error('⚠️ Failed to save report:', e);
+            }
+        } else {
+            console.warn(`⚠️ Report file not found: ${reportFile}, skipping report save.`);
+        }
+    }
 
     // Display summary
     const totalQuestions = await Question.countDocuments({ subjectId });

@@ -18,7 +18,9 @@ const QuestionSchema = new Schema<IQuestionDocument>({
             }
         ], required: true
     },
-    correctAnswerIndex: { type: Number, required: true }
+    correctAnswerIndex: { type: Number, required: true },
+    sourceUrl: { type: String, required: false },
+    sourceQuote: { type: String, required: false }
 }, {
     timestamps: true,
     toJSON: {

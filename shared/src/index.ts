@@ -25,6 +25,7 @@ export interface ISubject {
     name: IMultilingualText;
     description?: IMultilingualText;
     questionCount?: number; // Optional, populated by aggregation
+    lastReport?: string;
 }
 
 export interface IQuestionOption {
@@ -38,6 +39,8 @@ export interface IQuestion {
     options: IQuestionOption[];
     correctAnswerIndex: number;
     type: 'multiple-choice' | 'boolean';
+    sourceUrl?: string;
+    sourceQuote?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

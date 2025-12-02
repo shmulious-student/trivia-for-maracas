@@ -153,6 +153,29 @@ CRITICAL INSTRUCTIONS FOR SOURCES:
         }
     }
 
+    async generateFromPrompt(prompt: string): Promise<any[]> {
+        if (process.env.AI_DRY_RUN === 'true') {
+            console.warn('[GeminiProvider] Dry Run enabled. Returning empty mock data.');
+            return [];
+        }
+
+        const modelName = this.model._modelParams?.model || 'unknown';
+        this.usageTracker.logRequest(modelName, 'generateFromPrompt');
+        this.usageTracker.checkLimits();
+
+        const result = await this.model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        try {
+            const jsonStr = text.replace(/```json\n?|\n?```/g, '').trim();
+            return JSON.parse(jsonStr);
+        } catch (e) {
+            console.error('Failed to parse Gemini response:', text);
+            throw new Error('Failed to generate valid JSON from AI response');
+        }
+    }
+
     async translate(text: string, targetLang: string): Promise<string> {
         if (process.env.AI_DRY_RUN === 'true') {
             console.warn('[GeminiProvider] Dry Run enabled. Returning mock translation.');
