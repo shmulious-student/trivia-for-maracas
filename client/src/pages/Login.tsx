@@ -10,8 +10,7 @@ import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { AvatarUploader } from '../components/AvatarUploader';
 import axios from 'axios';
 import { GenderSelector } from '../components/GenderSelector';
-
-const API_BASE = 'http://localhost:3000/api';
+import { API_BASE, getAssetUrl } from '../config/api';
 
 interface UserResult {
     _id: string;
@@ -193,7 +192,7 @@ const Login: React.FC = () => {
                                                 >
                                                     <div className="w-8 h-8 rounded-full overflow-hidden bg-bg-primary flex-shrink-0">
                                                         {user.avatarUrl ? (
-                                                            <img src={`${API_BASE.replace('/api', '')}${user.avatarUrl}`} alt={user.username} className="w-full h-full object-cover" />
+                                                            <img src={getAssetUrl(user.avatarUrl)} alt={user.username} className="w-full h-full object-cover" />
                                                         ) : (
                                                             <UserIcon className="w-full h-full p-1.5 text-text-muted" />
                                                         )}
@@ -228,7 +227,7 @@ const Login: React.FC = () => {
                         <div className="space-y-6 text-center">
                             <div className="w-24 h-24 rounded-full overflow-hidden bg-bg-tertiary mx-auto border-4 border-accent-primary shadow-glow">
                                 {selectedUser.avatarUrl ? (
-                                    <img src={`${API_BASE.replace('/api', '')}${selectedUser.avatarUrl}`} alt={selectedUser.username} className="w-full h-full object-cover" />
+                                    <img src={getAssetUrl(selectedUser.avatarUrl)} alt={selectedUser.username} className="w-full h-full object-cover" />
                                 ) : (
                                     <UserIcon className="w-full h-full p-4 text-text-muted" />
                                 )}
