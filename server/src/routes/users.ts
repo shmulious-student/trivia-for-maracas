@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { User } from '../models/User';
+import { GameResult } from '../models/GameResult';
 import { authenticate as protect } from '../middleware/auth';
 
 const router = express.Router();
@@ -123,6 +124,9 @@ router.delete('/profile', protect, async (req: any, res) => {
         }
 
         // Note: We don't delete avatar from Cloudinary automatically here
+
+        // Delete all game results associated with this user
+        await GameResult.deleteMany({ userId: req.user.id });
 
         await User.findByIdAndDelete(req.user.id);
 

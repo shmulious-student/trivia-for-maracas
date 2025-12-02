@@ -9,20 +9,23 @@ router.get('/', async (req, res) => {
     try {
         const results = await GameResult.find()
             .sort({ score: -1, date: 1 })
-            .limit(10)
+            .limit(20) // Fetch more than 10 to account for potential filtered items
             .populate('userId', 'avatarUrl')
             .populate('subjectId', 'name');
 
-        const leaderboard = results.map((result: any) => ({
-            id: result.id,
-            userId: result.userId._id || result.userId,
-            username: result.username,
-            avatarUrl: result.userId.avatarUrl,
-            score: result.score,
-            subjectId: result.subjectId?._id,
-            subjectName: result.subjectId?.name,
-            date: result.date
-        }));
+        const leaderboard = results
+            .filter((result: any) => result.userId) // Filter out orphaned results
+            .slice(0, 10) // Take top 10 after filtering
+            .map((result: any) => ({
+                id: result.id,
+                userId: result.userId._id || result.userId,
+                username: result.username,
+                avatarUrl: result.userId.avatarUrl,
+                score: result.score,
+                subjectId: result.subjectId?._id,
+                subjectName: result.subjectId?.name,
+                date: result.date
+            }));
 
         res.json(leaderboard);
     } catch (error) {
