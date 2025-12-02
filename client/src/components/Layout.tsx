@@ -4,9 +4,11 @@ import { useTheme } from '../contexts/ThemeContext';
 import { Moon, Sun, User as UserIcon, Trophy, Home } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SoundToggle } from './SoundToggle';
+import { useGameStore } from '../stores/useGameStore';
 
 const Layout: React.FC = () => {
     const { theme, toggleTheme } = useTheme();
+    const resetGame = useGameStore((state) => state.resetGame);
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -17,11 +19,11 @@ const Layout: React.FC = () => {
                 alignItems: 'center',
                 borderBottom: '1px solid var(--bg-secondary)'
             }}>
-                <Link to="/" style={{ fontWeight: 'bold', fontSize: '1.2rem', textDecoration: 'none', color: 'inherit' }}>
+                <Link to="/" onClick={resetGame} style={{ fontWeight: 'bold', fontSize: '1.2rem', textDecoration: 'none', color: 'inherit' }}>
                     Trivia App
                 </Link>
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <Link to="/" title="Home" style={{ color: 'inherit' }}>
+                    <Link to="/" title="Home" onClick={resetGame} style={{ color: 'inherit' }}>
                         <Home size={20} />
                     </Link>
                     <Link to="/profile" title="Profile" style={{ color: 'inherit' }}>

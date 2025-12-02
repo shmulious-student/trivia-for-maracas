@@ -7,12 +7,14 @@ interface GameState {
     score: number;
     questions: IQuestion[];
     answers: Record<string, number>;
+    isResultSubmitted: boolean;
 
     // Actions
     startGame: (questions: IQuestion[]) => void;
     submitAnswer: (questionId: string, answerIndex: number) => void;
     nextQuestion: () => void;
     resetGame: () => void;
+    setResultSubmitted: (submitted: boolean) => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -21,6 +23,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     score: 0,
     questions: [],
     answers: {},
+    isResultSubmitted: false,
 
     startGame: (questions) => {
         set({
@@ -28,7 +31,8 @@ export const useGameStore = create<GameState>((set, get) => ({
             questions,
             currentQuestionIndex: 0,
             score: 0,
-            answers: {}
+            answers: {},
+            isResultSubmitted: false
         });
     },
 
@@ -66,7 +70,12 @@ export const useGameStore = create<GameState>((set, get) => ({
             currentQuestionIndex: 0,
             score: 0,
             questions: [],
-            answers: {}
+            answers: {},
+            isResultSubmitted: false
         });
+    },
+
+    setResultSubmitted: (submitted) => {
+        set({ isResultSubmitted: submitted });
     }
 }));

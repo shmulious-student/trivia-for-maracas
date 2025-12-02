@@ -14,21 +14,24 @@ const Result: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
     const { playSound } = useSoundContext();
-    const { score, questions, resetGame } = useGameStore();
+    const { score, questions, resetGame, isResultSubmitted, setResultSubmitted } = useGameStore();
     const { isAuthenticated, user } = useAuth();
     const maxScore = questions.length * 10;
     const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
 
-    const submissionAttempted = React.useRef(false);
+    // Reset game when leaving the result screen
+    useEffect(() => {
+        return () => {
+            resetGame();
+        };
+    }, []);
 
     useEffect(() => {
         playSound('gameOver');
-        if (isAuthenticated && !submitted && !submitting && !submissionAttempted.current) {
-            submissionAttempted.current = true;
+        if (isAuthenticated && !isResultSubmitted && !submitting) {
             submitScore();
         }
-    }, [isAuthenticated, submitted, submitting]);
+    }, [isAuthenticated, isResultSubmitted, submitting]);
 
     const submitScore = async () => {
         try {
@@ -52,7 +55,7 @@ const Result: React.FC = () => {
                 username: user?.username
             });
 
-            setSubmitted(true);
+            setResultSubmitted(true);
         } catch (error) {
             console.error('Failed to submit score:', error);
         } finally {
@@ -81,7 +84,7 @@ const Result: React.FC = () => {
                 <div className="text-6xl font-black text-text-primary mb-2">
                     {score} <span className="text-2xl text-text-secondary">/ {maxScore}</span>
                 </div>
-                {submitted && (
+                {isResultSubmitted && (
                     <div className="text-green-500 text-sm font-medium bg-green-500/10 py-1 px-3 rounded-full inline-block">
                         {t('result.scoreSaved')}
                     </div>
