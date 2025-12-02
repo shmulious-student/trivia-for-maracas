@@ -81,7 +81,10 @@ const Result: React.FC = () => {
                     className="mx-auto mb-4"
                     size="lg"
                 />
-                <h1 className="text-5xl font-bold text-primary mb-2">{t('result.gameOver')}</h1>
+                <Trophy size={64} className="text-yellow-400 mx-auto mb-4 drop-shadow-lg" />
+                <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400 mb-2">
+                    {t('result.gameOver')}
+                </h1>
                 <p className="text-2xl text-text-primary font-medium">{message}</p>
             </div>
 
