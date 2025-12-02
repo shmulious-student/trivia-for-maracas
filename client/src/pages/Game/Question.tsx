@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useSoundContext } from '../../contexts/SoundContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../lib/utils';
@@ -9,6 +10,7 @@ import { CheckCircle, XCircle, ArrowRight, Clock } from 'lucide-react';
 
 const Question: React.FC = () => {
     const { language, t } = useLanguage();
+    const { playSound } = useSoundContext();
     const { user } = useAuth();
     const { questions, currentQuestionIndex, submitAnswer, nextQuestion, answers } = useGameStore();
 
@@ -49,6 +51,11 @@ const Question: React.FC = () => {
     const handleAnswer = (index: number) => {
         if (!hasAnswered) {
             submitAnswer(question.id, index);
+            if (index === question.correctAnswerIndex) {
+                playSound('correct');
+            } else {
+                playSound('wrong');
+            }
         }
     };
 

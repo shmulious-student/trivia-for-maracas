@@ -46,8 +46,14 @@ router.post('/', protect, async (req: any, res) => {
             subjectId
         });
 
+        // Check for previous high score
+        const previousBest = await GameResult.findOne({ userId: req.user.id })
+            .sort({ score: -1 });
+
+        const isNewRecord = !previousBest || score > previousBest.score;
+
         await gameResult.save();
-        res.status(201).json(gameResult);
+        res.status(201).json({ ...gameResult.toJSON(), isNewRecord });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error', error });

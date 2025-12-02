@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { SoundProvider } from './contexts/SoundContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -29,18 +30,20 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <AuthProvider>
         <LanguageProvider>
-          <ThemeProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-                  <Route path="/" element={<GameRouter />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/leaderboard" element={<Leaderboard />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </ThemeProvider>
+          <SoundProvider>
+            <ThemeProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                    <Route path="/" element={<GameRouter />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/leaderboard" element={<Leaderboard />} />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </ThemeProvider>
+          </SoundProvider>
         </LanguageProvider>
       </AuthProvider>
     </ErrorBoundary>

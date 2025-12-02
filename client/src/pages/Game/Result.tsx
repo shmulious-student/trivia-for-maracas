@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useSoundContext } from '../../contexts/SoundContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Trophy, RefreshCw } from 'lucide-react';
 import posthog from '../../lib/posthog';
@@ -10,6 +11,7 @@ const API_BASE = 'http://localhost:3000/api';
 
 const Result: React.FC = () => {
     const { t } = useLanguage();
+    const { playSound } = useSoundContext();
     const { score, questions, resetGame } = useGameStore();
     const { isAuthenticated, user } = useAuth();
     const maxScore = questions.length * 10;
@@ -19,6 +21,7 @@ const Result: React.FC = () => {
     const submissionAttempted = React.useRef(false);
 
     useEffect(() => {
+        playSound('gameOver');
         if (isAuthenticated && !submitted && !submitting && !submissionAttempted.current) {
             submissionAttempted.current = true;
             submitScore();
@@ -30,11 +33,15 @@ const Result: React.FC = () => {
             setSubmitting(true);
             const token = localStorage.getItem('token');
             const subjectId = questions.length > 0 ? questions[0].subjectId : undefined;
-            await axios.post(
+            const res = await axios.post(
                 `${API_BASE}/leaderboard`,
                 { score, subjectId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
+
+            if (res.data.isNewRecord) {
+                playSound('newRecord');
+            }
 
             // Track Event
             posthog.capture('game_completed', {
