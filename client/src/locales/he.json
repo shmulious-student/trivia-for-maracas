@@ -46,5 +46,13 @@
     "lobby.startFailed": "התחלת המשחק נכשלה. נסה שנית.",
     "common.questions": "שאלות",
     "leaderboard.title": "טבלת מובילים",
-    "leaderboard.empty": "אין תוצאות עדיין. היה הראשון לשחק!"
+    "leaderboard.empty": "אין תוצאות עדיין. היה הראשון לשחק!",
+    "result.gameOver": "המשחק נגמר!",
+    "result.yourScore": "הניקוד שלך",
+    "result.goodTry": "ניסיון יפה!",
+    "result.wellDone": "כל הכבוד!",
+    "result.excellent": "מצוין!",
+    "result.scoreSaved": "הניקוד נשמר!",
+    "result.playAgain": "שחק שוב",
+    "result.viewLeaderboard": "טבלת מובילים"
 }

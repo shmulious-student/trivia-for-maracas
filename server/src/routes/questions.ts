@@ -16,6 +16,12 @@ router.get('/', async (req, res) => {
                 { $match: query },
                 { $sample: { size: limitNum } }
             ]);
+
+            // Transform aggregate results to match Mongoose toJSON behavior
+            questions = questions.map(q => {
+                const { _id, __v, ...rest } = q;
+                return { ...rest, id: _id };
+            });
         } else {
             questions = await Question.find(query);
         }

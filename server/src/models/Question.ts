@@ -9,7 +9,7 @@ const MultilingualTextSchema = new Schema<IMultilingualText>({
 }, { _id: false, strict: false });
 
 const QuestionSchema = new Schema<IQuestionDocument>({
-    subjectId: { type: String, required: true, ref: 'Subject' },
+    subjectId: { type: Schema.Types.ObjectId, required: true, ref: 'Subject' },
     text: { type: MultilingualTextSchema, required: true },
     options: {
         type: [

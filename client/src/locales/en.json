@@ -46,5 +46,13 @@
     "lobby.startFailed": "Failed to start game. Please try again.",
     "common.questions": "Questions",
     "leaderboard.title": "Leaderboard",
-    "leaderboard.empty": "No scores yet. Be the first to play!"
+    "leaderboard.empty": "No scores yet. Be the first to play!",
+    "result.gameOver": "Game Over!",
+    "result.yourScore": "Your Score",
+    "result.goodTry": "Good Try!",
+    "result.wellDone": "Well Done!",
+    "result.excellent": "Excellent!",
+    "result.scoreSaved": "Score Saved!",
+    "result.playAgain": "Play Again",
+    "result.viewLeaderboard": "Leaderboard"
 }
