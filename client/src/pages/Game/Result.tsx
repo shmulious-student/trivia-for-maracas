@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useGameStore } from '../../stores/useGameStore';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useSoundContext } from '../../contexts/SoundContext';
@@ -10,6 +11,7 @@ import { ReportModal } from '../../components/Game/ReportModal';
 import { API_BASE } from '../../config/api';
 
 const Result: React.FC = () => {
+    const navigate = useNavigate();
     const { t } = useLanguage();
     const { playSound } = useSoundContext();
     const { score, questions, resetGame } = useGameStore();
@@ -96,7 +98,7 @@ const Result: React.FC = () => {
                         {t('result.playAgain')}
                     </button>
                     <button
-                        onClick={() => window.location.href = '/leaderboard'}
+                        onClick={() => navigate('/leaderboard')}
                         className="px-6 py-3 text-lg font-bold text-text-primary transition-colors rounded-lg bg-surface border border-border hover:border-primary flex items-center gap-2"
                     >
                         <Trophy size={20} />
