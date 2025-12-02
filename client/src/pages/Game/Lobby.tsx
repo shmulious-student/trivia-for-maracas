@@ -8,8 +8,7 @@ import type { ISubject, IQuestion } from '@trivia/shared';
 import { Play, BookOpen, Sparkles } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { SubjectCard } from '../../components/SubjectCard';
-
-const API_BASE = 'http://localhost:3000/api';
+import { API_BASE } from '../../config/api';
 
 const Lobby: React.FC = () => {
     const { t, language } = useLanguage();

@@ -13,8 +13,7 @@ import { LanguageSwitcher } from '../components/LanguageSwitcher';
 import { Modal } from '../components/ui/Modal';
 import { useNavigate } from 'react-router-dom';
 import { GenderSelector } from '../components/GenderSelector';
-
-const API_BASE = 'http://localhost:3000/api';
+import { API_BASE } from '../config/api';
 
 const Profile: React.FC = () => {
     const { user, updateUser, logout } = useAuth();

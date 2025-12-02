@@ -7,8 +7,7 @@ import { Trophy, Medal, Crown } from 'lucide-react';
 import type { ILeaderboardEntry } from '@trivia/shared';
 import { Card } from '../components/ui/Card';
 import { cn } from '../lib/utils';
-
-const API_BASE = 'http://localhost:3000/api';
+import { API_BASE, getAssetUrl } from '../config/api';
 
 const Leaderboard: React.FC = () => {
     const { t, language } = useLanguage();
@@ -114,7 +113,7 @@ const Leaderboard: React.FC = () => {
                                             <div className="relative">
                                                 {entry.avatarUrl ? (
                                                     <img
-                                                        src={`http://localhost:3000${entry.avatarUrl}`}
+                                                        src={getAssetUrl(entry.avatarUrl)}
                                                         alt={entry.username}
                                                         className="w-12 h-12 rounded-full object-cover ring-2 ring-white/10"
                                                     />

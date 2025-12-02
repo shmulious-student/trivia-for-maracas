@@ -6,6 +6,7 @@ import { Button } from './ui/Button';
 import { useLanguage } from '../contexts/LanguageContext';
 import axios from 'axios';
 import { cn } from '../lib/utils';
+import { API_BASE, getAssetUrl } from '../config/api';
 
 interface AvatarUploaderProps {
     currentAvatarUrl?: string;
@@ -14,8 +15,6 @@ interface AvatarUploaderProps {
     isEditable?: boolean;
     className?: string;
 }
-
-const API_BASE = 'http://localhost:3000/api'; // Should be dynamic or from env
 
 export const AvatarUploader: React.FC<AvatarUploaderProps> = ({
     currentAvatarUrl,
@@ -113,7 +112,7 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({
                 >
                     {currentAvatarUrl ? (
                         <img
-                            src={`${API_BASE.replace('/api', '')}${currentAvatarUrl}`}
+                            src={getAssetUrl(currentAvatarUrl)}
                             alt="Avatar"
                             className="w-full h-full object-cover"
                         />

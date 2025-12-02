@@ -3,6 +3,7 @@ import { Modal } from '../ui/Modal';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Check, AlertTriangle } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE } from '../../config/api';
 
 interface Question {
     id: string;
@@ -79,7 +80,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, quest
             const token = localStorage.getItem('token');
 
             await axios.post(
-                'http://localhost:3000/api/reports',
+                `${API_BASE}/reports`,
                 { reports: reportsToSubmit },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -118,8 +119,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, quest
                             <div
                                 key={q.id || idx}
                                 className={`p-4 rounded-xl border transition-all ${selectedQuestions.includes(q.id)
-                                        ? 'border-primary bg-primary/5'
-                                        : 'border-border bg-surface hover:border-primary/50'
+                                    ? 'border-primary bg-primary/5'
+                                    : 'border-border bg-surface hover:border-primary/50'
                                     }`}
                             >
                                 <div className="flex items-start gap-3">
@@ -141,8 +142,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, quest
                                                         <label
                                                             key={type}
                                                             className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${reports[q.id]?.reportType.includes(type)
-                                                                    ? 'bg-primary/10 border-primary text-primary'
-                                                                    : 'border-border hover:bg-white/5'
+                                                                ? 'bg-primary/10 border-primary text-primary'
+                                                                : 'border-border hover:bg-white/5'
                                                                 }`}
                                                         >
                                                             <input

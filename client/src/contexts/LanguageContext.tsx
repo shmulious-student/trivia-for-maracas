@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 import enTranslations from '../locales/en.json';
 import heTranslations from '../locales/he.json';
+import { API_BASE } from '../config/api';
 
 type Language = 'en' | 'he';
 type Direction = 'ltr' | 'rtl';
@@ -16,8 +17,6 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
-
-const API_URL = 'http://localhost:3000/api/ui-translations/map';
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user, updateUser } = useAuth();
@@ -58,7 +57,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
                 // Persist to backend
                 const token = localStorage.getItem('token');
-                await axios.put('http://localhost:3000/api/users/profile', {
+                await axios.put(`${API_BASE}/users/profile`, {
                     preferences: {
                         ...user.preferences,
                         language: lang
@@ -79,7 +78,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     const fetchTranslations = async () => {
         try {
-            const response = await axios.get(API_URL);
+            const response = await axios.get(`${API_BASE}/ui-translations/map`);
             setTranslations(response.data);
         } catch (error) {
             console.error('Failed to fetch translations:', error);

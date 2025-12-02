@@ -7,8 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Trophy, RefreshCw, AlertTriangle } from 'lucide-react';
 import posthog from '../../lib/posthog';
 import { ReportModal } from '../../components/Game/ReportModal';
-
-const API_BASE = 'http://localhost:3000/api';
+import { API_BASE } from '../../config/api';
 
 const Result: React.FC = () => {
     const { t } = useLanguage();
