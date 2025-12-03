@@ -89,7 +89,8 @@ const Lobby: React.FC = () => {
                 },
                 questionCount: subjects
                     .filter(s => favorites.includes(s.id))
-                    .reduce((acc, curr) => acc + (curr.questionCount || 0), 0)
+                    .reduce((acc, curr) => acc + (curr.questionCount || 0), 0),
+                coverImage: '/subjects/card_images/favorite-mix.png'
             };
             displaySubjects = [mixSubject, ...displaySubjects];
         }

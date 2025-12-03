@@ -32,7 +32,14 @@ export class QuestionService {
 
         if (subjectId && subjectId.includes(',')) {
             // Handle multiple subjects (Favorite Mix)
-            const subjectIds = subjectId.split(',');
+            // Filter out any non-ObjectId strings (like 'favorites-mix')
+            const subjectIds = subjectId.split(',')
+                .filter(id => mongoose.Types.ObjectId.isValid(id));
+
+            if (subjectIds.length === 0) {
+                return [];
+            }
+
             const questionsPerSubject = Math.ceil(limitNum / subjectIds.length);
 
             const promises = subjectIds.map(id =>
