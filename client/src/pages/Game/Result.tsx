@@ -165,9 +165,21 @@ const Result: React.FC = () => {
         }
     }, [score, user]);
 
+    const handleEasterEggComplete = async () => {
+        setShowEasterEgg(false);
+        if (user) {
+            try {
+                await axios.put(`${API_BASE}/users/profile`, { isEaster: false });
+                updateUser({ ...user, isEaster: false });
+            } catch (error) {
+                console.error('Failed to update easter egg status:', error);
+            }
+        }
+    };
+
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
-            {showEasterEgg && <CinemaEasterEgg onComplete={() => setShowEasterEgg(false)} />}
+            {showEasterEgg && <CinemaEasterEgg onComplete={handleEasterEggComplete} />}
             <div className="text-center mt-12">
 
                 <Trophy size={64} className="text-yellow-400 mx-auto mb-4 drop-shadow-lg" />

@@ -100,6 +100,7 @@ router.put('/profile', protect, async (req: any, res) => {
         const updateData: any = {};
         if (username) updateData.username = username;
         if (preferences) updateData.preferences = preferences;
+        if (req.body.isEaster !== undefined) updateData.isEaster = req.body.isEaster;
 
         const user = await User.findByIdAndUpdate(
             req.user.id,
