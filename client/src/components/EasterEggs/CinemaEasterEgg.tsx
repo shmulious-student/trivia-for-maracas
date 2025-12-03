@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../contexts/LanguageContext';
 
+// Add task update to task.md
+// - [ ] Fix mobile video autoplay issue <!-- id: 4 -->
+//     - [/] "Prime" the video element on user interaction in `CinemaEasterEgg.tsx` <!-- id: 5 -->
+
 interface CinemaEasterEggProps {
     onComplete?: () => void;
 }
@@ -18,6 +22,15 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
 
     // Placeholder video URL - can be replaced with a specific asset later
     const VIDEO_URL = "/easterEgg/easterEgg.mp4";
+
+    // Prime video for mobile autoplay
+    const primeVideo = () => {
+        if (videoRef.current) {
+            videoRef.current.play().then(() => {
+                videoRef.current?.pause();
+            }).catch(err => console.log("Priming failed (expected if no interaction):", err));
+        }
+    };
 
     useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
@@ -73,6 +86,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
         if (allowed) {
             startCamera().then(() => {
                 if (streamRef.current) {
+                    primeVideo(); // Prime the video here
                     setStage('curtains-opening');
                 }
             });
@@ -128,53 +142,56 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                         </motion.div>
                     )}
 
-                    {stage === 'video' && (
-                        <div className="relative w-full h-full">
-                            <motion.video
-                                key="video"
-                                ref={videoRef}
-                                src={VIDEO_URL}
-                                className="w-full h-full object-contain"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                autoPlay
-                                playsInline
-                                onEnded={() => setStage('camera')}
-                                onTimeUpdate={(e) => {
-                                    if (e.currentTarget.currentTime >= 10 && !showOverlay) {
-                                        setShowOverlay(true);
-                                    }
-                                }}
-                                onLoadedData={(e) => {
+                    {/* Always render video but hide it until needed to allow priming */}
+                    <div className={`relative w-full h-full ${stage === 'video' ? 'block' : 'hidden'}`}>
+                        <motion.video
+                            key="video"
+                            ref={videoRef}
+                            src={VIDEO_URL}
+                            className="w-full h-full object-contain"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            // Only autoPlay when we actually reach the video stage
+                            autoPlay={stage === 'video'}
+                            playsInline
+                            onEnded={() => setStage('camera')}
+                            onTimeUpdate={(e) => {
+                                if (e.currentTarget.currentTime >= 10 && !showOverlay) {
+                                    setShowOverlay(true);
+                                }
+                            }}
+                            onLoadedData={(e) => {
+                                // Only try to play if we are in the video stage
+                                if (stage === 'video') {
                                     const video = e.currentTarget;
                                     video.play().catch(err => console.error("Video play failed:", err));
-                                }}
-                            />
+                                }
+                            }}
+                        />
 
-                            {/* Camera Overlay */}
-                            <AnimatePresence>
-                                {showOverlay && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 0, y: -50 }}
-                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        className="absolute top-4 left-1/2 transform -translate-x-1/2 w-44 h-44 rounded-full border-4 border-white shadow-lg overflow-hidden z-10"
-                                    >
-                                        <video
-                                            ref={(el) => {
-                                                if (el && streamRef.current) {
-                                                    el.srcObject = streamRef.current;
-                                                }
-                                            }}
-                                            autoPlay
-                                            playsInline
-                                            muted
-                                            className="w-full h-full object-cover transform scale-x-[-1]"
-                                        />
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    )}
+                        {/* Camera Overlay */}
+                        <AnimatePresence>
+                            {showOverlay && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0, y: -50 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-44 h-44 rounded-full border-4 border-white shadow-lg overflow-hidden z-10"
+                                >
+                                    <video
+                                        ref={(el) => {
+                                            if (el && streamRef.current) {
+                                                el.srcObject = streamRef.current;
+                                            }
+                                        }}
+                                        autoPlay
+                                        playsInline
+                                        muted
+                                        className="w-full h-full object-cover transform scale-x-[-1]"
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
 
                     {stage === 'camera' && (
                         <motion.div
