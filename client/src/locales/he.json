@@ -91,5 +91,6 @@
     "bonusModal.enableTimer": "הפעל טיימר",
     "bonusModal.secondsPerQuestion": "שניות לשאלה",
     "bonusModal.save": "שמור שינויים",
-    "bonusModal.noThanks": "לא תודה"
+    "bonusModal.noThanks": "לא תודה",
+    "game.bonus": "בונוס"
 }

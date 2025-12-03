@@ -20,7 +20,8 @@ export const QuestionSchema = new Schema<IQuestionDocument>({
     },
     correctAnswerIndex: { type: Number, required: true },
     sourceUrl: { type: String, required: false },
-    sourceQuote: { type: String, required: false }
+    sourceQuote: { type: String, required: false },
+    random: { type: Number, default: Math.random }
 }, {
     timestamps: true,
     toJSON: {
@@ -32,5 +33,10 @@ export const QuestionSchema = new Schema<IQuestionDocument>({
         }
     }
 });
+
+// Indexes
+QuestionSchema.index({ subjectId: 1 });
+QuestionSchema.index({ random: 1 });
+QuestionSchema.index({ subjectId: 1, random: 1 });
 
 export const Question = mongoose.model<IQuestionDocument>('Question', QuestionSchema);

@@ -1,12 +1,14 @@
-import dotenv from 'dotenv';
 import path from 'path';
 
 // Load env vars immediately
-dotenv.config({ path: path.join(__dirname, '../.env') });
+import './config/env'; // Must be first!
 
 import express from 'express';
 import cors from 'cors';
 import { connectDB } from './db';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import compression from 'compression';
 
 import configRoutes from './routes/config';
 import subjectRoutes from './routes/subjects';
@@ -27,8 +29,25 @@ app.use(cors({
     origin: process.env.CLIENT_URL || ['http://localhost:5173', 'http://localhost:5174'],
     credentials: true
 }));
+app.use(helmet({
+    crossOriginResourcePolicy: false, // Allow loading resources from other origins (e.g. Cloudinary)
+    contentSecurityPolicy: false // Disable CSP for now to avoid breaking existing scripts/images if not carefully configured
+}));
+app.use(compression());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    message: 'Too many requests from this IP, please try again after 15 minutes'
+});
+
+// Apply rate limiting to all requests
+app.use(limiter);
 
 // Database Connection
 connectDB();
@@ -50,7 +69,10 @@ app.get('/health', (req, res) => {
 });
 
 // Serve client static files
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+app.use(express.static(path.join(__dirname, '../../client/dist'), {
+    maxAge: '1d', // Cache for 1 day
+    immutable: true // Assets with hashes are immutable
+}));
 
 // Handle SPA routing
 app.get('*', (req, res) => {

@@ -9,7 +9,11 @@ export interface AuthRequest extends Request {
     };
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_key_change_in_prod';
+if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is not defined');
+}
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const authenticate = (req: AuthRequest, res: Response, next: NextFunction) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');

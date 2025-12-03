@@ -73,6 +73,11 @@ const GameSprite: React.FC<GameSpriteProps> = ({
     const frameHeight = config.totalHeight / config.rows;
     const aspectRatio = frameWidth / frameHeight;
 
+    React.useEffect(() => {
+        const img = new Image();
+        img.src = config.src;
+    }, [config.src]);
+
     return (
         <div style={{ aspectRatio }} className={cn("inline-block", className)}>
             <SpriteAnimation

@@ -41,6 +41,7 @@ export interface IQuestion {
     type: 'multiple-choice' | 'boolean';
     sourceUrl?: string;
     sourceQuote?: string;
+    random?: number;
     createdAt?: Date;
     updatedAt?: Date;
 }

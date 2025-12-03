@@ -37,7 +37,7 @@ router.get('/search', async (req, res) => {
         const query: any = {};
 
         if (q && typeof q === 'string') {
-            query.username = { $regex: q, $options: 'i' };
+            query.$text = { $search: q };
         }
 
         const users = await User.find(query)

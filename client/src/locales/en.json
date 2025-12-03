@@ -91,5 +91,6 @@
     "bonusModal.enableTimer": "Enable Timer",
     "bonusModal.secondsPerQuestion": "Seconds per Question",
     "bonusModal.save": "Save Changes",
-    "bonusModal.noThanks": "No Thanks"
+    "bonusModal.noThanks": "No Thanks",
+    "game.bonus": "BONUS"
 }

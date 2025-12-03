@@ -28,4 +28,7 @@ const UserSchema = new Schema<IUserDocument>({
     }
 });
 
+// Text index for efficient search
+UserSchema.index({ username: 'text' });
+
 export const User = mongoose.model<IUserDocument>('User', UserSchema);

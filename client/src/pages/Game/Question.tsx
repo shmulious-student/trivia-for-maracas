@@ -165,7 +165,7 @@ const Question: React.FC = () => {
                                             className="absolute top-1/2 left-1/2 pointer-events-none z-50 whitespace-nowrap"
                                         >
                                             <span className="text-2xl font-black text-yellow-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] stroke-black tracking-wider">
-                                                +{lastBonusPoints} BONUS
+                                                +{lastBonusPoints} {t('game.bonus')}
                                             </span>
                                         </motion.div>
                                     )}

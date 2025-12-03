@@ -24,5 +24,6 @@ const GameResultSchema = new Schema<IGameResultDocument>({
 
 // Index for efficient leaderboard queries
 GameResultSchema.index({ score: -1, date: 1 });
+GameResultSchema.index({ subjectId: 1, score: -1, date: 1 });
 
 export const GameResult = mongoose.model<IGameResultDocument>('GameResult', GameResultSchema);

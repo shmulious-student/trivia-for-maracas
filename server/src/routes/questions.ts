@@ -4,63 +4,23 @@ import mongoose from 'mongoose';
 
 const router = express.Router();
 
+import { QuestionService } from '../services/question.service';
+
 // Get Questions (optional filter by subjectId, limit)
 router.get('/', async (req, res) => {
     try {
         const { subjectId, limit } = req.query;
-        let questions: any[] = [];
         const limitNum = limit ? parseInt(limit as string) : 10;
 
-        if (subjectId && (subjectId as string).includes(',')) {
-            // Handle multiple subjects (Favorite Mix)
-            const subjectIds = (subjectId as string).split(',');
-            const questionsPerSubject = Math.ceil(limitNum / subjectIds.length);
+        const questions = await QuestionService.getQuestionsForGame(subjectId as string, limitNum);
 
-            const promises = subjectIds.map(id =>
-                Question.aggregate([
-                    { $match: { subjectId: new mongoose.Types.ObjectId(id) } },
-                    { $sample: { size: questionsPerSubject } }
-                ])
-            );
+        // Transform aggregate results
+        const transformedQuestions = questions.map(q => {
+            const { _id, __v, ...rest } = q.toObject ? q.toObject() : q;
+            return { ...rest, id: _id };
+        });
 
-            const results = await Promise.all(promises);
-            questions = results.flat();
-
-            // Shuffle the mixed questions
-            questions = questions.sort(() => Math.random() - 0.5);
-
-            // Trim to exact limit if we got slightly more due to rounding
-            if (questions.length > limitNum) {
-                questions = questions.slice(0, limitNum);
-            }
-
-            // Transform aggregate results
-            questions = questions.map(q => {
-                const { _id, __v, ...rest } = q;
-                return { ...rest, id: _id };
-            });
-
-        } else {
-            // Handle single subject or no subject
-            const query = subjectId ? { subjectId: new mongoose.Types.ObjectId(subjectId as string) } : {};
-
-            if (limit) {
-                questions = await Question.aggregate([
-                    { $match: query },
-                    { $sample: { size: limitNum } }
-                ]);
-
-                // Transform aggregate results
-                questions = questions.map(q => {
-                    const { _id, __v, ...rest } = q;
-                    return { ...rest, id: _id };
-                });
-            } else {
-                questions = await Question.find(query);
-            }
-        }
-
-        res.json(questions);
+        res.json(transformedQuestions);
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error });
     }
