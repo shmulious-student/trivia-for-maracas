@@ -93,11 +93,9 @@
     "bonusModal.save": "שמור שינויים",
     "bonusModal.noThanks": "לא תודה",
     "game.bonus": "בונוס",
-    "easterEgg": {
-        "youAreTheStar": "את האסלה שלי!",
-        "chickenShit": "פחדנית!",
-        "cameraPermission": "לאפשר גישה למצלמה לחוויה המלאה?",
-        "allow": "מאשרת",
-        "deny": "לא תודה"
-    }
+    "easterEgg.youAreTheStar": "את האסלה שלי!",
+    "easterEgg.chickenShit": "פחדנית!",
+    "easterEgg.cameraPermission": "לאפשר גישה למצלמה לחוויה המלאה?",
+    "easterEgg.allow": "מאשרת",
+    "easterEgg.deny": "לא תודה"
 }
