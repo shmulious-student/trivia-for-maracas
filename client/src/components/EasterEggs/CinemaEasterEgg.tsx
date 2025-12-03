@@ -12,8 +12,7 @@ interface CinemaEasterEggProps {
 
 export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) => {
     const { t } = useLanguage();
-    const [stage, setStage] = useState<'curtains-closing' | 'permission' | 'rejected' | 'curtains-opening' | 'countdown' | 'video' | 'camera'>('curtains-closing');
-    const [count, setCount] = useState(3);
+    const [stage, setStage] = useState<'curtains-closing' | 'permission' | 'rejected' | 'curtains-opening' | 'video' | 'camera'>('curtains-closing');
     const videoRef = useRef<HTMLVideoElement>(null);
     const cameraVideoRef = useRef<HTMLVideoElement>(null);
     const streamRef = useRef<MediaStream | null>(null);
@@ -23,12 +22,10 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
     // Placeholder video URL - can be replaced with a specific asset later
     const VIDEO_URL = "https://res.cloudinary.com/dodcuvvnq/video/upload/v1764743841/trivia-assets/easter-egg-video.mp4";
 
-    // Prime video for mobile autoplay
-    const primeVideo = () => {
+    // Play video immediately
+    const playVideo = () => {
         if (videoRef.current) {
-            videoRef.current.play().then(() => {
-                videoRef.current?.pause();
-            }).catch(err => console.log("Priming failed (expected if no interaction):", err));
+            videoRef.current.play().catch(err => console.log("Play failed:", err));
         }
     };
 
@@ -44,14 +41,8 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
             // Wait for user input
         } else if (stage === 'curtains-opening') {
             timer = setTimeout(() => {
-                setStage('countdown');
-            }, 2000);
-        } else if (stage === 'countdown') {
-            if (count > 0) {
-                timer = setTimeout(() => setCount(c => c - 1), 1000);
-            } else {
                 setStage('video');
-            }
+            }, 1500); // Match curtain animation duration
         } else if (stage === 'camera') {
             // Attach pre-loaded stream if available
             if (cameraVideoRef.current && streamRef.current) {
@@ -67,7 +58,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
         }
 
         return () => clearTimeout(timer);
-    }, [stage, count]);
+    }, [stage]);
 
     const startCamera = async () => {
         if (streamRef.current) return; // Already started
@@ -84,12 +75,13 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
 
     const handlePermission = (allowed: boolean) => {
         if (allowed) {
-            startCamera().then(() => {
-                if (streamRef.current) {
-                    primeVideo(); // Prime the video here
-                    setStage('curtains-opening');
-                }
-            });
+            // Skip camera for now to test video playback
+            // startCamera().then(() => {
+            //     if (streamRef.current) {
+            playVideo(); // Start playing immediately
+            setStage('curtains-opening');
+            //     }
+            // });
         } else {
             setStage('rejected');
         }
@@ -129,21 +121,8 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
 
                 {/* Content based on stage */}
                 <AnimatePresence mode="wait">
-                    {stage === 'countdown' && (
-                        <motion.div
-                            key="countdown"
-                            initial={{ scale: 0.5, opacity: 0 }}
-                            animate={{ scale: 1.5, opacity: 1 }}
-                            exit={{ scale: 2, opacity: 0 }}
-                            transition={{ duration: 0.5 }}
-                            className="text-9xl font-black text-white font-mono"
-                        >
-                            {count > 0 ? count : ''}
-                        </motion.div>
-                    )}
-
-                    {/* Always render video but hide it until needed to allow priming */}
-                    <div className={`relative w-full h-full ${stage === 'video' ? 'block' : 'hidden'}`}>
+                    {/* Video Layer - Always rendered but visible when needed */}
+                    <div className={`relative w-full h-full ${stage === 'video' || stage === 'curtains-opening' ? 'block' : 'hidden'}`}>
                         <motion.video
                             key="video"
                             ref={videoRef}
@@ -151,20 +130,11 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                             className="w-full h-full object-contain"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            // Only autoPlay when we actually reach the video stage
-                            autoPlay={stage === 'video'}
                             playsInline
                             onEnded={() => setStage('camera')}
                             onTimeUpdate={(e) => {
                                 if (e.currentTarget.currentTime >= 10 && !showOverlay) {
                                     setShowOverlay(true);
-                                }
-                            }}
-                            onLoadedData={(e) => {
-                                // Only try to play if we are in the video stage
-                                if (stage === 'video') {
-                                    const video = e.currentTarget;
-                                    video.play().catch(err => console.error("Video play failed:", err));
                                 }
                             }}
                         />
@@ -262,7 +232,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                             className="absolute z-50 bg-gray-900 border border-gray-700 p-8 rounded-xl shadow-2xl text-center max-w-md mx-4"
                         >
                             <h3 className="text-2xl font-bold text-white mb-6">
-                                {t('easterEgg.cameraPermission')}
+                                {t('easterEgg.cameraPermission') || "Ready for the show?"}
                             </h3>
                             <div className="flex gap-4 justify-center">
                                 <button
