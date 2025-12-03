@@ -20,9 +20,21 @@ npm run dev &
 echo "Waiting for services to start..."
 sleep 5
 
+# Get local IP address (macOS specific for WiFi interface en0)
+IP=$(ipconfig getifaddr en0)
+
+if [ -z "$IP" ]; then
+    # Fallback to finding first non-loopback IP
+    IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2 | head -n1)
+fi
+
 # Open Client in Browser
 echo "Opening Client..."
-open http://localhost:5173
+if [ -n "$IP" ]; then
+    open "https://$IP:5173"
+else
+    open "https://localhost:5173"
+fi
 
 # Show Mobile Connection QR Code
 ./scripts/mobile_connect.sh

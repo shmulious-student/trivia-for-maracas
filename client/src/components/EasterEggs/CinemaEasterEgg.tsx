@@ -145,7 +145,11 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0, y: -50 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-44 h-44 rounded-full border-4 border-white shadow-lg overflow-hidden z-10"
+                                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-44 h-44 rounded-full border-4 border-white/50 shadow-lg overflow-hidden z-10"
+                                    style={{
+                                        maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
+                                        WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
+                                    }}
                                 >
                                     <video
                                         ref={(el) => {
