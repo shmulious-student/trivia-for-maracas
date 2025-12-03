@@ -159,8 +159,8 @@ const Lobby: React.FC = () => {
                     </h2>
                 </div>
 
-                <div className="h-[21rem] overflow-y-auto pr-2 custom-scrollbar">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4">
+                <div className="h-[29rem] overflow-y-auto p-4 custom-scrollbar">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
                         {sortedSubjects.map((subject, index) => (
                             <SubjectCard
                                 key={subject.id}
