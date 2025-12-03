@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { cn } from '../lib/utils';
-import { motion } from 'framer-motion';
+
 
 interface GenderSelectorProps {
     value: 'male' | 'female' | 'other';
@@ -33,10 +33,10 @@ export const GenderSelector: React.FC<GenderSelectorProps> = ({ value, onChange,
                     )}
                 >
                     <div className={cn(
-                        "w-16 h-16 rounded-full overflow-hidden border-2 transition-all duration-300 shadow-lg",
+                        "w-[84px] h-[84px] rounded-full overflow-hidden border-2 transition-all duration-300 shadow-lg",
                         value === gender.id
-                            ? "border-accent-primary shadow-accent-primary/50"
-                            : "border-transparent group-hover:border-white/20"
+                            ? "border-4 border-accent-primary shadow-accent-primary/50"
+                            : "border-2 border-transparent group-hover:border-white/20"
                     )}>
                         <img
                             src={gender.img}
@@ -51,13 +51,7 @@ export const GenderSelector: React.FC<GenderSelectorProps> = ({ value, onChange,
                         {gender.label}
                     </span>
 
-                    {value === gender.id && (
-                        <motion.div
-                            layoutId="gender-indicator"
-                            className="absolute inset-0 border-2 border-accent-primary rounded-xl"
-                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                    )}
+
                 </button>
             ))}
         </div>

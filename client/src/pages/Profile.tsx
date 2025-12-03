@@ -39,13 +39,8 @@ const Profile: React.FC = () => {
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    // Sync state with user data when it changes
-    useEffect(() => {
-        if (user) {
-            setUsername(user.username);
-            setPreferences(prev => ({ ...prev, ...user.preferences }));
-        }
-    }, [user]);
+    // Sync effect removed to prevent auto-save loop
+    // The initial state is set correctly because the component only renders when user is present
 
     // Auto-save functionality
     useEffect(() => {
@@ -133,7 +128,7 @@ const Profile: React.FC = () => {
                 className="space-y-8"
             >
                 {/* Header */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 relative">
                     <Button variant="ghost" onClick={() => navigate('/')} className="p-2">
                         <ArrowLeft size={24} />
                     </Button>
@@ -141,7 +136,7 @@ const Profile: React.FC = () => {
                         {t('profile.title')}
                     </h1>
                     {loading && (
-                        <div className="flex items-center gap-2 text-sm text-text-secondary animate-pulse ml-4">
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-sm text-text-secondary animate-pulse">
                             <Loader2 size={16} className="animate-spin" />
                             {t('common.saving')}
                         </div>
