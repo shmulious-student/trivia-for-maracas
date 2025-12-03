@@ -21,7 +21,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
     const [showOverlay, setShowOverlay] = useState(false);
 
     // Placeholder video URL - can be replaced with a specific asset later
-    const VIDEO_URL = "/easterEgg/easterEgg.mp4";
+    const VIDEO_URL = "https://res.cloudinary.com/dodcuvvnq/video/upload/v1764743841/trivia-assets/easter-egg-video.mp4";
 
     // Prime video for mobile autoplay
     const primeVideo = () => {
