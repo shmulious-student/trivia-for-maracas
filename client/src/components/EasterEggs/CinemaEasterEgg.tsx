@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../contexts/LanguageContext';
-
-// Add task update to task.md
-// - [ ] Fix mobile video autoplay issue <!-- id: 4 -->
-//     - [/] "Prime" the video element on user interaction in `CinemaEasterEgg.tsx` <!-- id: 5 -->
+import { Volume2, VolumeX } from 'lucide-react';
 
 interface CinemaEasterEggProps {
     onComplete?: () => void;
@@ -12,20 +9,50 @@ interface CinemaEasterEggProps {
 
 export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) => {
     const { t } = useLanguage();
-    const [stage, setStage] = useState<'curtains-closing' | 'permission' | 'rejected' | 'curtains-opening' | 'video' | 'camera'>('curtains-closing');
+    const [stage, setStage] = useState<'curtains-closing' | 'permission' | 'rejected' | 'curtains-opening' | 'countdown' | 'video' | 'camera' | 'finished'>('curtains-closing');
     const videoRef = useRef<HTMLVideoElement>(null);
     const cameraVideoRef = useRef<HTMLVideoElement>(null);
     const streamRef = useRef<MediaStream | null>(null);
 
     const [showOverlay, setShowOverlay] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
+    const [countdown, setCountdown] = useState(3);
 
-    // Placeholder video URL - can be replaced with a specific asset later
+    // Placeholder video URL
     const VIDEO_URL = "https://res.cloudinary.com/dodcuvvnq/video/upload/v1764743841/trivia-assets/easter-egg-video.mp4";
 
-    // Play video immediately
-    const playVideo = () => {
+    // Prime the video (play then immediately pause) to allow programmatic playback later
+    const primeVideo = async () => {
         if (videoRef.current) {
-            videoRef.current.play().catch(err => console.log("Play failed:", err));
+            try {
+                videoRef.current.muted = true; // Must be muted to autoplay/prime without gesture issues
+                await videoRef.current.play();
+                videoRef.current.pause();
+                videoRef.current.currentTime = 0;
+                console.log("Video primed successfully");
+            } catch (err) {
+                console.error("Video priming failed:", err);
+            }
+        }
+    };
+
+    const playVideo = async () => {
+        if (videoRef.current) {
+            try {
+                // Ensure it's muted initially as per requirements
+                videoRef.current.muted = true;
+                setIsMuted(true);
+                await videoRef.current.play();
+            } catch (err) {
+                console.error("Play failed:", err);
+            }
+        }
+    };
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !videoRef.current.muted;
+            setIsMuted(videoRef.current.muted);
         }
     };
 
@@ -33,55 +60,54 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
         let timer: ReturnType<typeof setTimeout>;
 
         if (stage === 'curtains-closing') {
-            // Start camera initialization immediately
             timer = setTimeout(() => {
                 setStage('permission');
             }, 2000);
-        } else if (stage === 'permission') {
-            // Wait for user input
         } else if (stage === 'curtains-opening') {
             timer = setTimeout(() => {
-                setStage('video');
+                setStage('countdown');
             }, 1500); // Match curtain animation duration
-        } else if (stage === 'camera') {
-            // Attach pre-loaded stream if available
-            if (cameraVideoRef.current && streamRef.current) {
-                cameraVideoRef.current.srcObject = streamRef.current;
+        } else if (stage === 'countdown') {
+            if (countdown > 0) {
+                timer = setTimeout(() => setCountdown(c => c - 1), 1000);
             } else {
-                // Fallback if stream wasn't ready yet
-                startCamera().then(() => {
-                    if (cameraVideoRef.current && streamRef.current) {
-                        cameraVideoRef.current.srcObject = streamRef.current;
-                    }
-                });
+                setStage('video');
+                playVideo();
             }
+        } else if (stage === 'finished') {
+            // Stop camera when finished
+            stopCamera();
         }
 
         return () => clearTimeout(timer);
-    }, [stage]);
+    }, [stage, countdown]);
 
     const startCamera = async () => {
-        if (streamRef.current) return; // Already started
+        if (streamRef.current) return;
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             streamRef.current = stream;
         } catch (err) {
             console.error("Error accessing camera:", err);
-            // Handle permission denied or no camera
             setStage('rejected');
         }
     };
 
-    const handlePermission = (allowed: boolean) => {
+    const handlePermission = async (allowed: boolean) => {
         if (allowed) {
-            // Request camera permission immediately but don't show it yet
-            startCamera().then(() => {
-                // Camera started successfully (permission granted)
-            }).catch(err => console.log("Camera start failed:", err));
+            // 1. Prime video immediately on user gesture
+            await primeVideo();
 
-            playVideo(); // Start playing immediately
-            setStage('curtains-opening');
+            // 2. Request camera permission
+            try {
+                await startCamera();
+                // If successful, proceed
+                setStage('curtains-opening');
+            } catch (err) {
+                // If camera fails/denied here
+                setStage('rejected');
+            }
         } else {
             setStage('rejected');
         }
@@ -119,33 +145,47 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
             {/* Cinema Screen Container */}
             <div className="relative w-full h-full max-w-6xl max-h-[80vh] bg-black border-8 border-gray-800 rounded-lg shadow-2xl overflow-hidden flex items-center justify-center">
 
-                {/* Content based on stage */}
-                <AnimatePresence mode="wait">
-                    {/* Video Layer - Always rendered but visible when needed */}
-                    <div className={`relative w-full h-full ${stage === 'video' || stage === 'curtains-opening' ? 'block' : 'hidden'}`}>
-                        <motion.video
-                            key="video"
-                            ref={videoRef}
-                            src={VIDEO_URL}
-                            className="w-full h-full object-contain"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            playsInline
-                            onEnded={() => setStage('camera')}
-                            onTimeUpdate={(e) => {
-                                if (e.currentTarget.currentTime >= 10 && !showOverlay) {
-                                    setShowOverlay(true);
-                                }
-                            }}
-                        />
+                {/* Video Layer - ALWAYS rendered but hidden when not needed to allow priming */}
+                <div className={`relative w-full h-full ${stage === 'video' || stage === 'camera' || stage === 'finished' ? 'block' : 'hidden'}`}>
+                    <video
+                        ref={videoRef}
+                        src={VIDEO_URL}
+                        className="w-full h-full object-contain"
+                        playsInline
+                        onEnded={() => {
+                            setStage('finished');
+                        }}
+                        onTimeUpdate={(e) => {
+                            // Show camera overlay at 9 seconds
+                            if (e.currentTarget.currentTime >= 9 && !showOverlay) {
+                                setShowOverlay(true);
+                                setStage('camera'); // Update stage to indicate camera is active
+                            }
+                        }}
+                    />
 
-                        {/* Camera Overlay */}
-                        <AnimatePresence>
-                            {showOverlay && (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0, y: -50 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    className="absolute top-4 left-1/2 transform -translate-x-1/2 w-44 h-44 rounded-full border-4 border-white/50 shadow-lg overflow-hidden z-10"
+                    {/* Mute Toggle */}
+                    {stage === 'video' && (
+                        <button
+                            onClick={toggleMute}
+                            className="absolute top-4 right-4 p-3 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors z-20 backdrop-blur-sm"
+                        >
+                            {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+                        </button>
+                    )}
+
+                    {/* Camera Overlay */}
+                    <AnimatePresence>
+                        {showOverlay && stage !== 'finished' && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0, transition: { duration: 1 } }}
+                                transition={{ duration: 1.5 }}
+                                className="absolute top-20 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30"
+                            >
+                                <div
+                                    className="w-48 h-48 rounded-full border-4 border-white/30 shadow-2xl overflow-hidden mb-4 relative"
                                     style={{
                                         maskImage: 'radial-gradient(circle, black 60%, transparent 100%)',
                                         WebkitMaskImage: 'radial-gradient(circle, black 60%, transparent 100%)'
@@ -162,50 +202,48 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                                         muted
                                         className="w-full h-full object-cover transform scale-x-[-1]"
                                     />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
+                                </div>
+                                <motion.h2
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1, duration: 0.5 }}
+                                    className="text-2xl md:text-3xl font-bold text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                                >
+                                    {t('easterEgg.wideOpenForDaddy')}
+                                </motion.h2>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
-                    {stage === 'camera' && (
+                {/* Countdown Layer */}
+                <AnimatePresence>
+                    {stage === 'countdown' && (
                         <motion.div
-                            key="camera"
-                            className="relative w-full h-full"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
+                            className="absolute inset-0 flex items-center justify-center z-30 bg-black"
+                            exit={{ opacity: 0 }}
                         >
-                            <video
-                                ref={cameraVideoRef}
-                                autoPlay
-                                playsInline
-                                muted
-                                className="w-full h-full object-cover transform scale-x-[-1]" // Mirror effect
-                            />
-                            <div className="absolute bottom-10 left-0 right-0 text-center">
-                                <h2 className="text-4xl font-bold text-white drop-shadow-md">
-                                    {t('easterEgg.youAreTheStar')}
-                                </h2>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    stopCamera();
-                                    if (onComplete) onComplete();
-                                }}
-                                className="absolute top-4 right-4 text-white/50 hover:text-white"
+                            <motion.div
+                                key={countdown}
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1.5, opacity: 1 }}
+                                exit={{ scale: 2, opacity: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="text-9xl font-bold text-white font-mono"
                             >
-                                ✕
-                            </button>
+                                {countdown > 0 ? countdown : ''}
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
 
                 {/* Curtains */}
                 <AnimatePresence>
-                    {(stage === 'curtains-closing' || stage === 'curtains-opening') && (
+                    {(stage === 'curtains-closing' || stage === 'curtains-opening' || stage === 'permission' || stage === 'rejected') && (
                         <>
                             <motion.div
                                 initial={{ x: '-100%' }}
-                                animate={{ x: stage === 'curtains-closing' ? '0%' : '-100%' }}
+                                animate={{ x: (stage === 'curtains-closing' || stage === 'permission' || stage === 'rejected') ? '0%' : '-100%' }}
                                 transition={{ duration: 1.5, ease: "easeInOut" }}
                                 className="absolute top-0 left-0 w-1/2 h-full bg-red-800 z-20 shadow-[10px_0_20px_rgba(0,0,0,0.5)]"
                                 style={{
@@ -215,7 +253,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                             />
                             <motion.div
                                 initial={{ x: '100%' }}
-                                animate={{ x: stage === 'curtains-closing' ? '0%' : '100%' }}
+                                animate={{ x: (stage === 'curtains-closing' || stage === 'permission' || stage === 'rejected') ? '0%' : '100%' }}
                                 transition={{ duration: 1.5, ease: "easeInOut" }}
                                 className="absolute top-0 right-0 w-1/2 h-full bg-red-800 z-20 shadow-[-10px_0_20px_rgba(0,0,0,0.5)]"
                                 style={{
@@ -226,6 +264,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                         </>
                     )}
                 </AnimatePresence>
+
                 {/* Permission Modal */}
                 <AnimatePresence>
                     {stage === 'permission' && (
@@ -276,6 +315,40 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                {/* Finished State */}
+                <AnimatePresence>
+                    {stage === 'finished' && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="absolute z-50 text-center"
+                        >
+                            <h1 className="text-6xl md:text-8xl font-black text-green-500 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] rotate-[-15deg] border-4 border-green-500 p-4 rounded-xl bg-black/50 backdrop-blur-sm">
+                                {t('easterEgg.goodGirl')}
+                            </h1>
+                            <button
+                                onClick={onComplete}
+                                className="mt-12 px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors backdrop-blur-md border border-white/20"
+                            >
+                                ✕
+                            </button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Close Button (Always available in video/camera stages) */}
+                {(stage === 'video' || stage === 'camera') && (
+                    <button
+                        onClick={() => {
+                            stopCamera();
+                            if (onComplete) onComplete();
+                        }}
+                        className="absolute top-4 left-4 text-white/50 hover:text-white z-50"
+                    >
+                        ✕
+                    </button>
+                )}
 
             </div>
         </div>
