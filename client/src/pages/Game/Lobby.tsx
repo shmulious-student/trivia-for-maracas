@@ -122,7 +122,8 @@ const Lobby: React.FC = () => {
             startGame(questions);
         } catch (error) {
             console.error('Failed to fetch questions:', error);
-            alert(t('lobby.startFailed'));
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            alert(`${t('lobby.startFailed')}: ${errorMessage}`);
         } finally {
             setStarting(false);
         }

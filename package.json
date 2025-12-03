@@ -21,6 +21,7 @@
     "test": "npm run test --workspaces"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "qrcode-terminal": "^0.12.0"
   }
 }

@@ -24,5 +24,8 @@ sleep 5
 echo "Opening Client..."
 open http://localhost:5173
 
+# Show Mobile Connection QR Code
+./scripts/mobile_connect.sh
+
 # Keep script running to maintain background processes
 wait

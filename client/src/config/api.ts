@@ -5,8 +5,8 @@
 
 // Use environment variable if available
 // In production, if VITE_API_URL is not set, default to empty string (relative path)
-// In development, fallback to localhost
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:3000');
+// In development, fallback to window.location.hostname to support mobile testing on LAN
+export const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 // Full API base path
 export const API_BASE = `${API_BASE_URL}/api`;

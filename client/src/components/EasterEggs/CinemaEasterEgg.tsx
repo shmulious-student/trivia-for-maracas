@@ -75,13 +75,13 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
 
     const handlePermission = (allowed: boolean) => {
         if (allowed) {
-            // Skip camera for now to test video playback
-            // startCamera().then(() => {
-            //     if (streamRef.current) {
+            // Request camera permission immediately but don't show it yet
+            startCamera().then(() => {
+                // Camera started successfully (permission granted)
+            }).catch(err => console.log("Camera start failed:", err));
+
             playVideo(); // Start playing immediately
             setStage('curtains-opening');
-            //     }
-            // });
         } else {
             setStage('rejected');
         }
@@ -232,7 +232,7 @@ export const CinemaEasterEgg: React.FC<CinemaEasterEggProps> = ({ onComplete }) 
                             className="absolute z-50 bg-gray-900 border border-gray-700 p-8 rounded-xl shadow-2xl text-center max-w-md mx-4"
                         >
                             <h3 className="text-2xl font-bold text-white mb-6">
-                                {t('easterEgg.cameraPermission') || "Ready for the show?"}
+                                {t('easterEgg.cameraPermission')}
                             </h3>
                             <div className="flex gap-4 justify-center">
                                 <button
