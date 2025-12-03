@@ -26,6 +26,7 @@ export interface ISubject {
     description?: IMultilingualText;
     questionCount?: number; // Optional, populated by aggregation
     lastReport?: string;
+    coverImage?: string;
 }
 
 export interface IQuestionOption {

@@ -11,7 +11,8 @@ const MultilingualTextSchema = new Schema<IMultilingualText>({
 export const SubjectSchema = new Schema<ISubjectDocument>({
     name: { type: MultilingualTextSchema, required: true },
     description: { type: MultilingualTextSchema, required: false },
-    lastReport: { type: String, required: false }
+    lastReport: { type: String, required: false },
+    coverImage: { type: String, required: false }
 }, {
     timestamps: true,
     toJSON: {

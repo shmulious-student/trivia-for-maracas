@@ -54,6 +54,8 @@ router.get('/', async (req, res) => {
                 $project: {
                     id: '$_id',
                     name: 1,
+                    description: 1,
+                    coverImage: 1,
                     questionCount: { $size: '$questions' },
                     createdAt: 1,
                     updatedAt: 1
