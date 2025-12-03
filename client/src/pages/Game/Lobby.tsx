@@ -135,13 +135,13 @@ const Lobby: React.FC = () => {
     );
 
     return (
-        <div className="flex flex-col h-full max-w-4xl mx-auto px-4 py-6 space-y-6">
+        <div className="flex flex-col h-full max-w-4xl mx-auto px-4 py-6 space-y-2">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center space-y-2 shrink-0"
             >
-                <div className="text-center mb-8">
+                <div className="text-center mb-2">
                     <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent-primary to-purple-400">
                         {t('app.title')}
                     </h1>
@@ -149,7 +149,7 @@ const Lobby: React.FC = () => {
                 </div>
             </motion.div>
 
-            <div className="flex-1 min-h-0 flex flex-col space-y-4">
+            <div className="flex-1 min-h-0 flex flex-col space-y-2">
                 <div className="flex items-center gap-3 text-text-primary shrink-0">
                     <div className="p-2 bg-accent-primary/20 rounded-lg">
                         <BookOpen size={24} className="text-accent-primary" />
