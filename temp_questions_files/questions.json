@@ -1,0 +1,2802 @@
+[
+  {
+    "text": {
+      "en": "Which two members of Alice in Chains are known for their distinctive harmonized vocals?",
+      "he": "אילו שני חברים ב-Alice in Chains ידועים בקולות ההרמוניים הייחודיים שלהם?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Layne Staley and Jerry Cantrell",
+          "he": "ליין סטיילי וג'רי קנטרל"
+        }
+      },
+      {
+        "text": {
+          "en": "Jerry Cantrell and Mike Inez",
+          "he": "ג'רי קנטרל ומייק אינז"
+        }
+      },
+      {
+        "text": {
+          "en": "Layne Staley and Sean Kinney",
+          "he": "ליין סטיילי ושון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "William DuVall and Mike Starr",
+          "he": "וויליאם דובאל ומייק סטאר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "The band is known for its distinctive vocal style, [ 1 ] which often included the harmonized vocals between Staley and Cantrell"
+  },
+  {
+    "text": {
+      "en": "In which city was Alice in Chains formed?",
+      "he": "באיזו עיר הוקמה להקת Alice in Chains?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Seattle",
+          "he": "סיאטל"
+        }
+      },
+      {
+        "text": {
+          "en": "Portland",
+          "he": "פורטלנד"
+        }
+      },
+      {
+        "text": {
+          "en": "Los Angeles",
+          "he": "לוס אנג'לס"
+        }
+      },
+      {
+        "text": {
+          "en": "Chicago",
+          "he": "שיקגו"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Alice in Chains (often abbreviated as AiC ) is an American rock band formed in Seattle in 1987."
+  },
+  {
+    "text": {
+      "en": "Which Alice in Chains song became a hit on MTV and mainstream rock radio, breaking them through to the mainstream?",
+      "he": "איזה שיר של Alice in Chains הפך ללהיט ב-MTV וברדיו הרוק המרכזי, ופרץ את דרכם למיינסטרים?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Man in the Box",
+          "he": "Man in the Box"
+        }
+      },
+      {
+        "text": {
+          "en": "Rooster",
+          "he": "Rooster"
+        }
+      },
+      {
+        "text": {
+          "en": "Would?",
+          "he": "Would?"
+        }
+      },
+      {
+        "text": {
+          "en": "Them Bones",
+          "he": "Them Bones"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "They broke through on MTV and mainstream rock radio with the single \" Man in the Box \" (from their 1990 debut album Facelift )."
+  },
+  {
+    "text": {
+      "en": "What was the first EP to ever debut at number one on the Billboard 200 chart?",
+      "he": "מה היה ה-EP הראשון אי פעם שהגיע למקום הראשון במצעד הבילבורד 200?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jar of Flies",
+          "he": "Jar of Flies"
+        }
+      },
+      {
+        "text": {
+          "en": "Sap",
+          "he": "Sap"
+        }
+      },
+      {
+        "text": {
+          "en": "We Die Young",
+          "he": "We Die Young"
+        }
+      },
+      {
+        "text": {
+          "en": "Black Gives Way to Blue",
+          "he": "Black Gives Way to Blue"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Jar of Flies debuted at number one on the Billboard 200, becoming the first EP—and first Alice in Chains release—to top the charts."
+  },
+  {
+    "text": {
+      "en": "Who joined Alice in Chains as lead vocalist in 2006?",
+      "he": "מי הצטרף ל-Alice in Chains כסולן ראשי בשנת 2006?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "William DuVall",
+          "he": "וויליאם דובאל"
+        }
+      },
+      {
+        "text": {
+          "en": "Scott Weiland",
+          "he": "סקוט ויילנד"
+        }
+      },
+      {
+        "text": {
+          "en": "Phil Anselmo",
+          "he": "פיל אנסלמו"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Alice in Chains' current lead vocalist, William DuVall , replaced Staley in the reformed band in 2006."
+  },
+  {
+    "text": {
+      "en": "Which former Alice in Chains bassist passed away in 2011?",
+      "he": "איזה בסיסט לשעבר של Alice in Chains הלך לעולמו בשנת 2011?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mike Starr",
+          "he": "מייק סטאר"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike Inez",
+          "he": "מייק אינז"
+        }
+      },
+      {
+        "text": {
+          "en": "Sean Kinney",
+          "he": "שון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "Jerry Cantrell",
+          "he": "ג'רי קנטרל"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "On March 8, 2011, former Alice in Chains bassist Mike Starr was found dead at his home in Salt Lake City."
+  },
+  {
+    "text": {
+      "en": "What was the name of Alice in Chains' first promotional EP released in July 1990?",
+      "he": "מה היה שמו של ה-EP לקידום המכירות הראשון של Alice in Chains שיצא ביולי 1990?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "We Die Young",
+          "he": "We Die Young"
+        }
+      },
+      {
+        "text": {
+          "en": "Sap",
+          "he": "Sap"
+        }
+      },
+      {
+        "text": {
+          "en": "Facelift",
+          "he": "Facelift"
+        }
+      },
+      {
+        "text": {
+          "en": "Dirt",
+          "he": "Dirt"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Alice in Chains soon became a top priority of the label, which released the band's first official recording in July 1990, a promotional EP called We Die Young ."
+  },
+  {
+    "text": {
+      "en": "What was the name of the glam metal band Layne Staley auditioned for before Alice in Chains?",
+      "he": "מה היה שמה של להקת הגלאם מטאל שליין סטיילי נבחן אליה לפני Alice in Chains?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Sleze",
+          "he": "Sleze"
+        }
+      },
+      {
+        "text": {
+          "en": "Diamond Lie",
+          "he": "Diamond Lie"
+        }
+      },
+      {
+        "text": {
+          "en": "Gypsy Rose",
+          "he": "Gypsy Rose"
+        }
+      },
+      {
+        "text": {
+          "en": "Alice N' Chains",
+          "he": "Alice N' Chains"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Layne Staley... landed his first gig as a vocalist when he auditioned to sing for a local glam metal band known as Sleze"
+  },
+  {
+    "text": {
+      "en": "What is the title of the mockumentary Alice in Chains released to promote 'The Devil Put Dinosaurs Here'?",
+      "he": "מהו שמו של הסרט המוקומנטרי ש-Alice in Chains שחררו כדי לקדם את האלבום 'The Devil Put Dinosaurs Here'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "AIC 23",
+          "he": "AIC 23"
+        }
+      },
+      {
+        "text": {
+          "en": "The Nona Tapes",
+          "he": "The Nona Tapes"
+        }
+      },
+      {
+        "text": {
+          "en": "Black Antenna",
+          "he": "Black Antenna"
+        }
+      },
+      {
+        "text": {
+          "en": "Music Bank",
+          "he": "Music Bank"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "To promote the album, Alice in Chains teamed up with Funny or Die for an 11-minute mockumentary titled AIC 23"
+  },
+  {
+    "text": {
+      "en": "In the mockumentary AIC 23, which character did Sean Kinney play?",
+      "he": "בסרט המוקומנטרי AIC 23, איזו דמות גילם שון קיני?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Stanley Eisen",
+          "he": "סטנלי אייזן"
+        }
+      },
+      {
+        "text": {
+          "en": "Alan Poole McLard",
+          "he": "אלן פול מקלארד"
+        }
+      },
+      {
+        "text": {
+          "en": "Donnie 'Skeeter' Dollarhide Jr.",
+          "he": "דוני 'סקיטר' דולרהייד ג'וניור"
+        }
+      },
+      {
+        "text": {
+          "en": "Unta Gleeben Glabben Globben Globin",
+          "he": "אונטה גליבן גלאבן גלובן גלובין"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "and the hipster Stanley Eisen (played by Sean Kinney)."
+  },
+  {
+    "text": {
+      "en": "What was the first album Jerry Cantrell owned?",
+      "he": "מה היה האלבום הראשון שג'רי קנטרל החזיק בבעלותו?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Elton John's Greatest Hits",
+          "he": "Elton John's Greatest Hits"
+        }
+      },
+      {
+        "text": {
+          "en": "Led Zeppelin IV",
+          "he": "Led Zeppelin IV"
+        }
+      },
+      {
+        "text": {
+          "en": "Black Sabbath Vol. 4",
+          "he": "Black Sabbath Vol. 4"
+        }
+      },
+      {
+        "text": {
+          "en": "Kiss Alive!",
+          "he": "Kiss Alive!"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "The first album that Cantrell owned was Elton John 's 1974 Greatest Hits compilation"
+  },
+  {
+    "text": {
+      "en": "Which high school did Jerry Cantrell attend?",
+      "he": "באיזה תיכון למד ג'רי קנטרל?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Spanaway Lake High School",
+          "he": "תיכון ספאנוויי לייק"
+        }
+      },
+      {
+        "text": {
+          "en": "Seattle High School",
+          "he": "תיכון סיאטל"
+        }
+      },
+      {
+        "text": {
+          "en": "Tacoma High School",
+          "he": "תיכון טקומה"
+        }
+      },
+      {
+        "text": {
+          "en": "Washington High School",
+          "he": "תיכון וושינגטון"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "Cantrell attended high school at Spanaway Lake High School"
+  },
+  {
+    "text": {
+      "en": "What was Jerry Cantrell's first 'real guitar'?",
+      "he": "מה הייתה הגיטרה ה\"אמיתית\" הראשונה של ג'רי קנטרל?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "G&L Rampage",
+          "he": "G&L Rampage"
+        }
+      },
+      {
+        "text": {
+          "en": "Fender Stratocaster",
+          "he": "Fender Stratocaster"
+        }
+      },
+      {
+        "text": {
+          "en": "Gibson Les Paul",
+          "he": "Gibson Les Paul"
+        }
+      },
+      {
+        "text": {
+          "en": "Ibanez Destroyer",
+          "he": "Ibanez Destroyer"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "Cantrell bought what he described as his first \"real guitar\", a 1984 G&L Rampage ."
+  },
+  {
+    "text": {
+      "en": "What was the name of the band Jerry Cantrell formed in Tacoma before Alice in Chains?",
+      "he": "מה היה שמה של הלהקה שג'רי קנטרל הקים בטקומה לפני Alice in Chains?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Diamond Lie",
+          "he": "Diamond Lie"
+        }
+      },
+      {
+        "text": {
+          "en": "Sleze",
+          "he": "Sleze"
+        }
+      },
+      {
+        "text": {
+          "en": "Gypsy Rose",
+          "he": "Gypsy Rose"
+        }
+      },
+      {
+        "text": {
+          "en": "Mothra",
+          "he": "Mothra"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "In 1985 or 1986, Cantrell moved back to Tacoma and began a band called Diamond Lie"
+  },
+  {
+    "text": {
+      "en": "Which solo album did Jerry Cantrell dedicate to the memory of Layne Staley?",
+      "he": "איזה אלבום סולו הקדיש ג'רי קנטרל לזכרו של ליין סטיילי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Degradation Trip",
+          "he": "Degradation Trip"
+        }
+      },
+      {
+        "text": {
+          "en": "Boggy Depot",
+          "he": "Boggy Depot"
+        }
+      },
+      {
+        "text": {
+          "en": "Brighten",
+          "he": "Brighten"
+        }
+      },
+      {
+        "text": {
+          "en": "Rainier Fog",
+          "he": "Rainier Fog"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "sourceQuote": "Cantrell dedicated his 2002 solo album, Degradation Trip , released two months after Staley's death, to his memory."
+  },
+  {
+    "text": {
+      "en": "What job did Jerry Cantrell work in Dallas and Houston?",
+      "he": "באיזו עבודה עבד ג'רי קנטרל בדאלאס ויוסטון?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Asbestos abatement",
+          "he": "פינוי אסבסט"
+        }
+      },
+      {
+        "text": {
+          "en": "Newspaper delivery",
+          "he": "חלוקת עיתונים"
+        }
+      },
+      {
+        "text": {
+          "en": "Fish warehouse worker",
+          "he": "עובד במחסן דגים"
+        }
+      },
+      {
+        "text": {
+          "en": "Music store clerk",
+          "he": "מוכר בחנות מוזיקה"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "Cantrell worked doing asbestos abatement around the Dallas and Houston areas."
+  },
+  {
+    "text": {
+      "en": "What position did Jerry Cantrell hold in his high school choir during his senior year?",
+      "he": "איזה תפקיד מילא ג'רי קנטרל במקהלת התיכון שלו בשנתו האחרונה?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "President",
+          "he": "נשיא"
+        }
+      },
+      {
+        "text": {
+          "en": "Lead Tenor",
+          "he": "טנור ראשי"
+        }
+      },
+      {
+        "text": {
+          "en": "Secretary",
+          "he": "מזכיר"
+        }
+      },
+      {
+        "text": {
+          "en": "Treasurer",
+          "he": "גזבר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "In his senior year, Cantrell became choir president"
+  },
+  {
+    "text": {
+      "en": "Who did Jerry Cantrell meet at a party in Seattle around August 1987?",
+      "he": "את מי פגש ג'רי קנטרל במסיבה בסיאטל בסביבות אוגוסט 1987?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      },
+      {
+        "text": {
+          "en": "Sean Kinney",
+          "he": "שון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike Starr",
+          "he": "מייק סטאר"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "Cantrell met Layne Staley, then Alice N' Chains' lead singer, at a party in Seattle around August 1987."
+  },
+  {
+    "text": {
+      "en": "Which famous musician threw away Jerry Cantrell's demo tape in 1988?",
+      "he": "איזה מוזיקאי מפורסם זרק את קלטת הדמו של ג'רי קנטרל בשנת 1988?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Axl Rose",
+          "he": "אקסל רוז"
+        }
+      },
+      {
+        "text": {
+          "en": "Slash",
+          "he": "סלאש"
+        }
+      },
+      {
+        "text": {
+          "en": "Kurt Cobain",
+          "he": "קורט קוביין"
+        }
+      },
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "As he was walking away, Cantrell saw Rose throwing the demo away."
+  },
+  {
+    "text": {
+      "en": "What was the name of the band Jerry Cantrell had with Vinnie Chas?",
+      "he": "מה היה שמה של הלהקה שהייתה לג'רי קנטרל עם ויני צ'אס?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Sinister",
+          "he": "Sinister"
+        }
+      },
+      {
+        "text": {
+          "en": "Raze",
+          "he": "Raze"
+        }
+      },
+      {
+        "text": {
+          "en": "Gypsy Rose",
+          "he": "Gypsy Rose"
+        }
+      },
+      {
+        "text": {
+          "en": "Diamond Lie",
+          "he": "Diamond Lie"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "sourceQuote": "During that time, he had a band with Vinnie Chas (from Pretty Boy Floyd ), called Sinister."
+  },
+  {
+    "text": {
+      "en": "What was the name of Nirvana's debut album released in 1989?",
+      "he": "מה היה שמו של אלבום הבכורה של נירוונה שיצא בשנת 1989?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Bleach",
+          "he": "Bleach"
+        }
+      },
+      {
+        "text": {
+          "en": "Nevermind",
+          "he": "Nevermind"
+        }
+      },
+      {
+        "text": {
+          "en": "In Utero",
+          "he": "In Utero"
+        }
+      },
+      {
+        "text": {
+          "en": "Incesticide",
+          "he": "Incesticide"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "The following month, the band began recording its debut album, Bleach , with local producer Jack Endino ."
+  },
+  {
+    "text": {
+      "en": "Who was the drummer that joined Nirvana in 1990, completing the classic lineup?",
+      "he": "מי היה המתופף שהצטרף לנירוונה בשנת 1990 והשלים את ההרכב הקלאסי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Dave Grohl",
+          "he": "דייב גרוהל"
+        }
+      },
+      {
+        "text": {
+          "en": "Chad Channing",
+          "he": "צ'אד צ'אנינג"
+        }
+      },
+      {
+        "text": {
+          "en": "Dale Crover",
+          "he": "דייל קרובר"
+        }
+      },
+      {
+        "text": {
+          "en": "Dan Peters",
+          "he": "דן פיטרס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "In September 1990, Buzz Osborne of the Melvins introduced the band to drummer Dave Grohl"
+  },
+  {
+    "text": {
+      "en": "Which Nirvana album displaced Michael Jackson's 'Dangerous' at number one on the Billboard charts?",
+      "he": "איזה אלבום של נירוונה הדיח את 'Dangerous' של מייקל ג'קסון מהמקום הראשון במצעד הבילבורד?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Nevermind",
+          "he": "Nevermind"
+        }
+      },
+      {
+        "text": {
+          "en": "Bleach",
+          "he": "Bleach"
+        }
+      },
+      {
+        "text": {
+          "en": "In Utero",
+          "he": "In Utero"
+        }
+      },
+      {
+        "text": {
+          "en": "MTV Unplugged in New York",
+          "he": "MTV Unplugged in New York"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "In January 1992, the album displaced Michael Jackson 's Dangerous at number one on the Billboard album charts"
+  },
+  {
+    "text": {
+      "en": "What was the first single released by Nirvana on Sub Pop in November 1988?",
+      "he": "מה היה הסינגל הראשון ששחררה נירוונה בלייבל Sub Pop בנובמבר 1988?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Love Buzz",
+          "he": "Love Buzz"
+        }
+      },
+      {
+        "text": {
+          "en": "Sliver",
+          "he": "Sliver"
+        }
+      },
+      {
+        "text": {
+          "en": "About a Girl",
+          "he": "About a Girl"
+        }
+      },
+      {
+        "text": {
+          "en": "School",
+          "he": "School"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "Nirvana released its first single, a cover of Shocking Blue 's \" Love Buzz \", in November 1988"
+  },
+  {
+    "text": {
+      "en": "Who produced Nirvana's debut album 'Bleach'?",
+      "he": "מי הפיק את אלבום הבכורה של נירוונה, 'Bleach'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jack Endino",
+          "he": "ג'ק אנדינו"
+        }
+      },
+      {
+        "text": {
+          "en": "Butch Vig",
+          "he": "בוץ' ויג"
+        }
+      },
+      {
+        "text": {
+          "en": "Steve Albini",
+          "he": "סטיב אלביני"
+        }
+      },
+      {
+        "text": {
+          "en": "Scott Litt",
+          "he": "סקוט ליט"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "The following month, the band began recording its debut album, Bleach , with local producer Jack Endino ."
+  },
+  {
+    "text": {
+      "en": "Who produced Nirvana's breakthrough album 'Nevermind'?",
+      "he": "מי הפיק את אלבום הפריצה של נירוונה, 'Nevermind'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Butch Vig",
+          "he": "בוץ' ויג"
+        }
+      },
+      {
+        "text": {
+          "en": "Steve Albini",
+          "he": "סטיב אלביני"
+        }
+      },
+      {
+        "text": {
+          "en": "Jack Endino",
+          "he": "ג'ק אנדינו"
+        }
+      },
+      {
+        "text": {
+          "en": "Brendan O'Brien",
+          "he": "ברנדן אובריאן"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "The group was offered a number of producers, but held out for Vig."
+  },
+  {
+    "text": {
+      "en": "Who funded the recording sessions for 'Bleach'?",
+      "he": "מי מימן את סשני ההקלטה לאלבום 'Bleach'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jason Everman",
+          "he": "ג'ייסון אברמן"
+        }
+      },
+      {
+        "text": {
+          "en": "Kurt Cobain",
+          "he": "קורט קוביין"
+        }
+      },
+      {
+        "text": {
+          "en": "Krist Novoselic",
+          "he": "קריסט נובוסליץ'"
+        }
+      },
+      {
+        "text": {
+          "en": "Jonathan Poneman",
+          "he": "ג'ונתן פונמן"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "The money for the recording sessions for Bleach , listed as $606.17 on the album sleeve, was supplied by Jason Everman"
+  },
+  {
+    "text": {
+      "en": "Who introduced Nirvana to their agent Don Muller and attorney Alan Mintz?",
+      "he": "מי הכיר לנירוונה את הסוכן דון מולר ועורך הדין אלן מינץ?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Susan Silver",
+          "he": "סוזן סילבר"
+        }
+      },
+      {
+        "text": {
+          "en": "Kim Gordon",
+          "he": "קים גורדון"
+        }
+      },
+      {
+        "text": {
+          "en": "Courtney Love",
+          "he": "קורטני לאב"
+        }
+      },
+      {
+        "text": {
+          "en": "Kelly Curtis",
+          "he": "קלי קרטיס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "They met Silver in Los Angeles and she introduced them to agent Don Muller"
+  },
+  {
+    "text": {
+      "en": "Which major record label did Nirvana sign to in 1990?",
+      "he": "באיזה לייבל תקליטים גדול חתמה נירוונה בשנת 1990?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "DGC Records",
+          "he": "DGC Records"
+        }
+      },
+      {
+        "text": {
+          "en": "Columbia Records",
+          "he": "Columbia Records"
+        }
+      },
+      {
+        "text": {
+          "en": "Warner Bros. Records",
+          "he": "Warner Bros. Records"
+        }
+      },
+      {
+        "text": {
+          "en": "Epic Records",
+          "he": "Epic Records"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "Following repeated recommendations by Sonic Youth's Kim Gordon , Nirvana signed to DGC Records in 1990."
+  },
+  {
+    "text": {
+      "en": "Who played drums on Nirvana's single 'Sliver'?",
+      "he": "מי ניגן בתופים בסינגל 'Sliver' של נירוונה?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Dan Peters",
+          "he": "דן פיטרס"
+        }
+      },
+      {
+        "text": {
+          "en": "Chad Channing",
+          "he": "צ'אד צ'אנינג"
+        }
+      },
+      {
+        "text": {
+          "en": "Dave Grohl",
+          "he": "דייב גרוהל"
+        }
+      },
+      {
+        "text": {
+          "en": "Dale Crover",
+          "he": "דייל קרובר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "That July, Nirvana recorded the single \" Sliver \" with Mudhoney drummer Dan Peters ."
+  },
+  {
+    "text": {
+      "en": "What was the exact cost of the recording sessions for 'Bleach' listed on the album sleeve?",
+      "he": "מה הייתה העלות המדויקת של סשני ההקלטה ל-'Bleach' כפי שמופיע על עטיפת האלבום?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "$606.17",
+          "he": "$606.17"
+        }
+      },
+      {
+        "text": {
+          "en": "$500.00",
+          "he": "$500.00"
+        }
+      },
+      {
+        "text": {
+          "en": "$1000.00",
+          "he": "$1000.00"
+        }
+      },
+      {
+        "text": {
+          "en": "$420.50",
+          "he": "$420.50"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "The money for the recording sessions for Bleach , listed as $606.17 on the album sleeve"
+  },
+  {
+    "text": {
+      "en": "Which mixer was brought in to create the final mix for 'Nevermind'?",
+      "he": "איזה טכנאי מיקס הובא כדי ליצור את המיקס הסופי ל-'Nevermind'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Andy Wallace",
+          "he": "אנדי וואלאס"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Lord-Alge",
+          "he": "כריס לורד-אלג'י"
+        }
+      },
+      {
+        "text": {
+          "en": "Brendan O'Brien",
+          "he": "ברנדן אובריאן"
+        }
+      },
+      {
+        "text": {
+          "en": "Alan Moulder",
+          "he": "אלן מולדר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "sourceQuote": "Slayer mixer Andy Wallace was brought in to create the final mix."
+  },
+  {
+    "text": {
+      "en": "What is the title of the only studio album released by Mad Season?",
+      "he": "מה שמו של אלבום האולפן היחיד שהוציאה Mad Season?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Above",
+          "he": "Above"
+        }
+      },
+      {
+        "text": {
+          "en": "Below",
+          "he": "Below"
+        }
+      },
+      {
+        "text": {
+          "en": "River of Deceit",
+          "he": "River of Deceit"
+        }
+      },
+      {
+        "text": {
+          "en": "Wake Up",
+          "he": "Wake Up"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "The album, Above , which was recorded in Seattle, Washington at Bad Animals Studio... featured ten songs."
+  },
+  {
+    "text": {
+      "en": "Who was the lead vocalist for Mad Season?",
+      "he": "מי היה הסולן של Mad Season?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      },
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Mark Lanegan",
+          "he": "מארק לאנגן"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "Layne Staley ( Alice in Chains ) – vocals, rhythm guitar (1994–1997; died 2002)"
+  },
+  {
+    "text": {
+      "en": "Which Pearl Jam guitarist was a founding member of Mad Season?",
+      "he": "איזה גיטריסט של פרל ג'אם היה חבר מייסד ב-Mad Season?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mike McCready",
+          "he": "מייק מק'ריידי"
+        }
+      },
+      {
+        "text": {
+          "en": "Stone Gossard",
+          "he": "סטון גוסארד"
+        }
+      },
+      {
+        "text": {
+          "en": "Jeff Ament",
+          "he": "ג'ף אמנט"
+        }
+      },
+      {
+        "text": {
+          "en": "Matt Cameron",
+          "he": "מאט קמרון"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "Mike McCready ( Pearl Jam ) – lead guitar (1994–1999, 2012, 2014–2015)"
+  },
+  {
+    "text": {
+      "en": "Who was the drummer for Mad Season?",
+      "he": "מי היה המתופף של Mad Season?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Barrett Martin",
+          "he": "בארט מרטין"
+        }
+      },
+      {
+        "text": {
+          "en": "Sean Kinney",
+          "he": "שון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "Dave Abbruzzese",
+          "he": "דייב אברוזיס"
+        }
+      },
+      {
+        "text": {
+          "en": "Matt Cameron",
+          "he": "מאט קמרון"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "Barrett Martin ( Screaming Trees ) – drums, percussion, cello and upright bass (1994–1999, 2012, 2014–2015)"
+  },
+  {
+    "text": {
+      "en": "Who was the bassist for Mad Season?",
+      "he": "מי היה הבסיסט של Mad Season?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "John Baker Saunders",
+          "he": "ג'ון בייקר סונדרס"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike Inez",
+          "he": "מייק אינז"
+        }
+      },
+      {
+        "text": {
+          "en": "Jeff Ament",
+          "he": "ג'ף אמנט"
+        }
+      },
+      {
+        "text": {
+          "en": "Ben Shepherd",
+          "he": "בן שפרד"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "John Baker Saunders (later with The Walkabouts ) – bass (1994–1999; died 1999)"
+  },
+  {
+    "text": {
+      "en": "What was the original name Mad Season used for their first few shows?",
+      "he": "מה היה השם המקורי שבו השתמשה Mad Season בהופעותיה הראשונות?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "The Gacy Bunch",
+          "he": "The Gacy Bunch"
+        }
+      },
+      {
+        "text": {
+          "en": "The Brady Bunch",
+          "he": "The Brady Bunch"
+        }
+      },
+      {
+        "text": {
+          "en": "Alice Mudgarden",
+          "he": "Alice Mudgarden"
+        }
+      },
+      {
+        "text": {
+          "en": "Temple of the Dog",
+          "he": "Temple of the Dog"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "with the band calling itself The Gacy Bunch, after both the notorious serial killer John Wayne Gacy of Chicago and the 1970s sitcom The Brady Bunch ."
+  },
+  {
+    "text": {
+      "en": "Which Screaming Trees vocalist contributed guest vocals to 'I'm Above' and 'Long Gone Day'?",
+      "he": "איזה סולן של Screaming Trees תרם קולות אורח לשירים 'I'm Above' ו-'Long Gone Day'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mark Lanegan",
+          "he": "מארק לאנגן"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      },
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Scott Weiland",
+          "he": "סקוט ויילנד"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "Vocalist Mark Lanegan of Screaming Trees contributes guest vocals on \"I'm Above\" and \"Long Gone Day\""
+  },
+  {
+    "text": {
+      "en": "Which book inspired the lyrics for the song 'River of Deceit'?",
+      "he": "איזה ספר נתן השראה למילים של השיר 'River of Deceit'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "The Prophet by Kahlil Gibran",
+          "he": "הנביא מאת ג'ובראן ח'ליל ג'ובראן"
+        }
+      },
+      {
+        "text": {
+          "en": "The Catcher in the Rye",
+          "he": "התפסן בשדה השיפון"
+        }
+      },
+      {
+        "text": {
+          "en": "On the Road",
+          "he": "בדרכים"
+        }
+      },
+      {
+        "text": {
+          "en": "Naked Lunch",
+          "he": "ארוחה עירומה"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "sourceQuote": "Lyrically, much of \"River of Deceit\" was inspired by Khalil Gibran's The Prophet ."
+  },
+  {
+    "text": {
+      "en": "Which band did Layne Staley form with Jerry Cantrell?",
+      "he": "איזו להקה הקים ליין סטיילי יחד עם ג'רי קנטרל?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Alice in Chains",
+          "he": "Alice in Chains"
+        }
+      },
+      {
+        "text": {
+          "en": "Soundgarden",
+          "he": "Soundgarden"
+        }
+      },
+      {
+        "text": {
+          "en": "Nirvana",
+          "he": "Nirvana"
+        }
+      },
+      {
+        "text": {
+          "en": "Pearl Jam",
+          "he": "Pearl Jam"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "Eventually the funk project broke up, and in 1987, Staley joined Cantrell's band on a full-time basis... eventually took the name of Staley's previous band, Alice N' Chains , then renamed Alice in Chains ."
+  },
+  {
+    "text": {
+      "en": "What was the name of the supergroup Layne Staley formed with Mike McCready?",
+      "he": "מה היה שמה של הסופרגרופ שליין סטיילי הקים עם מייק מק'ריידי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mad Season",
+          "he": "Mad Season"
+        }
+      },
+      {
+        "text": {
+          "en": "Temple of the Dog",
+          "he": "Temple of the Dog"
+        }
+      },
+      {
+        "text": {
+          "en": "Mother Love Bone",
+          "he": "Mother Love Bone"
+        }
+      },
+      {
+        "text": {
+          "en": "Audioslave",
+          "he": "Audioslave"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "Within a few weeks, the band changed its name to Mad Season."
+  },
+  {
+    "text": {
+      "en": "What was the name of Layne Staley's first band, which played glam metal?",
+      "he": "מה היה שמה של הלהקה הראשונה של ליין סטיילי, שניגנה גלאם מטאל?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Sleze",
+          "he": "Sleze"
+        }
+      },
+      {
+        "text": {
+          "en": "Alice N' Chains",
+          "he": "Alice N' Chains"
+        }
+      },
+      {
+        "text": {
+          "en": "Diamond Lie",
+          "he": "Diamond Lie"
+        }
+      },
+      {
+        "text": {
+          "en": "Gypsy Rose",
+          "he": "Gypsy Rose"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "In 1985, Staley and his band Sleze made a cameo in Father Rock"
+  },
+  {
+    "text": {
+      "en": "Whose life did Layne Staley save after an overdose in Brazil in 1993?",
+      "he": "את חייו של מי הציל ליין סטיילי לאחר מנת יתר בברזיל בשנת 1993?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mike Starr",
+          "he": "מייק סטאר"
+        }
+      },
+      {
+        "text": {
+          "en": "Sean Kinney",
+          "he": "שון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "Jerry Cantrell",
+          "he": "ג'רי קנטרל"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike Inez",
+          "he": "מייק אינז"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "During the Dirt tour in Brazil in 1993, Staley saved Starr's life after he had overdosed."
+  },
+  {
+    "text": {
+      "en": "Which album's sun logo was designed by Layne Staley?",
+      "he": "את לוגו השמש של איזה אלבום עיצב ליין סטיילי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Dirt",
+          "he": "Dirt"
+        }
+      },
+      {
+        "text": {
+          "en": "Facelift",
+          "he": "Facelift"
+        }
+      },
+      {
+        "text": {
+          "en": "Alice in Chains",
+          "he": "Alice in Chains"
+        }
+      },
+      {
+        "text": {
+          "en": "Jar of Flies",
+          "he": "Jar of Flies"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "Staley designed the sun logo on the album's inlay."
+  },
+  {
+    "text": {
+      "en": "What was the name of the final demo recorded by Alice in Chains in 1988?",
+      "he": "מה היה שמה של קלטת הדמו האחרונה שהקליטה Alice in Chains בשנת 1988?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "The Treehouse Tapes",
+          "he": "The Treehouse Tapes"
+        }
+      },
+      {
+        "text": {
+          "en": "Sweet Alice",
+          "he": "Sweet Alice"
+        }
+      },
+      {
+        "text": {
+          "en": "We Die Young",
+          "he": "We Die Young"
+        }
+      },
+      {
+        "text": {
+          "en": "Facelift Demos",
+          "he": "Facelift Demos"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "The final demo, completed in 1988, was named The Treehouse Tapes"
+  },
+  {
+    "text": {
+      "en": "Who was Layne Staley's roommate at the Music Bank rehearsal studios?",
+      "he": "מי היה השותף לחדר של ליין סטיילי באולפני החזרות Music Bank?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jerry Cantrell",
+          "he": "ג'רי קנטרל"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike Starr",
+          "he": "מייק סטאר"
+        }
+      },
+      {
+        "text": {
+          "en": "Sean Kinney",
+          "he": "שון קיני"
+        }
+      },
+      {
+        "text": {
+          "en": "Demri Parrott",
+          "he": "דמרי פארוט"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "so Staley invited Cantrell to live with him at the Music Bank. [ 6 ] The two fast friends lived as roommates for over a year"
+  },
+  {
+    "text": {
+      "en": "In which low-budget movie did Layne Staley make a cameo in 1985?",
+      "he": "באיזה סרט דל תקציב הופיע ליין סטיילי בהופעת אורח בשנת 1985?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Father Rock",
+          "he": "Father Rock"
+        }
+      },
+      {
+        "text": {
+          "en": "Singles",
+          "he": "Singles"
+        }
+      },
+      {
+        "text": {
+          "en": "The Nona Tapes",
+          "he": "The Nona Tapes"
+        }
+      },
+      {
+        "text": {
+          "en": "Hype!",
+          "he": "Hype!"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Layne_Staley",
+    "sourceQuote": "In 1985, Staley and his band Sleze made a cameo in Father Rock , a low-budget movie from Seattle's Public Access Channel."
+  },
+  {
+    "text": {
+      "en": "What was the name of Pearl Jam's debut album released in 1991?",
+      "he": "מה היה שמו של אלבום הבכורה של פרל ג'אם שיצא בשנת 1991?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Ten",
+          "he": "Ten"
+        }
+      },
+      {
+        "text": {
+          "en": "Vs.",
+          "he": "Vs."
+        }
+      },
+      {
+        "text": {
+          "en": "Vitalogy",
+          "he": "Vitalogy"
+        }
+      },
+      {
+        "text": {
+          "en": "No Code",
+          "he": "No Code"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Released on August 27, 1991, Ten (named after Mookie Blaylock's jersey number)"
+  },
+  {
+    "text": {
+      "en": "Which hit single from Pearl Jam's debut album tells the story of a troubled high school student?",
+      "he": "איזה להיט מאלבום הבכורה של פרל ג'אם מספר את סיפורו של תלמיד תיכון מיוסר?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jeremy",
+          "he": "Jeremy"
+        }
+      },
+      {
+        "text": {
+          "en": "Alive",
+          "he": "Alive"
+        }
+      },
+      {
+        "text": {
+          "en": "Even Flow",
+          "he": "Even Flow"
+        }
+      },
+      {
+        "text": {
+          "en": "Black",
+          "he": "Black"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "The song \"Jeremy\" and its accompanying video were inspired by a true story in which a high school student shot himself in front of his classmates."
+  },
+  {
+    "text": {
+      "en": "Who is the lead vocalist of Pearl Jam?",
+      "he": "מי הוא הסולן של פרל ג'אם?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      },
+      {
+        "text": {
+          "en": "Kurt Cobain",
+          "he": "קורט קוביין"
+        }
+      },
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Vedder later revealed that \"Alive\" tells the semi-autobiographical tale"
+  },
+  {
+    "text": {
+      "en": "What was the original name of Pearl Jam before they changed it?",
+      "he": "מה היה השם המקורי של פרל ג'אם לפני ששינו אותו?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mookie Blaylock",
+          "he": "Mookie Blaylock"
+        }
+      },
+      {
+        "text": {
+          "en": "Green River",
+          "he": "Green River"
+        }
+      },
+      {
+        "text": {
+          "en": "Mother Love Bone",
+          "he": "Mother Love Bone"
+        }
+      },
+      {
+        "text": {
+          "en": "Temple of the Dog",
+          "he": "Temple of the Dog"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Ten (named after Mookie Blaylock's jersey number)"
+  },
+  {
+    "text": {
+      "en": "Who was the drummer on Pearl Jam's debut album 'Ten'?",
+      "he": "מי היה המתופף באלבום הבכורה של פרל ג'אם, 'Ten'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Dave Krusen",
+          "he": "דייב קרוסן"
+        }
+      },
+      {
+        "text": {
+          "en": "Matt Cameron",
+          "he": "מאט קמרון"
+        }
+      },
+      {
+        "text": {
+          "en": "Dave Abbruzzese",
+          "he": "דייב אברוזיס"
+        }
+      },
+      {
+        "text": {
+          "en": "Jack Irons",
+          "he": "ג'ק איירונס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Krusen left the band in May 1991 after checking himself into rehabilitation for alcoholism"
+  },
+  {
+    "text": {
+      "en": "Who briefly replaced Dave Krusen as drummer before Dave Abbruzzese joined?",
+      "he": "מי החליף לזמן קצר את דייב קרוסן כמתופף לפני שדייב אברוזיס הצטרף?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Matt Chamberlain",
+          "he": "מאט צ'מברליין"
+        }
+      },
+      {
+        "text": {
+          "en": "Matt Cameron",
+          "he": "מאט קמרון"
+        }
+      },
+      {
+        "text": {
+          "en": "Jack Irons",
+          "he": "ג'ק איירונס"
+        }
+      },
+      {
+        "text": {
+          "en": "Dan Peters",
+          "he": "דן פיטרס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "he was replaced by Matt Chamberlain , who previously played with Edie Brickell & New Bohemians ."
+  },
+  {
+    "text": {
+      "en": "Which Pearl Jam album set a record for the most copies sold in its first week of release in 1993?",
+      "he": "איזה אלבום של פרל ג'אם קבע שיא למספר העותקים שנמכרו בשבוע הראשון לצאתו בשנת 1993?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Vs.",
+          "he": "Vs."
+        }
+      },
+      {
+        "text": {
+          "en": "Ten",
+          "he": "Ten"
+        }
+      },
+      {
+        "text": {
+          "en": "Vitalogy",
+          "he": "Vitalogy"
+        }
+      },
+      {
+        "text": {
+          "en": "No Code",
+          "he": "No Code"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "The album set the record for most copies of an album sold in its first week of release"
+  },
+  {
+    "text": {
+      "en": "Which ticket vendor did Pearl Jam engage in a public battle with over service charges?",
+      "he": "עם איזו חברת כרטיסים נכנסה פרל ג'אם למאבק פומבי על עמלות שירות?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Ticketmaster",
+          "he": "Ticketmaster"
+        }
+      },
+      {
+        "text": {
+          "en": "Live Nation",
+          "he": "Live Nation"
+        }
+      },
+      {
+        "text": {
+          "en": "AXS",
+          "he": "AXS"
+        }
+      },
+      {
+        "text": {
+          "en": "StubHub",
+          "he": "StubHub"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Pearl Jam was committed to keeping their concert ticket prices down but Fred Rosen of Ticketmaster refused to waive the service charge."
+  },
+  {
+    "text": {
+      "en": "Which Pearl Jam song was inspired by a true story of a student shooting himself in front of his classmates?",
+      "he": "איזה שיר של פרל ג'אם נכתב בהשראת סיפור אמיתי על תלמיד שירה בעצמו מול חבריו לכיתה?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jeremy",
+          "he": "Jeremy"
+        }
+      },
+      {
+        "text": {
+          "en": "Alive",
+          "he": "Alive"
+        }
+      },
+      {
+        "text": {
+          "en": "Why Go",
+          "he": "Why Go"
+        }
+      },
+      {
+        "text": {
+          "en": "Deep",
+          "he": "Deep"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "The song \"Jeremy\" and its accompanying video were inspired by a true story in which a high school student shot himself in front of his classmates."
+  },
+  {
+    "text": {
+      "en": "What was the name of the fictional band in the movie 'Singles' that featured members of Pearl Jam?",
+      "he": "מה היה שמה של הלהקה הבדיונית בסרט 'Singles' שכללה חברים מפרל ג'אם?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Citizen Dick",
+          "he": "Citizen Dick"
+        }
+      },
+      {
+        "text": {
+          "en": "Stillwater",
+          "he": "Stillwater"
+        }
+      },
+      {
+        "text": {
+          "en": "Crucial Taunt",
+          "he": "Crucial Taunt"
+        }
+      },
+      {
+        "text": {
+          "en": "Spinal Tap",
+          "he": "Spinal Tap"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Ament, Gossard and Vedder appeared in Singles under the name Citizen Dick"
+  },
+  {
+    "text": {
+      "en": "How many copies did Pearl Jam's album 'Vs.' sell in its first week of release?",
+      "he": "כמה עותקים מכר האלבום 'Vs.' של פרל ג'אם בשבוע הראשון לצאתו?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "950,378",
+          "he": "950,378"
+        }
+      },
+      {
+        "text": {
+          "en": "500,000",
+          "he": "500,000"
+        }
+      },
+      {
+        "text": {
+          "en": "1,000,000",
+          "he": "1,000,000"
+        }
+      },
+      {
+        "text": {
+          "en": "250,000",
+          "he": "250,000"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Pearl Jam's second album, Vs. , sold 950,378 copies in its first week of release"
+  },
+  {
+    "text": {
+      "en": "Which Pearl Jam member testified alongside Jeff Ament at a congressional hearing regarding Ticketmaster?",
+      "he": "איזה חבר בפרל ג'אם העיד לצד ג'ף אמנט בשימוע בקונגרס בנוגע ל-Ticketmaster?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Stone Gossard",
+          "he": "סטון גוסארד"
+        }
+      },
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Mike McCready",
+          "he": "מייק מק'ריידי"
+        }
+      },
+      {
+        "text": {
+          "en": "Dave Abbruzzese",
+          "he": "דייב אברוזיס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "sourceQuote": "Band members Gossard and Ament testified at a subcommittee investigation on June 30, 1994"
+  },
+  {
+    "text": {
+      "en": "Temple of the Dog was formed as a tribute to which late singer?",
+      "he": "להקת Temple of the Dog הוקמה כמחווה לאיזה זמר המנוח?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Andrew Wood",
+          "he": "אנדרו ווד"
+        }
+      },
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      },
+      {
+        "text": {
+          "en": "Kurt Cobain",
+          "he": "קורט קוביין"
+        }
+      },
+      {
+        "text": {
+          "en": "Shannon Hoon",
+          "he": "שאנון הון"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "sourceQuote": "Temple of the Dog was an American rock supergroup formed in Seattle, Washington in 1990. It was conceived by vocalist Chris Cornell of Soundgarden as a tribute to his friend, the late Andrew Wood"
+  },
+  {
+    "text": {
+      "en": "What was the hit single from Temple of the Dog's only album?",
+      "he": "מה היה הלהיט מתוך האלבום היחיד של Temple of the Dog?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Hunger Strike",
+          "he": "Hunger Strike"
+        }
+      },
+      {
+        "text": {
+          "en": "Say Hello 2 Heaven",
+          "he": "Say Hello 2 Heaven"
+        }
+      },
+      {
+        "text": {
+          "en": "Pushin Forward Back",
+          "he": "Pushin Forward Back"
+        }
+      },
+      {
+        "text": {
+          "en": "Call Me a Dog",
+          "he": "Call Me a Dog"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "sourceQuote": "The band released its only album, the self-titled Temple of the Dog , in April 1991... 'Hunger Strike' became a hit"
+  },
+  {
+    "text": {
+      "en": "Who provided guest vocals on the song 'Hunger Strike'?",
+      "he": "מי סיפק קולות אורח בשיר 'Hunger Strike'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      },
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      },
+      {
+        "text": {
+          "en": "Mark Lanegan",
+          "he": "מארק לאנגן"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "sourceQuote": "Cornell was having trouble with the vocals at practice, when Vedder stepped in... Cornell later said 'He sang half of that song not even knowing that I'd wanted the part to be there and he sang it exactly the way I was thinking about doing it, just instinctively.'"
+  },
+  {
+    "text": {
+      "en": "In which year was the self-titled Temple of the Dog album released?",
+      "he": "באיזו שנה יצא האלבום הנושא את שם הלהקה Temple of the Dog?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "1991",
+          "he": "1991"
+        }
+      },
+      {
+        "text": {
+          "en": "1990",
+          "he": "1990"
+        }
+      },
+      {
+        "text": {
+          "en": "1992",
+          "he": "1992"
+        }
+      },
+      {
+        "text": {
+          "en": "1993",
+          "he": "1993"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "sourceQuote": "The band released its only album, the self-titled Temple of the Dog , in April 1991"
+  },
+  {
+    "text": {
+      "en": "What is the name of the only studio album released by Temple of the Dog?",
+      "he": "מה שמו של אלבום האולפן היחיד שהוציאה Temple of the Dog?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Temple of the Dog",
+          "he": "Temple of the Dog"
+        }
+      },
+      {
+        "text": {
+          "en": "Hunger Strike",
+          "he": "Hunger Strike"
+        }
+      },
+      {
+        "text": {
+          "en": "Say Hello 2 Heaven",
+          "he": "Say Hello 2 Heaven"
+        }
+      },
+      {
+        "text": {
+          "en": "Wooden Jesus",
+          "he": "Wooden Jesus"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "sourceQuote": "The band released its only album, the self-titled Temple of the Dog"
+  },
+  {
+    "text": {
+      "en": "Who was the lead vocalist of Soundgarden?",
+      "he": "מי היה הסולן של סאונדגארדן?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Chris Cornell",
+          "he": "כריס קורנל"
+        }
+      },
+      {
+        "text": {
+          "en": "Eddie Vedder",
+          "he": "אדי ודר"
+        }
+      },
+      {
+        "text": {
+          "en": "Layne Staley",
+          "he": "ליין סטיילי"
+        }
+      },
+      {
+        "text": {
+          "en": "Scott Weiland",
+          "he": "סקוט ויילנד"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Soundgarden was an American rock band formed in Seattle, Washington, in 1984 by singer and rhythm guitarist Chris Cornell"
+  },
+  {
+    "text": {
+      "en": "Which Soundgarden song from the album 'Superunknown' became a massive hit and won a Grammy?",
+      "he": "איזה שיר של סאונדגארדן מהאלבום 'Superunknown' הפך ללהיט ענק וזכה בגראמי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Black Hole Sun",
+          "he": "Black Hole Sun"
+        }
+      },
+      {
+        "text": {
+          "en": "Spoonman",
+          "he": "Spoonman"
+        }
+      },
+      {
+        "text": {
+          "en": "Fell on Black Days",
+          "he": "Fell on Black Days"
+        }
+      },
+      {
+        "text": {
+          "en": "The Day I Tried to Live",
+          "he": "The Day I Tried to Live"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Superunknown ... yielded the Grammy Award-winning singles \"Black Hole Sun\" and \"Spoonman\"."
+  },
+  {
+    "text": {
+      "en": "What was Soundgarden's first single released on Sub Pop in 1987?",
+      "he": "מה היה הסינגל הראשון של סאונדגארדן שיצא בלייבל Sub Pop בשנת 1987?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Hunted Down",
+          "he": "Hunted Down"
+        }
+      },
+      {
+        "text": {
+          "en": "Flower",
+          "he": "Flower"
+        }
+      },
+      {
+        "text": {
+          "en": "Outshined",
+          "he": "Outshined"
+        }
+      },
+      {
+        "text": {
+          "en": "Rusty Cage",
+          "he": "Rusty Cage"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Soundgarden signed to Sub Pop, and the label released \" Hunted Down \" in 1987 as the band's first single."
+  },
+  {
+    "text": {
+      "en": "Which independent label released Soundgarden's debut album 'Ultramega OK'?",
+      "he": "איזה לייבל עצמאי הוציא את אלבום הבכורה של סאונדגארדן, 'Ultramega OK'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "SST Records",
+          "he": "SST Records"
+        }
+      },
+      {
+        "text": {
+          "en": "Sub Pop",
+          "he": "Sub Pop"
+        }
+      },
+      {
+        "text": {
+          "en": "A&M Records",
+          "he": "A&M Records"
+        }
+      },
+      {
+        "text": {
+          "en": "C/Z Records",
+          "he": "C/Z Records"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "in 1988 they signed to the independent label SST Records for their debut album, Ultramega OK"
+  },
+  {
+    "text": {
+      "en": "Which Soundgarden song had the band's first music video, directed by Mark Miremont?",
+      "he": "לאיזה שיר של סאונדגארדן צולם הקליפ הראשון של הלהקה, בבימויו של מארק מירמונט?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Flower",
+          "he": "Flower"
+        }
+      },
+      {
+        "text": {
+          "en": "Hunted Down",
+          "he": "Hunted Down"
+        }
+      },
+      {
+        "text": {
+          "en": "Get on the Snake",
+          "he": "Get on the Snake"
+        }
+      },
+      {
+        "text": {
+          "en": "Hands All Over",
+          "he": "Hands All Over"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Mark Miremont directed the band's first music video for \" Flower \""
+  },
+  {
+    "text": {
+      "en": "What was the B-side to Soundgarden's first single 'Hunted Down'?",
+      "he": "מה היה הבי-סייד לסינגל הראשון של סאונדגארדן 'Hunted Down'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Nothing to Say",
+          "he": "Nothing to Say"
+        }
+      },
+      {
+        "text": {
+          "en": "Little Joe",
+          "he": "Little Joe"
+        }
+      },
+      {
+        "text": {
+          "en": "665",
+          "he": "665"
+        }
+      },
+      {
+        "text": {
+          "en": "667",
+          "he": "667"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "The B-side of \"Hunted Down\", \"Nothing to Say\", appeared on the KCMU compilation tape"
+  },
+  {
+    "text": {
+      "en": "Who directed the music video for Soundgarden's 'Flower'?",
+      "he": "מי ביים את הקליפ לשיר 'Flower' של סאונדגארדן?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Mark Miremont",
+          "he": "מארק מירמונט"
+        }
+      },
+      {
+        "text": {
+          "en": "Kevin Kerslake",
+          "he": "קווין קרסלייק"
+        }
+      },
+      {
+        "text": {
+          "en": "Matt Mahurin",
+          "he": "מאט מהורין"
+        }
+      },
+      {
+        "text": {
+          "en": "Samuel Bayer",
+          "he": "סמואל באייר"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Mark Miremont directed the band's first music video for \" Flower \""
+  },
+  {
+    "text": {
+      "en": "Which city is considered the birthplace of the grunge movement?",
+      "he": "איזו עיר נחשבת למקום הולדתה של תנועת הגראנג'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Seattle",
+          "he": "סיאטל"
+        }
+      },
+      {
+        "text": {
+          "en": "Portland",
+          "he": "פורטלנד"
+        }
+      },
+      {
+        "text": {
+          "en": "Olympia",
+          "he": "אולימפיה"
+        }
+      },
+      {
+        "text": {
+          "en": "Tacoma",
+          "he": "טקומה"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "Grunge (originally known as the Seattle Sound) is an alternative rock genre and subculture that emerged during the mid-1980s in the U.S. state of Washington, particularly in Seattle"
+  },
+  {
+    "text": {
+      "en": "Which 1991 album is credited with bringing grunge to the mainstream?",
+      "he": "איזה אלבום משנת 1991 נזקף לזכותו הבאת הגראנג' למיינסטרים?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Nevermind",
+          "he": "Nevermind"
+        }
+      },
+      {
+        "text": {
+          "en": "Ten",
+          "he": "Ten"
+        }
+      },
+      {
+        "text": {
+          "en": "Badmotorfinger",
+          "he": "Badmotorfinger"
+        }
+      },
+      {
+        "text": {
+          "en": "Dirt",
+          "he": "Dirt"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "Grunge broke through into the mainstream in the early-to-mid-1990s, led by Nirvana's Nevermind in 1991"
+  },
+  {
+    "text": {
+      "en": "Which independent record label was central to the early grunge scene?",
+      "he": "איזה לייבל תקליטים עצמאי היה מרכזי בסצנת הגראנג' המוקדמת?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Sub Pop",
+          "he": "Sub Pop"
+        }
+      },
+      {
+        "text": {
+          "en": "SST Records",
+          "he": "SST Records"
+        }
+      },
+      {
+        "text": {
+          "en": "K Records",
+          "he": "K Records"
+        }
+      },
+      {
+        "text": {
+          "en": "Kill Rock Stars",
+          "he": "Kill Rock Stars"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "The early grunge movement revolved around Seattle's independent record label Sub Pop"
+  },
+  {
+    "text": {
+      "en": "Who was the first person to use the term 'grunge' to describe the Seattle sound in a catalog description?",
+      "he": "מי היה האדם הראשון שהשתמש במונח \"גראנג'\" כדי לתאר את הסאונד של סיאטל בתיאור קטלוגי?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Bruce Pavitt",
+          "he": "ברוס פאוויט"
+        }
+      },
+      {
+        "text": {
+          "en": "Jonathan Poneman",
+          "he": "ג'ונתן פונמן"
+        }
+      },
+      {
+        "text": {
+          "en": "Mark Arm",
+          "he": "מארק ארם"
+        }
+      },
+      {
+        "text": {
+          "en": "Kurt Cobain",
+          "he": "קורט קוביין"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "The word was first recorded as being applied to Seattle musicians in July 1987 when Bruce Pavitt described Green River's Dry as a Bone EP"
+  },
+  {
+    "text": {
+      "en": "Which band's EP 'Dry as a Bone' was described as 'ultra-loose GRUNGE'?",
+      "he": "ה-EP של איזו להקה, 'Dry as a Bone', תואר כ-\"ultra-loose GRUNGE\"?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Green River",
+          "he": "Green River"
+        }
+      },
+      {
+        "text": {
+          "en": "Mudhoney",
+          "he": "Mudhoney"
+        }
+      },
+      {
+        "text": {
+          "en": "The Melvins",
+          "he": "The Melvins"
+        }
+      },
+      {
+        "text": {
+          "en": "Soundgarden",
+          "he": "Soundgarden"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "Bruce Pavitt described Green River's Dry as a Bone EP ... as \"gritty vocals, roaring Marshall amps, ultra-loose GRUNGE\""
+  },
+  {
+    "text": {
+      "en": "Who did Kurt Cobain credit with coining the term 'grunge'?",
+      "he": "למי נתן קורט קוביין קרדיט על טביעת המונח \"גראנג'\"?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Jonathan Poneman",
+          "he": "ג'ונתן פונמן"
+        }
+      },
+      {
+        "text": {
+          "en": "Bruce Pavitt",
+          "he": "ברוס פאוויט"
+        }
+      },
+      {
+        "text": {
+          "en": "Mark Arm",
+          "he": "מארק ארם"
+        }
+      },
+      {
+        "text": {
+          "en": "Charles Cross",
+          "he": "צ'ארלס קרוס"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "Nirvana's frontman Kurt Cobain... credited Jonathan Poneman, cofounder of Sub Pop, with coining the term \"grunge\""
+  },
+  {
+    "text": {
+      "en": "Which progressive college in Olympia was linked to the grunge scene?",
+      "he": "איזו מכללה פרוגרסיבית באולימפיה הייתה קשורה לסצנת הגראנג'?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Evergreen State College",
+          "he": "Evergreen State College"
+        }
+      },
+      {
+        "text": {
+          "en": "University of Washington",
+          "he": "University of Washington"
+        }
+      },
+      {
+        "text": {
+          "en": "Seattle University",
+          "he": "Seattle University"
+        }
+      },
+      {
+        "text": {
+          "en": "Western Washington University",
+          "he": "Western Washington University"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Grunge",
+    "sourceQuote": "linked to the University of Washington in Seattle, and the Evergreen State College in Olympia."
+  },
+  {
+    "text": {
+      "en": "Which Soundgarden album earned them a Grammy nomination for Best Metal Performance in 1990?",
+      "he": "איזה אלבום של סאונדגארדן זיכה אותם במועמדות לגראמי על ביצוע המטאל הטוב ביותר בשנת 1990?"
+    },
+    "options": [
+      {
+        "text": {
+          "en": "Ultramega OK",
+          "he": "Ultramega OK"
+        }
+      },
+      {
+        "text": {
+          "en": "Louder Than Love",
+          "he": "Louder Than Love"
+        }
+      },
+      {
+        "text": {
+          "en": "Badmotorfinger",
+          "he": "Badmotorfinger"
+        }
+      },
+      {
+        "text": {
+          "en": "Superunknown",
+          "he": "Superunknown"
+        }
+      }
+    ],
+    "correctAnswerIndex": 0,
+    "sourceUrl": "https://en.wikipedia.org/wiki/Soundgarden",
+    "sourceQuote": "Ultramega OK earned the band a Grammy Award nomination for Best Metal Performance in 1990."
+  }
+]

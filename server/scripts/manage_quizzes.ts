@@ -266,11 +266,55 @@ async function createSubjectAndGenerate() {
         createdSubjects.push({ env, subject });
     }
 
+    // Search Wikipedia for sources
+    console.log('\nSearching Wikipedia for official sources...');
+    const wikiResults = await Promise.all([
+        searchWikipedia(nameEn, 'en'),
+        searchWikipedia(nameHe, 'he')
+    ]);
+
+    const allWikiLinks = [...wikiResults[0], ...wikiResults[1]];
+    let selectedSources: string[] = [];
+
+    if (allWikiLinks.length > 0) {
+        const { sources } = await inquirer.prompt([
+            {
+                type: 'checkbox',
+                name: 'sources',
+                message: 'Select official sources from Wikipedia (Space to select):',
+                choices: allWikiLinks.map(link => ({ name: `${link.title} (${link.url})`, value: link.url }))
+            }
+        ]);
+        selectedSources = sources;
+    } else {
+        console.log('No Wikipedia pages found.');
+    }
+
     // Generate questions
     // We generate once, then save to all selected envs
     // We'll use the first created subject as the "context" for generation
     if (createdSubjects.length > 0) {
-        await generateQuestionsFlow(createdSubjects);
+        await generateQuestionsFlow(createdSubjects, selectedSources);
+    }
+}
+
+async function searchWikipedia(query: string, lang: string): Promise<{ title: string, url: string }[]> {
+    if (!query) return [];
+    try {
+        const endpoint = `https://${lang}.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(query)}&limit=5&namespace=0&format=json`;
+        const response = await fetch(endpoint);
+        const data = await response.json() as any;
+        // data format: [query, [titles], [descriptions], [urls]]
+        const titles = data[1] as string[];
+        const urls = data[3] as string[];
+
+        return titles.map((title, index) => ({
+            title,
+            url: urls[index]
+        }));
+    } catch (error) {
+        console.error(`Failed to search Wikipedia (${lang}):`, error);
+        return [];
     }
 }
 
@@ -326,15 +370,49 @@ async function addQuestionsToSubject() {
         }
     }
 
-    await generateQuestionsFlow(targetSubjects);
+    const { mode } = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'mode',
+            message: 'How do you want to add questions?',
+            choices: [
+                'Generate New (AI or Manual Prompt)',
+                'Import JSON File directly'
+            ]
+        }
+    ]);
+
+    if (mode === 'Import JSON File directly') {
+        const { filePath } = await inquirer.prompt([
+            { type: 'input', name: 'filePath', message: 'Enter path to JSON file:' }
+        ]);
+
+        try {
+            const content = fs.readFileSync(filePath.trim(), 'utf-8');
+            const questions = JSON.parse(content);
+
+            if (questions && questions.length > 0) {
+                for (const target of targetSubjects) {
+                    console.log(`\nSaving to ${target.env.toUpperCase()}...`);
+                    await saveQuestions(target.env, target.subject, questions);
+                }
+            } else {
+                console.log('No questions found in file.');
+            }
+        } catch (error) {
+            console.error('Failed to read/parse file:', error);
+        }
+    } else {
+        await generateQuestionsFlow(targetSubjects);
+    }
 }
 
-async function generateQuestionsFlow(targets: { env: 'dev' | 'prod', subject: any }[]) {
+async function generateQuestionsFlow(targets: { env: 'dev' | 'prod', subject: any }[], preselectedSources: string[] = []) {
     // Use the first subject for context
     const referenceSubject = targets[0].subject;
 
     // 1. Collect Inputs
-    const inputs = await collectInputs();
+    const inputs = await collectInputs(preselectedSources);
 
     // 2. Construct Prompt
     const prompt = constructPrompt(referenceSubject, inputs);
@@ -368,7 +446,7 @@ async function generateQuestionsFlow(targets: { env: 'dev' | 'prod', subject: an
     }
 }
 
-async function collectInputs() {
+async function collectInputs(preselectedSources: string[] = []) {
     const { count, sourcesInput, subtopicsInput, difficultyInput } = await inquirer.prompt([
         {
             type: 'number',
@@ -380,6 +458,7 @@ async function collectInputs() {
             type: 'input',
             name: 'sourcesInput',
             message: 'Enter Official Source URLs (comma-separated, REQUIRED):',
+            default: preselectedSources.join(', '),
             validate: (input) => input.trim().length > 0 ? true : 'At least one source is required.'
         },
         {

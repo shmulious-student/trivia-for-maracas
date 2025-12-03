@@ -15,6 +15,8 @@ npm run build --workspace=server
 
 echo "Building client..."
 npm run build --workspace=client
+# Ensure _redirects is in dist (Vite should do this, but being safe)
+cp client/public/_redirects client/dist/_redirects || true
 
 echo "Building backoffice..."
 npm run build --workspace=backoffice

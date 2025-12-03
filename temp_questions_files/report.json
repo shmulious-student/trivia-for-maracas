@@ -1,0 +1,19 @@
+{
+  "total_questions": 80,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Grunge",
+    "https://en.wikipedia.org/wiki/Nirvana_(band)",
+    "https://en.wikipedia.org/wiki/Alice_in_Chains",
+    "https://en.wikipedia.org/wiki/Mad_Season_(band)",
+    "https://en.wikipedia.org/wiki/Soundgarden",
+    "https://en.wikipedia.org/wiki/Pearl_Jam",
+    "https://en.wikipedia.org/wiki/Temple_of_the_Dog",
+    "https://en.wikipedia.org/wiki/Jerry_Cantrell",
+    "https://en.wikipedia.org/wiki/Layne_Staley"
+  ],
+  "difficulty_distribution": {
+    "Easy": 21,
+    "Medium": 34,
+    "Hard": 25
+  }
+}
