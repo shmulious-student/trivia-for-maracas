@@ -15,7 +15,8 @@ const UserSchema = new Schema<IUserDocument>({
         favoriteSubjects: [{ type: String }],
         gender: { type: String, enum: ['male', 'female', 'other'], default: 'other' },
         language: { type: String, enum: ['en', 'he'], default: 'he' }
-    }
+    },
+    isEaster: { type: Boolean, default: false }
 }, {
     timestamps: true,
     toJSON: {

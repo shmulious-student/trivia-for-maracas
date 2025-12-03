@@ -92,5 +92,12 @@
     "bonusModal.secondsPerQuestion": "שניות לשאלה",
     "bonusModal.save": "שמור שינויים",
     "bonusModal.noThanks": "לא תודה",
-    "game.bonus": "בונוס"
+    "game.bonus": "בונוס",
+    "easterEgg": {
+        "youAreTheStar": "את האסלה שלי!",
+        "chickenShit": "פחדנית!",
+        "cameraPermission": "לאפשר גישה למצלמה לחוויה המלאה?",
+        "allow": "מאשרת",
+        "deny": "לא תודה"
+    }
 }

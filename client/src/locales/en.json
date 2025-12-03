@@ -92,5 +92,12 @@
     "bonusModal.secondsPerQuestion": "Seconds per Question",
     "bonusModal.save": "Save Changes",
     "bonusModal.noThanks": "No Thanks",
-    "game.bonus": "BONUS"
+    "game.bonus": "BONUS",
+    "easterEgg": {
+        "youAreTheStar": "You are the star!",
+        "chickenShit": "CHICKEN SHIT!",
+        "cameraPermission": "Allow camera access for the full experience?",
+        "allow": "Allow",
+        "deny": "No thanks"
+    }
 }

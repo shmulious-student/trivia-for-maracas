@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { User } from '../models/User';
 import { trackEvent } from '../services/analytics.service';
+import { authenticate as protect } from '../middleware/auth';
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_key_change_in_prod';
@@ -119,6 +120,19 @@ router.post('/create-admin', async (req, res) => {
         );
 
         res.status(201).json({ token, user });
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+});
+
+// Get Current User
+router.get('/me', protect, async (req: any, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
     } catch (error) {
         res.status(500).json({ message: 'Server Error', error });
     }

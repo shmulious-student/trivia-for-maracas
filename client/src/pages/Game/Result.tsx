@@ -10,6 +10,7 @@ import posthog from '../../lib/posthog';
 import { ReportModal } from '../../components/Game/ReportModal';
 import { API_BASE } from '../../config/api';
 import { BonusPointsModal } from '../../components/BonusPointsModal';
+import { CinemaEasterEgg } from '../../components/EasterEggs/CinemaEasterEgg';
 
 
 
@@ -18,7 +19,11 @@ const Result: React.FC = () => {
     const { t } = useLanguage();
     const { playSound } = useSoundContext();
     const { score, questions, resetGame, isResultSubmitted, setResultSubmitted, gameId, isSubmitting, setSubmitting } = useGameStore();
-    const { isAuthenticated, user, updateUser } = useAuth();
+    const { isAuthenticated, user, updateUser, refreshUser } = useAuth();
+
+    useEffect(() => {
+        refreshUser();
+    }, []);
 
     const maxScore = questions.length * 10;
 
@@ -149,8 +154,20 @@ const Result: React.FC = () => {
     };
 
 
+    const [showEasterEgg, setShowEasterEgg] = useState(false);
+
+    useEffect(() => {
+        if (score > 200 && user?.isEaster) {
+            const timer = setTimeout(() => {
+                setShowEasterEgg(true);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [score, user]);
+
     return (
         <div className="flex flex-col items-center justify-center h-full space-y-8 fade-in">
+            {showEasterEgg && <CinemaEasterEgg onComplete={() => setShowEasterEgg(false)} />}
             <div className="text-center mt-12">
 
                 <Trophy size={64} className="text-yellow-400 mx-auto mb-4 drop-shadow-lg" />

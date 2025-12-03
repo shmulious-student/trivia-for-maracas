@@ -9,6 +9,7 @@ interface AuthContextType {
     login: (username: string, avatarUrl?: string, preferences?: any) => Promise<void>;
     logout: () => void;
     updateUser: (user: IUser) => void;
+    refreshUser: () => Promise<void>;
     isAuthenticated: boolean;
 }
 
@@ -31,10 +32,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            refreshUser();
         } else {
             delete axios.defaults.headers.common['Authorization'];
         }
     }, [token]);
+
+    const refreshUser = async () => {
+        if (!token) return;
+        try {
+            const response = await axios.get(`${API_BASE}/auth/me`);
+            const updatedUser = response.data;
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            setUser(updatedUser);
+        } catch (error) {
+            console.error('Failed to refresh user:', error);
+            // Optional: logout if token is invalid?
+        }
+    };
 
     const login = async (username: string, avatarUrl?: string, preferences?: any) => {
         try {
@@ -65,7 +80,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, updateUser, isAuthenticated: !!token }}>
+        <AuthContext.Provider value={{ user, token, login, logout, updateUser, refreshUser, isAuthenticated: !!token }}>
             {children}
         </AuthContext.Provider>
     );

@@ -64,6 +64,7 @@ export interface IUser {
     };
     createdAt: Date;
     updatedAt: Date;
+    isEaster?: boolean;
 }
 
 export enum GameStatus {

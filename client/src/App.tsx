@@ -4,6 +4,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { SoundProvider } from './contexts/SoundContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { EasterEggProvider } from './contexts/EasterEggContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import Login from './pages/Login';
@@ -32,19 +33,21 @@ const App: React.FC = () => {
       <AuthProvider>
         <LanguageProvider>
           <SoundProvider>
-            <ThemeProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/login" element={<Login />} />
-                  <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-                    <Route path="/" element={<GameRouter />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/leaderboard" element={<Leaderboard />} />
-                    <Route path="/sprites" element={<SpriteTest />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </ThemeProvider>
+            <EasterEggProvider>
+              <ThemeProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                      <Route path="/" element={<GameRouter />} />
+                      <Route path="/profile" element={<Profile />} />
+                      <Route path="/leaderboard" element={<Leaderboard />} />
+                      <Route path="/sprites" element={<SpriteTest />} />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </ThemeProvider>
+            </EasterEggProvider>
           </SoundProvider>
         </LanguageProvider>
       </AuthProvider>
