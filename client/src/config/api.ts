@@ -3,8 +3,10 @@
  * Centralized API URL management for development and production
  */
 
-// Use environment variable if available, fallback to localhost for development
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// Use environment variable if available
+// In production, if VITE_API_URL is not set, default to empty string (relative path)
+// In development, fallback to localhost
+export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:3000');
 
 // Full API base path
 export const API_BASE = `${API_BASE_URL}/api`;
