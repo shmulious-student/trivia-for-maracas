@@ -36,13 +36,21 @@ app.use(cors({
         }
 
         // In production, check against allowed list
-        const allowedOrigins = process.env.CLIENT_URL ?
-            (Array.isArray(process.env.CLIENT_URL) ? process.env.CLIENT_URL : [process.env.CLIENT_URL])
-            : ['http://localhost:5173', 'http://localhost:5174'];
+        const clientUrlEnv = process.env.CLIENT_URL;
+        let allowedOrigins: string[] = ['http://localhost:5173', 'http://localhost:5174', 'https://trivia-for-maracas.onrender.com'];
+
+        if (clientUrlEnv) {
+            if (clientUrlEnv.includes(',')) {
+                allowedOrigins = allowedOrigins.concat(clientUrlEnv.split(',').map(url => url.trim()));
+            } else {
+                allowedOrigins.push(clientUrlEnv.trim());
+            }
+        }
 
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
+            console.error(`CORS blocked request from origin: ${origin}`);
             callback(new Error('Not allowed by CORS'));
         }
     },
